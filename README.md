@@ -4,6 +4,7 @@
 A smart home app using React Native to control your home devices through IOT Gateway
 
 ## How to run
+First run: `yarn install`, then:
 - ios with Xcode: `npx react-native run-ios`
 - Android: `react-native run-android` (not test yet)
 ## Source code structure
@@ -23,3 +24,4 @@ A smart home app using React Native to control your home devices through IOT Gat
 - [Atomic Design](https://cheesecakelabs.com/blog/atomic-design-react/)
 - [React Navigation](https://reactnavigation.org/docs/getting-started/)
 - [React Native VN tutorial](https://github.com/huongnguyenvan/react-native)
+- [Project structure](https://cheesecakelabs.com/blog/efficient-way-structure-react-native-projects/)
