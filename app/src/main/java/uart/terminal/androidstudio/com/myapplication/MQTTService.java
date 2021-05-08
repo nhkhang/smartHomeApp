@@ -17,7 +17,7 @@ public class MQTTService{
     final String clientId = MqttClient.generateClientId();
     final String subscriptionTopic = "Lam_Duy_Khang/feeds/bbc-led";
     final String username = "Lam_Duy_Khang";
-    final String password = "kanggary7012";
+    final String password = "12345678";
 
     public MqttAndroidClient mqttAndroidClient;
 
