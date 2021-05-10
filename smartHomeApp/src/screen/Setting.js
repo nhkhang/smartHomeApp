@@ -3,17 +3,16 @@ import { View, Text, Button } from "react-native";
 import { createStackNavigator} from '@react-navigation/stack'
 import DetailsScreen from './Details'
 import styles from '../style/screen'
+import { AuthContext } from '../api/context';
 
 function SettingsScreen({navigation}) {
+
+    const {signOut} = React.useContext(AuthContext);
+
     return (
         <View style={styles.content}>
             <Text>Settings</Text>
-            <Button
-                title="Go to Details"
-                onPress={()=>navigation.navigate('Details', {
-                    screen: 'Settings',
-                })}
-            />
+            <Button title="Sign Out" onPress={() => signOut()}/>
         </View>
     );
 }

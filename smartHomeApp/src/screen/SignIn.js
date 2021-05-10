@@ -1,0 +1,33 @@
+import React from 'react';
+import { View, TextInput, Button} from 'react-native';
+
+import { AuthContext } from '../api/context';
+
+
+function SignIn() {
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('');
+  
+    const {signIn} = React.useContext(AuthContext);
+  
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <TextInput
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
+        />
+  
+        <TextInput
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+  
+        <Button title="Sign in" onPress= {() => signIn({username, password})}/>
+      </View>
+    )
+  }
+
+export default SignIn;
