@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
+    "minimist": "^1.2.5",
+    "mongoose": "^5.12.7",
+    "moongoose": "0.0.5",
     "mqtt": "^4.2.6"
   }
 }

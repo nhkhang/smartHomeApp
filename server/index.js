@@ -1,51 +1,30 @@
 const http = require('http');
 const mqtt = require('mqtt');
-// const client = mqtt.connect('mqtt://broker.hivemq.com');
+const express = require('express');
+const mongoose = require("mongoose");
 
-const host_adafruit = "io.adafruit.com";
-const port_adafruit = 8883;
-const io_username = "nhkhang";
-const io_key = "aio_SVWG719Tbm1GWpG57UUgBMSGUBvy";
-
-var led_feed = "nhkhang/feeds/bk-iot-led";
-
-var client = mqtt.connect('mqtts://io.adafruit.com', {
-    port: port_adafruit,
-    username: io_username,
-    password: io_key
+const dbConfig = require("./config/db.config");
+mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DATABASE_NAME}`, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
 });
 
-var turn_light = true;
+const app = express();
+const server = http.createServer(app);
 
-client.on('connect', () => {
-    client.publish(led_feed, 'ON')
-    // client.subscribe(led_feed)
-    console.log("Sub to LED")
-});
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
 
-client.on('error', (error) => {
-    console.log('MQTT Client Errored');
-    console.log(error);
-});
+const initMQTT = require('./mqtt');
+initMQTT();
 
-client.on('message', function (topic, message) {
-    console.log("Receive messages");
-    if (topic == led_feed) {
-        turn_light = (message.toString() === 'true');
-    }
-    console.log(message.toString()); // for demo purposes.
-  });
+const router = require("./routes");
+app.use("/", router);
 
-
-const hostname = '127.0.0.1';
-const port = 3000;
-
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+server.listen(3000, () => {
+  console.log(`Server started on port 3000`);
 });
