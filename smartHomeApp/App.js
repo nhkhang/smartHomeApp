@@ -1,52 +1,121 @@
-import React from 'react';
-// import { View, Text, Button } from "react-native";
-import { NavigationContainer} from '@react-navigation/native'
-import { createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import HomeScreen from './src/screen/Home'
-import NotificationsScreen from './src/screen/Notification'
-import RoomsScreen from './src/screen/Rooms'
-import SettingsScreen from './src/screen/Setting'
+import * as React from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native'
+// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import {createStackNavigator} from '@react-navigation/stack'
+// import Ionicons from 'react-native-vector-icons/Ionicons'
+import * as SecureStore from 'expo-secure-store';
 
-const Tab = createBottomTabNavigator();
+import TabNavigator from './src/screen/TabNavigator';
 
-function App() {
+
+
+const AuthContext = React.createContext();
+
+
+function SignInScreen() {
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const {signIn} = React.useContext(AuthContext);
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Home"
-        screenOptions={({route})=>({
-          tabBarIcon: ({focused, color, size}) => {
-            let iconName;
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <TextInput
+        placeholder="Username"
+        value={username}
+        onChangeText={setUsername}
+      />
 
-            if(route.name === 'Home') {
-              iconName = focused ? 'home' : 'home-outline';
-            }
-            else if(route.name === 'Settings') {
-              iconName = focused ? 'cog' : 'cog-outline';
-            }
-            else if(route.name === 'Rooms') {
-              iconName = focused ? 'list' : 'list-outline';
-            }
-            else if (route.name === 'Notifications') {
-              iconName = focused ? 'notifications' : 'notifications-outline';
-            }
-            return <Ionicons name={iconName} size={size} color={color} />
-          }
-        })}
+      <TextInput
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
 
-        tabBarOptions ={{
-          activeTintColor: '#000',
-          inactiveTintColor: 'gray',
-        }}
-      >
-        <Tab.Screen name="Home" component={HomeScreen}/>
-        <Tab.Screen name="Rooms" component={RoomsScreen}/>
-        <Tab.Screen name="Notifications" component={NotificationsScreen}/>
-        <Tab.Screen name="Settings" component={SettingsScreen}/>
-      </Tab.Navigator>
-    </NavigationContainer>
+      <Button title="Sign in" onPress= {() => signIn({username, password})}/>
+    </View>
   )
 }
+
+
+
+function App ({navigation}) {
+  const [state, dispatch] = React.useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case 'RESTORE_TOKEN':
+          return {
+            ...prevState,
+            userToken: action.token,
+            isLoading: false,
+          };
+        case "SIGN_IN":
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.token,
+          };
+        case "SIGN_OUT":
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+        
+      }
+    },
+    {
+      isLoading: true,
+      isSignout: false,
+      userToken: null,
+    }
+  );
+
+  React.useEffect(() => {
+    const bootstrapAsync = async () => {
+      let userToken;
+
+      try{
+        userToken = await SecureStore.getItemAsync("userToken");
+      }
+      catch(e){
+
+      }
+
+      dispatch({type: "RESTORE_TOKEN", token: userToken});
+    };
+    bootstrapAsync();
+  }, []);
+  
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async data => {
+        if(data.username == "huu" && data.password == "12345"){
+          dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
+        }
+      },
+      signOut: () => dispatch({type: "SIGN_OUT"}),
+      signUp: async data => {
+        dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
+      },
+    }),
+    []
+  );
+
+  // const Stack = createStackNavigator();
+
+  return (
+    <AuthContext.Provider value={authContext}>
+      {state.userToken == null ? (
+        <SignInScreen/>
+      ): (
+        <TabNavigator />
+      )} 
+    </AuthContext.Provider>
+  )
+}
+
 
 export default App;
