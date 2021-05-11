@@ -9,7 +9,12 @@ import styles from '../style/screen';
 
 function SignUp({navigation}) { 
 
-    const {signIn} = React.useContext(AuthContext);
+    const [email, setEmail] = React.useState('');
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [repassword, setRepassword] = React.useState('');
+    
+    const {signUp} = React.useContext(AuthContext);
 
     return (
       <View style={styles.container}>
@@ -25,7 +30,18 @@ function SignUp({navigation}) {
         <View style={styles.inputView}>
           <TextInput
             style={styles.textInput}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+          />
+        </View>
+
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.textInput}
             placeholder="Username"
+            value={username}
+            onChangeText={setUsername}
           />
         </View>
         
@@ -33,10 +49,23 @@ function SignUp({navigation}) {
           <TextInput
             style={styles.textInput}
             placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
           />
         </View>
 
-        <TouchableOpacity style ={styles.signinBtn} onPress= {() => signIn({username, password})}>
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Password"
+            value={repassword}
+            onChangeText={setRepassword}
+            secureTextEntry
+          />
+        </View>
+
+        <TouchableOpacity style ={styles.signinBtn} onPress= {() => signUp({email, username, password, repassword})}>
           <Text style={styles.signinText}>Sign Up</Text>
         </TouchableOpacity>
 

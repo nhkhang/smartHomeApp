@@ -65,6 +65,7 @@ function App ({navigation}) {
       signIn: async data => {
 
         //Process with 'data' to signin
+        console.log(data);
 
         if(data.username == "huu" && data.password == "12345"){
           dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
@@ -74,7 +75,7 @@ function App ({navigation}) {
       signUp: async data => {
 
         // Process with 'data' to signup
-
+        console.log(data);
         dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
       },
     }),
