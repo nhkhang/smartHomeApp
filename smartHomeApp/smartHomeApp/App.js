@@ -93,4 +93,4 @@ function App ({navigation}) {
 }
 
 
-export default SignUp;
+export default App;

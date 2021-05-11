@@ -13,15 +13,13 @@ function SignIn() {
   
     return (
       <View style={styles.container}>
-        <Image 
-          style={styles.logo}
-          source={{
-            uri: '../img/logo.jpg',
-          }}
-        >
-        </Image>
         <Text style={styles.title}>Smart Home App</Text>
-
+        <Image
+            style={styles.logo}
+            source={{
+              uri: '../img/logo.jpg',
+            }}
+          />
         <View style={styles.inputView}>
           <TextInput
             style={styles.textInput}

@@ -3,10 +3,10 @@ import React from 'react';
 import { NavigationContainer} from '@react-navigation/native'
 import { createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import HomeScreen from './Home'
-import NotificationsScreen from './Notification'
-import RoomsScreen from './Rooms'
-import SettingsScreen from './Setting'
+import HomeStackScreen from './Home'
+import NotificationsStackScreen from './Notification'
+import RoomsStackScreen from './Rooms'
+import SettingsStackScreen from './Setting'
 
 const Tab = createBottomTabNavigator();
 
@@ -40,10 +40,10 @@ function TabNavigator() {
           inactiveTintColor: 'gray',
         }}
       >
-        <Tab.Screen name="Home" component={HomeScreen}/>
-        <Tab.Screen name="Rooms" component={RoomsScreen}/>
-        <Tab.Screen name="Notifications" component={NotificationsScreen}/>
-        <Tab.Screen name="Settings" component={SettingsScreen}/>
+        <Tab.Screen name="Home" component={HomeStackScreen}/>
+        <Tab.Screen name="Rooms" component={RoomsStackScreen}/>
+        <Tab.Screen name="Notifications" component={NotificationsStackScreen}/>
+        <Tab.Screen name="Settings" component={SettingsStackScreen}/>
       </Tab.Navigator>
     </NavigationContainer>
   )
