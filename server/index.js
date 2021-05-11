@@ -19,9 +19,6 @@ app.use(express.urlencoded({
   extended: true
 }));
 
-const initMQTT = require('./mqtt');
-initMQTT();
-
 const router = require("./routes");
 app.use("/", router);
 

@@ -7,24 +7,25 @@ module.exports = () => {
         password: adafruitConfig.IO_PASSWORD
     });
 
-    var turn_light = true;
+    var turn_light = false;
 
     client.on('connect', () => {
-        client.publish(adafruitConfig.FEED_LED, 'OFF');
-        // client.subscribe(adafruitConfig.FEED_LED, "OFF")
-        console.log("Publish to " + adafruitConfig.FEED_LED);
+        // client.publish(adafruitConfig.FEED_LED, 'OFF');
+        client.subscribe(adafruitConfig.FEED_LED);
+        console.log("Subscribed to topic: " + adafruitConfig.FEED_LED);
     });
 
     client.on('error', (error) => {
-        console.log('MQTT Client Errored');
+        console.log('MQTT Client Error!');
         console.log(error);
     });
 
     client.on('message', function (topic, message) {
-        console.log("Receive messages");
         if (topic == adafruitConfig.FEED_LED) {
-            turn_light = (message.toString() === 'true');
+            turn_light = (message.toString() === 'ON');
         }
-        console.log(message.toString()); // for demo purposes.
+        console.log("Receive messages: " + message.toString()); // for demo purposes.
     });
+
+    return client;
 }
