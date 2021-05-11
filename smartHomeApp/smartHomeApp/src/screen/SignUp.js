@@ -5,7 +5,12 @@ import { AuthContext } from '../api/context';
 import styles from '../style/screen';
 
 
-function SignUp() { 
+
+
+function SignUp({navigation}) { 
+
+    const {signIn} = React.useContext(AuthContext);
+
     return (
       <View style={styles.container}>
         <Image 
@@ -35,7 +40,7 @@ function SignUp() {
           <Text style={styles.signinText}>Sign Up</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style ={styles.singupBtn} onPress= {() => signIn({username, password})}>
+        <TouchableOpacity style ={styles.singupBtn} onPress= {() => navigation.navigate('SignIn')}>
           <Text style={styles.signupText}>Sign In</Text>
         </TouchableOpacity>
       </View>

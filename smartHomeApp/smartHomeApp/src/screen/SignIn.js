@@ -5,7 +5,7 @@ import { AuthContext } from '../api/context';
 import styles from '../style/screen';
 
 
-function SignIn() {
+function SignIn({navigation}) {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
   
@@ -45,7 +45,7 @@ function SignIn() {
           <Text style={styles.signinText}>Sign in</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style ={styles.singupBtn} onPress= {() => signIn({username, password})}>
+        <TouchableOpacity style ={styles.singupBtn} onPress= {() => navigation.navigate('SignUp')}>
           <Text style={styles.signupText}>Sign Up</Text>
         </TouchableOpacity>
       </View>

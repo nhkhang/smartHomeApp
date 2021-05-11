@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
 import TabNavigator from './src/screen/TabNavigator';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { AuthContext } from './src/api/context';
 import SignIn from './src/screen/SignIn';
 import SignUp from './src/screen/SignUp'
@@ -79,12 +81,22 @@ function App ({navigation}) {
     []
   );
 
-  // const Stack = createStackNavigator();
+  const Stack = createStackNavigator();
 
   return (
     <AuthContext.Provider value={authContext}>
       {state.userToken == null ? (
-        <SignIn style={{marginTop: 12}}/>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="SignIn"
+            screenOptions={{
+              headerShown: false
+            }}
+          >
+            <Stack.Screen name="SignIn" component={SignIn}/>
+            <Stack.Screen name="SignUp" component={SignUp}/>
+          </Stack.Navigator>
+        </NavigationContainer>
       ): (
         <TabNavigator />
       )} 
