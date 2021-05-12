@@ -80,6 +80,44 @@ const styles = StyleSheet.create({
         fontStyle: "normal",
         color: "#3377FF"
     },
+    notificationCard: {
+        width: "90%",
+        alignSelf: "center",
+        backgroundColor: "white",
+        borderRadius: 5,
+        height: 130,
+        marginTop: 20,
+        marginBottom: 20,
+        padding: 10,
+    },
+    warningNoti: {
+        color: "#fff",
+        backgroundColor:"#fa0",
+        paddingHorizontal: 22,
+        width: "30%",
+        padding: 3,
+        borderRadius: 5,
+    },
+    settingNoti: {
+        color: "#fff",
+        backgroundColor:"#37f",
+        paddingHorizontal: 25,
+        width: "30%",
+        padding: 3,
+        borderRadius: 5,
+    },
+    alertNoti: {
+        color: "#fff",
+        backgroundColor:"#ff3131",
+        paddingHorizontal: 35,
+        width: "30%",
+        padding: 3,
+        borderRadius: 5,
+    },
+    timeNoti: {
+        marginVertical: 5,
+        fontSize: 13,
+    }
 });
 
 export default styles;

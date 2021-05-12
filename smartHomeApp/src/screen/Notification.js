@@ -1,20 +1,43 @@
 import React from 'react';
-import { View, Text, Button } from "react-native";
+import {ScrollView, View, Text, Button, TouchableOpacity } from "react-native";
 import { createStackNavigator} from '@react-navigation/stack'
 import DetailsScreen from './Details'
 import styles from '../style/screen'
 
 function NotificationsScreen({navigation}) {
     return (
-        <View style={styles.content}>
-            <Text>Notifications</Text>
-            <Button
-                title="Go to Details"
-                onPress={()=>navigation.navigate('Details', {
-                    screen: 'Notifications',
-                })}
-            />
-        </View>
+        <ScrollView>
+            <TouchableOpacity style={styles.notificationCard} onPress={()=> navigation.navigate("Details", {screen: "Notification"})}>
+                <Text style={styles.warningNoti}>Warning</Text>
+                <Text style={styles.timeNoti}>12:05 AM Today</Text>
+                <Text>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.notificationCard} onPress={()=> navigation.navigate("Details", {screen: "Notification"})}>
+                <Text style={styles.settingNoti}>Setting</Text>
+                <Text>12:05 AM Today</Text>
+                <Text>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.notificationCard} onPress={()=> navigation.navigate("Details", {screen: "Notification"})}>
+                <Text style={styles.alertNoti}>Alert</Text>
+                <Text>12:05 AM Today</Text>
+                <Text>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.notificationCard} onPress={()=> navigation.navigate("Details", {screen: "Notification"})}>
+                <Text style={styles.warningNoti}>Warning</Text>
+                <Text>12:05 AM Today</Text>
+                <Text>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.notificationCard} onPress={()=> navigation.navigate("Details", {screen: "Notification"})}>
+                <Text style={styles.settingNoti}>Setting</Text>
+                <Text>12:05 AM Today</Text>
+                <Text>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.notificationCard} onPress={()=> navigation.navigate("Details", {screen: "Notification"})}>
+                <Text style={styles.alertNoti}>Alert</Text>
+                <Text>12:05 AM Today</Text>
+                <Text>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
+            </TouchableOpacity>
+        </ScrollView>
     );
 }
 
