@@ -1,31 +1,44 @@
-import React from 'react';
-import { View, Text, Button } from "react-native";
+import React, {Component} from 'react';
+import { View, Text, Button, FlatList, Image, Touchable, TouchableOpacity } from "react-native";
 import { createStackNavigator} from '@react-navigation/stack'
-import RoomsDetail from './RoomsDetail'
 import styles from '../style/screen'
+import RoomsData from '../data/RoomsData';
+import RoomDetail from './RoomDetail';
+import Detail from './Details';
+
+class FlatListItem extends Component {
+    render(){
+        return(
+            <View style={styles.romScreenItem}>
+                <TouchableOpacity style={styles.roomSceenBtn} onPress= {() => this.props.navigation.navigate('RoomDetail', {rooms: this.props.item.name})}>
+                    <Image
+                        source = {{uri: this.props.item.url}}
+                        style={styles.roomSceenBtnImage}>
+                    </Image>
+
+                    <View style={styles.roomSceenBtnText}>
+                        <Text style={styles.roomSceenBtnName}>{this.props.item.name}</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>          
+        )
+    }
+};
 
 function RoomsScreen({navigation}) {
     return (
-        <View style={styles.content}>
-            <Text>Rooms</Text>
-            <Button
-                title="Living Rooms"
-                onPress={()=>navigation.navigate('RoomsDetail', {
-                    rooms: 'Living Rooms',
-                })}
-            />
-            <Button
-                title="Bed Rooms"
-                onPress={()=>navigation.navigate('RoomsDetail', {
-                    rooms: 'Bed Rooms',
-                })}
-            />
-            <Button
-                title="kitchen"
-                onPress={()=>navigation.navigate('RoomsDetail', {
-                    rooms: 'Kitchen',
-                })}
-            />
+        <View>
+            <FlatList data={RoomsData}
+            renderItem={({item, index})=>{
+                // console.log(`Item = ${item}, index = ${index}`);
+                return(
+                    
+                    <FlatListItem item={item} index={index} navigation={navigation}>
+                    </FlatListItem>
+                );
+            }}>
+
+            </FlatList>
         </View>
     );
 }
@@ -34,7 +47,8 @@ const RoomsStack = createStackNavigator();
 
 function RoomsStackScreen() {
     return (
-        <RoomsStack.Navigator>
+        <RoomsStack.Navigator
+        >
             <RoomsStack.Screen
                 name="Rooms"
                 component={RoomsScreen}
@@ -43,9 +57,14 @@ function RoomsStackScreen() {
                 }}
             />
             <RoomsStack.Screen
-                name="RoomsDetail"
-                component={RoomsDetail}
+                name="RoomDetail"
+                component={RoomDetail}
                 options={({route}) => ({title: route.params.rooms})}
+            />
+            <RoomsStack.Screen
+                name="ElementDetail"
+                component={Detail}
+                options={({route}) => ({title: route.params.screen})}
             />
         </RoomsStack.Navigator>
     )

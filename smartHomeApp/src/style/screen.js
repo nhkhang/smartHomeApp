@@ -1,4 +1,3 @@
-
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -38,12 +37,18 @@ const styles = StyleSheet.create({
         padding: 5,
         marginLeft: 5,
     },
+    forgetView:{
+        width: "100%",
+        alignItems: "flex-end",
+    },
+
     forgetBtn: {
         fontSize:14,
         fontStyle: 'normal',
-        paddingLeft:120,
         textDecorationLine: 'underline',
+        marginRight: 40,
     },
+
     signinBtn:{
         width: "60%",
         borderRadius: 8,
@@ -117,7 +122,107 @@ const styles = StyleSheet.create({
     timeNoti: {
         marginVertical: 5,
         fontSize: 13,
-    }
+    },
+    contentNoti: {
+        marginVertical: 5,
+        fontSize: 12,
+    },
+
+    //Feauter Styles
+    containerView:{
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems:'center',
+    },
+
+    featureRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+
+    ViewBtnLeft:{
+        height: 125,
+        width: 125,
+        backgroundColor: "#C4C4C4",
+        alignItems: 'center',
+        justifyContent: "center",
+        marginTop: 40,
+        marginRight: 20,
+    },
+
+    ViewBtnRight:{
+        height: 125,
+        width: 125,
+        backgroundColor: "#C4C4C4",
+        alignItems: 'center',
+        justifyContent: "center",
+        marginTop: 40,
+        marginLeft: 20,
+    },
+
+    //Rom Styles
+    romScreenItem:{
+        width: "100%",
+        alignItems:'center',
+        marginTop: 20,
+    },
+
+    roomSceenBtn:{
+        width: "80%",
+        borderRadius: 8,
+        borderBottomColor: "#000000",
+        borderWidth: 1,
+    },
+
+    roomSceenBtnImage:{
+        width: "100%",
+        height:100,
+        borderTopLeftRadius: 7,
+        borderTopRightRadius: 7,
+    },
+
+    roomSceenBtnText:{
+        backgroundColor: "#7A8599",
+        height: 30,
+        justifyContent: "center",
+        borderBottomLeftRadius: 7,
+        borderBottomRightRadius: 7,
+    },
+
+    roomSceenBtnName:{
+        marginLeft: 10,
+        color: "#FFFFFF"
+    },
+
+    //Room Detail Styles
+    roomDetailSceenImage:{
+        width:"100%",
+        height: 100,
+        borderBottomLeftRadius: 7,
+        borderBottomRightRadius: 7,
+        marginBottom: 20,
+    },
+
+    roomDetailBtnLeft:{
+        height: 125,
+        width: 125,
+        backgroundColor: "#C4C4C4",
+        alignItems: 'center',
+        justifyContent: "center",
+        marginTop: 10,
+        marginRight: 20,
+    },
+
+    roomDetailBtnRight:{
+        height: 125,
+        width: 125,
+        backgroundColor: "#C4C4C4",
+        alignItems: 'center',
+        justifyContent: "center",
+        marginTop: 10,
+        marginLeft: 20,
+    },
+
 });
 
 export default styles;

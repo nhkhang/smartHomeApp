@@ -58,7 +58,7 @@ function SignUp({navigation}) {
         <View style={styles.inputView}>
           <TextInput
             style={styles.textInput}
-            placeholder="Password"
+            placeholder="Confirm password"
             value={repassword}
             onChangeText={setRepassword}
             secureTextEntry
