@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button } from "react-native";
 import { createStackNavigator} from '@react-navigation/stack'
-import DetailsScreen from './Details'
+import RoomsDetail from './RoomsDetail'
 import styles from '../style/screen'
 
 function RoomsScreen({navigation}) {
@@ -9,9 +9,21 @@ function RoomsScreen({navigation}) {
         <View style={styles.content}>
             <Text>Rooms</Text>
             <Button
-                title="Go to Details"
-                onPress={()=>navigation.navigate('Details', {
-                    screen: 'Rooms',
+                title="Living Rooms"
+                onPress={()=>navigation.navigate('RoomsDetail', {
+                    rooms: 'Living Rooms',
+                })}
+            />
+            <Button
+                title="Bed Rooms"
+                onPress={()=>navigation.navigate('RoomsDetail', {
+                    rooms: 'Bed Rooms',
+                })}
+            />
+            <Button
+                title="kitchen"
+                onPress={()=>navigation.navigate('RoomsDetail', {
+                    rooms: 'Kitchen',
                 })}
             />
         </View>
@@ -23,8 +35,18 @@ const RoomsStack = createStackNavigator();
 function RoomsStackScreen() {
     return (
         <RoomsStack.Navigator>
-            <RoomsStack.Screen name="Rooms" component={RoomsScreen}/>
-            <RoomsStack.Screen name="Details" component={DetailsScreen}/>
+            <RoomsStack.Screen
+                name="Rooms"
+                component={RoomsScreen}
+                options={{
+                    headerTitleAlign: 'center',
+                }}
+            />
+            <RoomsStack.Screen
+                name="RoomsDetail"
+                component={RoomsDetail}
+                options={({route}) => ({title: route.params.rooms})}
+            />
         </RoomsStack.Navigator>
     )
 }

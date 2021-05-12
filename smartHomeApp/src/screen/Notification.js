@@ -23,7 +23,13 @@ const NotificationsStack = createStackNavigator();
 function NotificationsStackScreen() {
     return (
         <NotificationsStack.Navigator>
-            <NotificationsStack.Screen name="Notifications" component={NotificationsScreen}/>
+            <NotificationsStack.Screen
+                name="Notifications"
+                component={NotificationsScreen}
+                options={{
+                    headerTitleAlign: 'center',
+                }}
+            />
             <NotificationsStack.Screen name="Details" component={DetailsScreen}/>
         </NotificationsStack.Navigator>
     )
