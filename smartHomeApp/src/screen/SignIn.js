@@ -13,13 +13,17 @@ function SignIn({navigation}) {
   
     return (
       <View style={styles.container}>
+        <View style={styles.logo}>
+          <Image
+              style={styles.logo}
+              source={{
+                uri: "../img/logo.jpg",
+              }}>
+
+          </Image>
+        </View>
+        
         <Text style={styles.title}>Smart Home App</Text>
-        <Image
-            style={styles.logo}
-            source={{
-              uri: '../img/logo.jpg',
-            }}
-          />
         <View style={styles.inputView}>
           <TextInput
             style={styles.textInput}
@@ -39,7 +43,11 @@ function SignIn({navigation}) {
           />
         </View>
         
-        <Text style={styles.forgetBtn}>Forget your password ?</Text>
+        <View style={styles.forgetView}>
+          <TouchableOpacity>
+            <Text style={styles.forgetBtn}>Forget your password ?</Text>
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity style ={styles.signinBtn} onPress= {() => signIn({username, password})}>
           <Text style={styles.signinText}>Sign in</Text>

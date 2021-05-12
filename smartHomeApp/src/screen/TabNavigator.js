@@ -7,6 +7,8 @@ import HomeStackScreen from './Home'
 import NotificationsStackScreen from './Notification'
 import RoomsStackScreen from './Rooms'
 import SettingsStackScreen from './Setting'
+import FeaturesStackScreen from './Feature'
+import RoomDetailsStackScreen from './RoomDetail'
 
 const Tab = createBottomTabNavigator();
 
