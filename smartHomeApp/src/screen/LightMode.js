@@ -5,7 +5,7 @@ import DetailsScreen from './Details'
 import styles from '../style/screen';
 import NotificationData from '../data/NotificationData';
 
-class FlatListNotification extends Component {
+class FlatListLightMode extends Component {
     render() {
         return (
             <View>
@@ -21,16 +21,16 @@ class FlatListNotification extends Component {
     }
 }
 
-function NotificationsScreen({navigation}) {
+function LightModesScreen({navigation}) {
     return (
-        <View>
+        <View style={styles.headerlightMode}>
             <FlatList data={NotificationData}
             renderItem={({item, index})=>{
                 // console.log(`Item = ${item}, index = ${index}`);
                 return(
                     
-                    <FlatListNotification item={item} index={index}>
-                    </FlatListNotification>
+                    <FlatListLightMode item={item} index={index}>
+                    </FlatListLightMode>
                 );
             }}>
 
@@ -39,22 +39,22 @@ function NotificationsScreen({navigation}) {
     );
 }
 
-const NotificationsStack = createStackNavigator();
+const LightModesStack = createStackNavigator();
 
-function NotificationsStackScreen() {
+function LightModeStackScreen() {
     return (
-        <NotificationsStack.Navigator>
-            <NotificationsStack.Screen
-                name="Notifications"
-                component={NotificationsScreen}
+        <LightModesStack.Navigator>
+            <LightModesStack.Screen
+                name="Light Mode"
+                component={LightModesScreen}
                 options={{
                     headerTitleAlign: 'center',
                 }}
             />
-            <NotificationsStack.Screen name="Details" component={DetailsScreen}/>
-        </NotificationsStack.Navigator>
+            <LightModesStack.Screen name="Details" component={DetailsScreen}/>
+        </LightModesStack.Navigator>
     )
 }
 
-export default NotificationsStackScreen;
+export default LightModeStackScreen;
     
