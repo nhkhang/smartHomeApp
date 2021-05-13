@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform, StatusBar} from 'react-native';
 
 const styles = StyleSheet.create({
     content: {
@@ -85,13 +85,68 @@ const styles = StyleSheet.create({
         fontStyle: "normal",
         color: "#3377FF"
     },
+
+    // Home styles
+    containerHome:{
+        margin: 15,
+    },
+    welcomeCard: {
+        width: "100%",
+        alignSelf: "center",
+        backgroundColor: "white",
+        borderRadius: 5,
+        height: 110,
+        marginTop: StatusBar.currentHeight + 10,
+        marginBottom: 8,
+        padding: 10,
+    },
+    welcomeWord: {
+        marginVertical: 10,
+        color: "#37f",
+        fontWeight: "200",
+    },
+    lineTitle: {
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+    link: {
+        color: "#37f",
+        textDecorationLine: "underline",
+    },
+    roomDetailBtnHome: {
+        height: 85,
+        width: 85,
+        backgroundColor: "#C4C4C4",
+        alignItems: 'center',
+        justifyContent: "center",
+        marginTop: 10,
+        marginRight: 20,
+        borderRadius: 10,
+    },
+    roomBtnText: {
+        marginTop: 5,
+        fontSize: 12,
+    },
+    scrollViewHorizontalHome: {
+        marginBottom: 10,
+    },
+    imageRoomHome: {
+        width: 118,
+        height: 184,
+        left: 22,
+        borderRadius: 8,
+        borderBottomColor: "#000000",
+        borderWidth: 1,
+    },
+
+    // Notification styles
     notificationCard: {
         width: "90%",
         alignSelf: "center",
         backgroundColor: "white",
         borderRadius: 5,
         height: 130,
-        marginTop: 20,
+        marginTop: 10,
         marginBottom: 20,
         padding: 10,
     },
@@ -128,7 +183,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
 
-    //Feauter Styles
+    //Feature Styles
     containerView:{
         flex: 1,
         backgroundColor: "#fff",
