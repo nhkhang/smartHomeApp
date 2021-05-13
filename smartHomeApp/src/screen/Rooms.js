@@ -4,13 +4,14 @@ import { createStackNavigator} from '@react-navigation/stack'
 import styles from '../style/screen'
 import RoomsData from '../data/RoomsData';
 import RoomDetail from './RoomDetail';
-import Detail from './Details';
-
+import DetailsScreen from './Details';
+import Door from './Door';
+import Light from './Light';
 class FlatListItem extends Component {
     render(){
         return(
             <View style={styles.roomScreenItem}>
-                <TouchableOpacity style={styles.roomSceenBtn} onPress= {() => this.props.navigation.navigate('RoomDetail', {rooms: this.props.item.name})}>
+                <TouchableOpacity style={styles.roomSceenBtn} onPress= {() => this.props.navigation.navigate('RoomDetail', {screen: this.props.item.name})}>
                     <Image
                         source = {{uri: this.props.item.url}}
                         style={styles.roomSceenBtnImage}>
@@ -59,11 +60,21 @@ function RoomsStackScreen() {
             <RoomsStack.Screen
                 name="RoomDetail"
                 component={RoomDetail}
-                options={({route}) => ({title: route.params.rooms})}
+                options={({route}) => ({title: route.params.screen})}
+            />
+            <RoomsStack.Screen
+                name="Door"
+                component={Door}
+                options={({route}) => ({title: "Door " + route.params.screen})}
+            />
+            <RoomsStack.Screen
+                name="Light"
+                component={Light}
+                options={({route}) => ({title: "Light " + route.params.screen})}
             />
             <RoomsStack.Screen
                 name="ElementDetail"
-                component={Detail}
+                component={DetailsScreen}
                 options={({route}) => ({title: route.params.screen})}
             />
         </RoomsStack.Navigator>
