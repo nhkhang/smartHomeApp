@@ -80,7 +80,7 @@ function HomeScreen({route, navigation}) {
                 RoomsData.map((item) =>{
                   return(
                     <View style={styles.homeRomScreenItem}>
-                      <TouchableOpacity style={styles.roomSceenBtn} onPress= {() => this.props.navigation.navigate('RoomDetail', {rooms: this.props.item.name})}>
+                      <TouchableOpacity style={styles.roomSceenBtn} onPress= {() => navigation.navigate('RoomDetail', {rooms: item.name})}>
                           <Image
                               source = {{uri: item.url}}
                               style={styles.homeRoomSceenBtnImage}>
@@ -115,7 +115,7 @@ function HomeStackScreen(){
       <HomeStack.Screen name="Feature" component={Feature} options={{
           headerShown: false,
         }}/>
-      <HomeStack.Screen name="RoomsDetail" component={RoomDetail}/>
+      <HomeStack.Screen name="RoomDetail" component={RoomDetail} options={({route}) => ({title: route.params.rooms})}/>
     </HomeStack.Navigator>
   )
 }

@@ -81,7 +81,9 @@ const styles = StyleSheet.create({
         elevation: 1,
     },
     signupText:{
-        fontSize: 24,
+        marginTop: 20,
+        fontSize: 14,
+        textDecorationLine: "underline",
         fontStyle: "normal",
         color: "#3377FF"
     },
@@ -119,6 +121,7 @@ const styles = StyleSheet.create({
     dividingLine:{
         width: "98%",
         borderWidth: 0.25,
+        color: "gray",
     },
     homefeature:{
         width: "98%",
@@ -149,9 +152,10 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
     scrollViewHorizontalHomeFeature: {
-        marginBottom: 10,
+        marginBottom: 0,
     },
     homeRooms:{
+        marginTop: 10,
         width: "98%",
         height: 170,
     },
@@ -232,9 +236,15 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         fontSize: 13,
     },
-    contentNoti: {
-        marginVertical: 5,
-        fontSize: 12,
+    contentNotiChecked: {
+        marginVertical: 15,
+        fontSize: 14,
+        fontWeight: "500",
+    },
+    contentNotiUnChecked: {
+        marginVertical: 15,
+        fontSize: 14,
+        fontWeight: "700",
     },
 
     //Feature Styles
@@ -269,11 +279,11 @@ const styles = StyleSheet.create({
         marginLeft: 20,
     },
 
-    //Rom Styles
-    romScreenItem:{
+    //Room Styles
+    roomScreenItem:{
         width: "100%",
         alignItems:'center',
-        marginTop: 20,
+        marginVertical: 10,
     },
 
     roomSceenBtn:{

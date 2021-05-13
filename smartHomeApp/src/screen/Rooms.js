@@ -9,7 +9,7 @@ import Detail from './Details';
 class FlatListItem extends Component {
     render(){
         return(
-            <View style={styles.romScreenItem}>
+            <View style={styles.roomScreenItem}>
                 <TouchableOpacity style={styles.roomSceenBtn} onPress= {() => this.props.navigation.navigate('RoomDetail', {rooms: this.props.item.name})}>
                     <Image
                         source = {{uri: this.props.item.url}}

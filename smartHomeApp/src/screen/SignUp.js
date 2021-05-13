@@ -69,8 +69,8 @@ function SignUp({navigation}) {
           <Text style={styles.signinText}>Sign Up</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style ={styles.singupBtn} onPress= {() => navigation.navigate('SignIn')}>
-          <Text style={styles.signupText}>Sign In</Text>
+        <TouchableOpacity onPress= {() => navigation.navigate('SignIn')}>
+          <Text style={styles.signupText}>Do you have an accout? Sign in</Text>
         </TouchableOpacity>
       </View>
     )

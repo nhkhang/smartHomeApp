@@ -9,12 +9,12 @@ class FlatListNotification extends Component {
     render() {
         return (
             <View>
-                <TouchableOpacity style={styles.notificationCard} onPress={()=> navigation.navigate("Details", {screen: "Notification"})}>
+                <TouchableOpacity style={styles.notificationCard} onPress={()=> this.props.navigation.navigate("Details", {screen: "Notification"})}>
                     <View style={styles.titleNoti}>
                         <Text style={this.props.item.type == "Warning" ? styles.warningNoti : (this.props.item.type == "Setting" ? styles.settingNoti : styles.alertNoti)}>{this.props.item.type}</Text>
                         <Text style={styles.timeNoti}>{this.props.item.time}</Text>
                     </View>                  
-                    <Text style={styles.contentNoti}>{this.props.item.content}</Text>
+                    <Text style={this.props.item.checked == "1"? styles.contentNotiChecked : styles.contentNotiUnChecked}>{this.props.item.content}</Text>
                 </TouchableOpacity>
             </View>
         ); 
@@ -29,7 +29,7 @@ function NotificationsScreen({navigation}) {
                 // console.log(`Item = ${item}, index = ${index}`);
                 return(
                     
-                    <FlatListNotification item={item} index={index}>
+                    <FlatListNotification item={item} index={index} navigation={navigation}>
                     </FlatListNotification>
                 );
             }}>

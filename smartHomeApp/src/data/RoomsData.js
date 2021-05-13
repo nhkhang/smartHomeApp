@@ -6,7 +6,7 @@ var RoomsData = [
     },
     {
         "key": "2",
-        "name": "Kitchen room",
+        "name": "Kitchen",
         "url": "https://c1.staticflickr.com/9/8725/28609601352_59ebbba9b5_o.png"
     },
     {
