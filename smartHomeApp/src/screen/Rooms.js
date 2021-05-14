@@ -28,18 +28,20 @@ class FlatListItem extends Component {
 
 function RoomsScreen({navigation}) {
     return (
-        <View>
-            <FlatList data={RoomsData}
-            renderItem={({item, index})=>{
-                // console.log(`Item = ${item}, index = ${index}`);
-                return(
-                    
-                    <FlatListItem item={item} index={index} navigation={navigation}>
-                    </FlatListItem>
-                );
-            }}>
+        <View style = {styles.container}>
+            <View style = {styles}>
+                <FlatList data={RoomsData}
+                renderItem={({item, index})=>{
+                    // console.log(`Item = ${item}, index = ${index}`);
+                    return(
+                        
+                        <FlatListItem item={item} index={index} navigation={navigation}>
+                        </FlatListItem>
+                    );
+                }}>
 
-            </FlatList>
+                </FlatList>
+            </View>
         </View>
     );
 }

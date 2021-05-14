@@ -4,9 +4,6 @@ import { Text, View, TextInput, Button , TouchableOpacity, Image} from 'react-na
 import { AuthContext } from '../api/context';
 import styles from '../style/screen';
 
-
-
-
 function SignUp({navigation}) { 
 
     const [email, setEmail] = React.useState('');
@@ -17,7 +14,7 @@ function SignUp({navigation}) {
     const {signUp} = React.useContext(AuthContext);
 
     return (
-      <View style={styles.container}>
+      <View style={styles.containerSignIn}>
         <Image 
           style={styles.logo}
           source={{

@@ -10,30 +10,32 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 function FeaturesScreen({navigation}) {
     return (
-        <View style={styles.containerView}>
-            <View style={styles.featureRow}>
-                <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {screen: "Door"})}>
-                    <FontAwesome5Pro name={'door-open'} size={30} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {screen: "Window"})}>
-                    <MaterialCommunityIcons name="window-closed-variant" size={30} />
-                </TouchableOpacity>
-            </View>
-            <View style={styles.featureRow}>
-                <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {screen: "Temparature"})}>
-                    <FontAwesome5Pro name={'temperature-low'} size={30} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {screen: "Light"})}>
-                    <MaterialCommunityIcons name="lightbulb-on" size={30} />
-                </TouchableOpacity>
-            </View>
-            <View style={styles.featureRow}>
-                <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {screen: "Gas"})}>
-                    <MaterialCommunityIcons name="gas-cylinder" size={30} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {screen: "Water"})}>
-                    <MaterialCommunityIcons name="water-percent" size={30} />
-                </TouchableOpacity>
+        <View style = {styles.container}>
+            <View style={styles.containerFeature}>
+                <View style={styles.featureRow}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {screen: "Door"})}>
+                        <FontAwesome5Pro name={'door-open'} size={30} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {screen: "Window"})}>
+                        <MaterialCommunityIcons name="window-closed-variant" size={30} />
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.featureRow}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {screen: "Temparature"})}>
+                        <FontAwesome5Pro name={'temperature-low'} size={30} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {screen: "Light"})}>
+                        <MaterialCommunityIcons name="lightbulb-on" size={30} />
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.featureRow}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {screen: "Gas"})}>
+                        <MaterialCommunityIcons name="gas-cylinder" size={30} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {screen: "Water"})}>
+                        <MaterialCommunityIcons name="water-percent" size={30} />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );

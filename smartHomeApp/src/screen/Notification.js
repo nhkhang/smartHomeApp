@@ -23,18 +23,20 @@ class FlatListNotification extends Component {
 
 function NotificationsScreen({navigation}) {
     return (
-        <View>
-            <FlatList data={NotificationData}
-            renderItem={({item, index})=>{
-                // console.log(`Item = ${item}, index = ${index}`);
-                return(
-                    
-                    <FlatListNotification item={item} index={index} navigation={navigation}>
-                    </FlatListNotification>
-                );
-            }}>
+        <View style={styles.container}>
+            <View style={styles.containerNoti}>
+                <FlatList data={NotificationData}
+                renderItem={({item, index})=>{
+                    // console.log(`Item = ${item}, index = ${index}`);
+                    return(
+                        
+                        <FlatListNotification item={item} index={index} navigation={navigation}>
+                        </FlatListNotification>
+                    );
+                }}>
 
-            </FlatList>
+                </FlatList>
+            </View>
         </View>
     );
 }

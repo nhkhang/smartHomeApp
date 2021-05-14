@@ -12,7 +12,7 @@ function SignIn({navigation}) {
     const {signIn} = React.useContext(AuthContext);
   
     return (
-      <View style={styles.container}>
+      <View style={styles.containerSignIn}>
         <View style={styles.logo}>
           <Image
               style={styles.logo}
