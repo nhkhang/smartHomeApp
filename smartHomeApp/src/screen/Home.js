@@ -14,7 +14,7 @@ import Light from './Light';
 class FlatListRooms extends Component {
   render() {
       return (
-        <View style={styles.homeRomScreenItem}>
+        <View style={styles.homeRoomScreenItem}>
           <TouchableOpacity style={styles.roomSceenBtn} onPress= {() => this.props.navigation.navigate('RoomDetail', {screen: this.props.item.name})}>
               <Image
                   source = {{uri: this.props.item.url}}
@@ -53,14 +53,15 @@ function HomeScreen({route, navigation}) {
             
             <ScrollView
             horizontal={true}
+            showsHorizontalScrollIndicator={false}
             style={styles.scrollViewHorizontalHomeFeature}
             >
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {screen:"General"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {screen:""})}>
                 <FontAwesome5Pro name={'door-open'} size={30} />
                 <Text style={styles.roomBtnText}>Door</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {screen:"Window"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {screen:""})}>
                 <MaterialCommunityIcons name="window-closed-variant" size={30} />
                 <Text style={styles.roomBtnText}>Window</Text>
               </TouchableOpacity>
@@ -70,7 +71,7 @@ function HomeScreen({route, navigation}) {
                 <Text style={styles.roomBtnText}>Temperature</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Light", {screen:"General"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Light", {screen:""})}>
                   <MaterialCommunityIcons name="lightbulb-on" size={30} />
                   <Text style={styles.roomBtnText}>Light</Text>
               </TouchableOpacity>
@@ -98,21 +99,49 @@ function HomeScreen({route, navigation}) {
 
             <ScrollView >
               <FlatList
-              data={RoomsData}
-              horizontal
-              renderItem={({item, index})=>{
-                return(
-                    
-                    <FlatListRooms item={item} index={index} navigation={navigation}>
-                    </FlatListRooms>
-                );
-            }}>
+                data={RoomsData}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                renderItem={({item, index})=>{
+                  return(
+                      
+                      <FlatListRooms item={item} index={index} navigation={navigation}>
+                      </FlatListRooms>
+                  );
+              }}>
 
               </FlatList>
 
             </ScrollView>           
           </View>
           <View style={styles.dividingLine}></View>
+
+          <View style={styles.quickReport}>
+            <View style={styles.lineTitle}>
+              <Text>Quick Report</Text>
+              <TouchableOpacity>
+                <Text style={styles.link}>View All</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              style={styles.quickReportScrollView}
+            >
+              <TouchableOpacity style={styles.quickReportItem}>
+                <Text style={styles.titleReportItem}>Average Temparature</Text>
+                <Text style={styles.reportItemValue}>22.9°C</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.quickReportItem}>
+                <Text style={styles.titleReportItem}>Average Humidity</Text>
+                <Text style={styles.reportItemValue}>43.6%</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.quickReportItem}>
+                <Text style={styles.titleReportItem}>Gas</Text>
+                <Text style={styles.reportItemValue}>43.6%</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
       </View>
     );
 }

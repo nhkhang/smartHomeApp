@@ -1,14 +1,32 @@
 import React from 'react';
-import { View, Text, Button, Image, TouchableOpacity } from "react-native";
+import { View, Text, Button, Image, TouchableOpacity, Alert } from "react-native";
 import { createStackNavigator} from '@react-navigation/stack'
 import DetailsScreen from './Details'
 import styles from '../style/screen'
 import { AuthContext } from '../api/context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-function SettingsScreen({navigation}) {
 
+
+
+const SettingsScreen = ({navigation}) => {
     const {signOut} = React.useContext(AuthContext);
+    const createButtonSignOut = () => {
+        Alert.alert(
+            "Notification",
+            "Do you want to sign out?",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel"
+                },
+                {
+                    text: "Sign out",
+                    onPress: ()=> signOut()
+                }
+            ]
+        );   
+    }
 
     return (
         <View style={styles.containerView}>
@@ -42,9 +60,10 @@ function SettingsScreen({navigation}) {
                             <MaterialCommunityIcons name="security" size={30} />
                             <Text style={styles.settingBtnText}>Security & Other</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.signoutSettingBtn} onPress={() => signOut()}>
+                <TouchableOpacity style={styles.signoutSettingBtn} onPress={createButtonSignOut}>
                             <Text style={styles.signoutSettingText}>Sign Out</Text>
                 </TouchableOpacity>
+
             </View>
             
         </View>

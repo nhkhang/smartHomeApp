@@ -119,8 +119,9 @@ const styles = StyleSheet.create({
         fontWeight: "200",
     },
     dividingLine:{
+        marginVertical: 3,
         width: "98%",
-        borderWidth: 0.25,
+        borderWidth: 0.5,
         color: "gray",
     },
     homefeature:{
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
 
-    homeRomScreenItem:{
+    homeRoomScreenItem:{
         marginTop: 10,
         width: 150,
     },
@@ -188,6 +189,30 @@ const styles = StyleSheet.create({
     homeroomSceenBtnName:{
         marginLeft: 10,
         color: "#FFFFFF"
+    },
+    quickReport: {
+        marginTop: 10,
+        width: "98%",
+        // height: 170,
+    },
+    quickReportScrollView: {
+        marginTop: 10,
+    },
+    quickReportItem: {
+        paddingLeft: 10,
+        paddingTop: 5,
+        borderRadius: 5,
+        marginRight: 15,
+        borderColor: "#aaa",
+        borderWidth: 1,
+        width: 220,
+        height: 160,
+    },
+    titleReportItem: {
+        fontSize: 13,
+    },
+    reportItemValue: {
+        fontSize: 18,
     },
 
     //Notification styles
@@ -262,6 +287,7 @@ const styles = StyleSheet.create({
     ViewBtnLeft:{
         height: 125,
         width: 125,
+        borderRadius: 5,
         backgroundColor: "#C4C4C4",
         alignItems: 'center',
         justifyContent: "center",
@@ -272,6 +298,7 @@ const styles = StyleSheet.create({
     ViewBtnRight:{
         height: 125,
         width: 125,
+        borderRadius: 5,
         backgroundColor: "#C4C4C4",
         alignItems: 'center',
         justifyContent: "center",
@@ -287,10 +314,11 @@ const styles = StyleSheet.create({
     },
 
     roomSceenBtn:{
-        width: "80%",
+        width: "90%",
         borderRadius: 8,
-        borderBottomColor: "#000000",
+        borderBottomColor: "gray",
         borderWidth: 1,
+        borderColor: "#aaa",
     },
 
     roomSceenBtnImage:{
@@ -310,7 +338,7 @@ const styles = StyleSheet.create({
 
     roomSceenBtnName:{
         marginLeft: 10,
-        color: "#FFFFFF"
+        color: "#fff"
     },
 
     //Room Detail Styles
@@ -325,6 +353,7 @@ const styles = StyleSheet.create({
     roomDetailBtnLeft:{
         height: 125,
         width: 125,
+        borderRadius: 5,
         backgroundColor: "#C4C4C4",
         alignItems: 'center',
         justifyContent: "center",
@@ -335,6 +364,7 @@ const styles = StyleSheet.create({
     roomDetailBtnRight:{
         height: 125,
         width: 125,
+        borderRadius: 5,
         backgroundColor: "#C4C4C4",
         alignItems: 'center',
         justifyContent: "center",
@@ -424,6 +454,43 @@ const styles = StyleSheet.create({
         color: "#FFFFFF"
     },
     
+
+    // Door
+    DoorScreen: {
+        width: "100%",
+        alignItems:'center',
+        marginVertical: 10,
+    },
+    doorItem: {
+        width: "90%",
+        borderRadius: 8,
+        borderBottomColor: "gray",
+        borderWidth: 1,
+        borderColor: "#aaa",
+    },
+    doorImage: {
+        width: "100%",
+        height:100,
+        borderTopLeftRadius: 7,
+        borderTopRightRadius: 7,
+    },
+    doorText: {
+        backgroundColor: "#CFD7E6",
+        height: 30,
+        justifyContent: "center",
+        borderBottomLeftRadius: 7,
+        borderBottomRightRadius: 7,
+    },
+    doorName: {
+        marginLeft: 10,
+        color: "#fff"
+    },
+    doorState: {
+
+    },
+    toggleDoor: {
+
+    },
 });
 
 export default styles;
