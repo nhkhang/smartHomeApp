@@ -4,11 +4,20 @@ import styles from '../style/screen'
 
 function DetailsScreen({route}) {
     const {screen} = route.params;
-    return (
-        <View style={styles.content}>
-            <Text>Door {screen}</Text>
-        </View>
-    )
+    if({screen}.screen =="General"){
+        return(
+            <View style={styles.content}>
+                <Text>Door {screen}</Text>
+            </View>
+        )
+    }
+    else{
+        return (
+            <View style={styles.content}>
+                <Text>Door {screen}</Text>
+            </View>
+        )
+    }
 }
 
 export default DetailsScreen;

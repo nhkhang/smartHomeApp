@@ -7,6 +7,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     container: {
+        backgroundColor: "#fff",
+        width: "100%",
+        height: "100%"
+    },
+    containerSignIn:{
         flex: 1,
         backgroundColor: "#fff",
         alignItems: "center",
@@ -191,6 +196,11 @@ const styles = StyleSheet.create({
     },
 
     //Notification styles
+    containerSetting:{
+        alignItems:'center',
+        justifyContent: 'center',
+    },
+
     notificationCard: {
         width: "90%",
         alignSelf: "center",
@@ -199,6 +209,16 @@ const styles = StyleSheet.create({
         height: 130,
         marginTop: 20,
         padding: 10,
+        borderWidth: 0.25,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 7,
+        },
+        shadowOpacity: 0.41,
+        shadowRadius: 9.11,
+
+        elevation: 14,
     },
     titleNoti:{
         flexDirection: 'row',
@@ -248,9 +268,8 @@ const styles = StyleSheet.create({
     },
 
     //Feature Styles
-    containerView:{
+    containerFeature:{
         flex: 1,
-        backgroundColor: "#fff",
         alignItems:'center',
     },
 
@@ -280,6 +299,10 @@ const styles = StyleSheet.create({
     },
 
     //Room Styles
+    containerRoom:{
+        flex: 1,
+        alignItems:'center'
+    },
     roomScreenItem:{
         width: "100%",
         alignItems:'center',
@@ -314,6 +337,10 @@ const styles = StyleSheet.create({
     },
 
     //Room Detail Styles
+    containerRoomDetail:{
+        alignItems: 'center',
+    },
+
     roomDetailSceenImage:{
         width:"100%",
         height: 100,
@@ -424,6 +451,32 @@ const styles = StyleSheet.create({
         color: "#FFFFFF"
     },
     
+    //Light Styles
+    lightCard:{
+        flexDirection: 'row',
+        justifyContent: "flex-start",
+    },
+    lightItem:{
+        height: 150,
+        width: 150,
+        backgroundColor: "#CFD7E6",
+        alignItems:"center",
+        borderRadius: 8,
+        borderWidth: 1,
+        marginTop: 10,  
+    },
+    headerLightItem:{
+        flexDirection: 'row',
+        alignItems:"center",
+        width: "100%",
+        borderBottomWidth: 1,
+        justifyContent: "space-between"
+    },
+    bodyLightItem:{
+        alignItems:"center",
+        justifyContent: "center",
+        width: "100%",
+    }
 });
 
 export default styles;

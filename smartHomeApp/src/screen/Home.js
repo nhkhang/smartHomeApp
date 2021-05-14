@@ -33,8 +33,8 @@ class FlatListRooms extends Component {
 
 function HomeScreen({route, navigation}) {
     return (
-      <View style={styles.containerHome}>
-
+      <View style = {styles.container}>
+        <View style={styles.containerHome}>
           <TouchableOpacity style={styles.welcomeCard}>
               <Text style={{marginTop: 10}}>APRIL 15, 2021</Text>
               <Text style={styles.welcomeWord}>WELCOME HOME, KERIS!</Text>
@@ -113,7 +113,9 @@ function HomeScreen({route, navigation}) {
             </ScrollView>           
           </View>
           <View style={styles.dividingLine}></View>
+        </View>
       </View>
+      
     );
 }
 
