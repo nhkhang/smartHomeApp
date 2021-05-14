@@ -5,13 +5,24 @@ import styles from '../style/screen'
 import DoorData from '../data/DoorData';
 
 
+function filter(data, room) {
+    if(room === "General")
+        return data;
+    return data.filter(item => item.room === room);
+}
+
+var data = [];
+
+
 class DoorList extends Component {
     constructor() {
         super();
         this.state = {
-            listDoors : DoorData
+            listDoors : data
         } 
     }
+
+
     setDoorState = (value, index) => {
         const tempData = _.cloneDeep(this.state.listDoors);
         tempData[index].state = value ? "1" : "0";
@@ -56,7 +67,8 @@ class DoorList extends Component {
 
 
 function DoorScreen({route}) {
-
+    const {screen} = route.params;
+    data = filter(DoorData, screen);
     return (
         <DoorList/>
     );

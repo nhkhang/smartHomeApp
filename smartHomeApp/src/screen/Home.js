@@ -56,12 +56,12 @@ function HomeScreen({route, navigation}) {
             showsHorizontalScrollIndicator={false}
             style={styles.scrollViewHorizontalHomeFeature}
             >
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {screen:""})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {screen: "General"})}>
                 <FontAwesome5Pro name={'door-open'} size={30} />
                 <Text style={styles.roomBtnText}>Door</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {screen:""})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {screen:"General"})}>
                 <MaterialCommunityIcons name="window-closed-variant" size={30} />
                 <Text style={styles.roomBtnText}>Window</Text>
               </TouchableOpacity>
@@ -71,7 +71,7 @@ function HomeScreen({route, navigation}) {
                 <Text style={styles.roomBtnText}>Temperature</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Light", {screen:""})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Light", {screen:"General"})}>
                   <MaterialCommunityIcons name="lightbulb-on" size={30} />
                   <Text style={styles.roomBtnText}>Light</Text>
               </TouchableOpacity>
