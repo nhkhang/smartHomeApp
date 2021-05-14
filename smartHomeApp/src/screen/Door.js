@@ -14,7 +14,7 @@ class DoorList extends Component {
     }
     setDoorState = (value, index) => {
         const tempData = _.cloneDeep(this.state.listDoors);
-        tempData[index].state = value;
+        tempData[index].state = value ? "1" : "0";
         this.setState({listDoors: tempData});
     }
 
@@ -28,9 +28,9 @@ class DoorList extends Component {
 
                 <View style={styles.doorText}>
                     <Text style={styles.doorName}>{item.name}</Text>
-                    <Text style={styles.doorState}></Text>
+                    <Text style={styles.doorState}>{item.state === "1" ? "Locked" : "No Locked"}</Text>
                     <Switch
-                        value={item.state}
+                        value={item.state === "1" ? true : false}
                         style={styles.toggleDoor}
                         onValueChange={(value) => this.setDoorState(value,index)}
                     />
@@ -53,29 +53,6 @@ class DoorList extends Component {
 
 
 
-// class FlatListItem extends Component {
-//     render() {
-//         return (
-//             <View style={styles.DoorScreen}>
-//                 <TouchableOpacity style={styles.doorItem}>
-//                     <Image
-//                         source = {{uri: this.props.item.url}}
-//                         style={styles.doorImage}>
-//                     </Image>
-
-//                     <View style={styles.doorText}>
-//                         <Text style={styles.doorName}>{this.props.item.name}</Text>
-//                         <Text style={styles.doorState}></Text>
-//                         <Switch
-//                             value={true}
-//                             style={styles.toggleDoor}
-//                         />
-//                     </View>
-//                 </TouchableOpacity>
-//             </View>  
-//         )
-//     }
-// }
 
 
 function DoorScreen({route}) {
