@@ -10,6 +10,63 @@ import Feature from './Feature';
 import RoomDetail from './RoomDetail';
 import Door from './Door';
 import Light from './Light';
+import { LineChart } from 'react-native-chart-kit';
+
+function TemparatureChart() {
+  return (
+    <LineChart
+      data={{
+        label: ["14h", "16h", "18h", "20h", "22h"],
+        datasets: [
+          {
+            data: [
+              29, 27, 28, 26, 24
+            ]
+          }
+        ]
+      }}
+      width={200}
+      height={100}
+      bezier
+      chartConfig={{
+        backgroundColor: "#fff",
+        backgroundGradientFrom: "#ecf0f1",
+        backgroundGradientTo: "#bdc3c7",
+        decimalPlaces: 0,
+        color: (opacity = 1) => `rgba(0,0,0, ${opacity})`,
+        labelColor: (opacity = 1) => `rgba(0,0,0,${opacity})`
+      }}
+    />
+  )
+}
+
+function HumidityChart() {
+  return (
+    <LineChart
+      data={{
+        label: ["14h", "16h", "18h", "20h", "22h"],
+        datasets: [
+          {
+            data: [
+              52, 46, 48, 50, 47
+            ]
+          }
+        ]
+      }}
+      width={200}
+      height={100}
+      bezier
+      chartConfig={{
+        backgroundColor: "#fff",
+        backgroundGradientFrom: "#ecf0f1",
+        backgroundGradientTo: "#bdc3c7",
+        decimalPlaces: 0,
+        color: (opacity = 1) => `rgba(0,0,0, ${opacity})`,
+        labelColor: (opacity = 1) => `rgba(0,0,0,${opacity})`
+      }}
+    />
+  )
+}
 
 class FlatListRooms extends Component {
   render() {
@@ -130,11 +187,13 @@ function HomeScreen({route, navigation}) {
             >
               <TouchableOpacity style={styles.quickReportItem}>
                 <Text style={styles.titleReportItem}>Average Temparature</Text>
-                <Text style={styles.reportItemValue}>22.9°C</Text>
+                <Text style={styles.reportItemValue}>26.8°C</Text>
+                <TemparatureChart/>
               </TouchableOpacity>
               <TouchableOpacity style={styles.quickReportItem}>
                 <Text style={styles.titleReportItem}>Average Humidity</Text>
-                <Text style={styles.reportItemValue}>43.6%</Text>
+                <Text style={styles.reportItemValue}>48.6%</Text>
+                <HumidityChart/>
               </TouchableOpacity>
               <TouchableOpacity style={styles.quickReportItem}>
                 <Text style={styles.titleReportItem}>Gas</Text>
