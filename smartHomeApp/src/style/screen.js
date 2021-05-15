@@ -520,19 +520,28 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: "#0A2866",
     },
-    //Light Styles
+    /////////////Light Styles/////////////
+    lightContainer:{
+        flexDirection: 'row',
+        justifyContent: "flex-start",
+    },
+    lightCardCol:{
+        width:"50%",
+        height:"100%",
+        alignItems: "center",
+    },
     lightCard:{
         flex: 1,
         alignItems:'center',
     },
     lightItem:{
-        height: 150,
-        width: 200,
+        height: 120,
+        width: 120,
         backgroundColor: "#CFD7E6",
         alignItems:"center",
         borderRadius: 8,
         borderWidth: 1,
-        marginTop: 10,  
+        marginTop: 20,  
     },
     headerLightItem:{
         flexDirection: 'row',

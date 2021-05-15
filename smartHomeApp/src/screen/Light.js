@@ -48,15 +48,43 @@ class LightList extends Component {
     )
 
     render() {
+        var data=this.state.listLights;
+        var right = Math.floor(data.length/2);
+        var left = data.length - right;
+        var dataLeft = data.slice(0,left);
+        var dataRight = data.slice(left,data.length);
+
         return (
             <View style = {styles.container}>
-                <FlatList
-                    data={this.state.listLights}
-                    renderItem={this.lightItem}
-                />
+                <View style={styles.lightContainer}>
+                    <View style={styles.lightCardCol}>
+                        <FlatList
+                            data={dataLeft}
+                            renderItem={this.lightItem}
+                        />
+                    </View>
+                    <View style={styles.lightCardCol}>
+                        <FlatList
+                            data={dataRight}
+                            renderItem={this.lightItem}
+                        />
+                    </View>
+                </View>
             </View>
         )
     }
+}
+
+function groupByKey(array, key) {
+    return array
+        .reduce((hash, obj) => {
+            if(obj[key] === undefined) return hash; 
+            return Object.assign(hash, { [obj[key]]:( hash[obj[key]] || [] ).concat(obj)})
+        }, {})
+}
+
+function grouping (data){
+    return groupByKey(data, 'room')
 }
 
 function LightScreen({route}) {
@@ -64,7 +92,7 @@ function LightScreen({route}) {
     data = filter(LightData, id);
     return (
         <LightList/>
-    );
+    ); 
 }
 
 export default LightScreen;

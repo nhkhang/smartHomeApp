@@ -39,9 +39,9 @@ function FeaturesScreen({navigation}) {
                         <MaterialCommunityIcons name="gas-cylinder" size={30} />
                         <Text>Gas</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {name: "Water", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {name: "Humidity", id: "0"})}>
                         <MaterialCommunityIcons name="water-percent" size={30} />
-                        <Text>Water</Text>
+                        <Text>Humidity</Text>
                     </TouchableOpacity>
                 </View>
             </View>
