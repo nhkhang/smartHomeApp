@@ -13,6 +13,9 @@ function filter(data, id) {
 }
 
 var data = [];
+var count = 0;
+var countLeft = Math.ceil(LightData.length/2);
+
 
 class LightList extends Component {
     constructor() {
@@ -23,13 +26,13 @@ class LightList extends Component {
     }
 
 
-    setDoorState = (value, index) => {
+    setLightState = (value, index) => {
         const tempData = _.cloneDeep(this.state.listLights);
         tempData[index].state = value ? "1" : "0";
         this.setState({listLights: tempData});
     }
 
-    lightItem = ({item, index}) => (
+    lightItemLeft = ({item, index}) => (
         <View style={styles.lightCard}>
             <View style={styles.lightItem}>
                 <View style={styles.headerLightItem}>
@@ -37,7 +40,25 @@ class LightList extends Component {
                     <Switch
                         value={item.state === "1" ? true : false}
                         style={styles.toggleLight}
-                        onValueChange={(value) => this.setDoorState(value,index)}
+                        onValueChange={(value) => this.setLightState(value,index)}
+                    />
+                </View>
+                <View style={styles.bodyLightItem}>
+                    <MaterialCommunityIcons style={item.state == "1"?styles.lightOn:styles.lightOff} name={item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
+                </View>
+            </View>
+        </View>
+    )
+    
+    lightItemRight = ({item, index}) => (
+        <View style={styles.lightCard}>
+            <View style={styles.lightItem}>
+                <View style={styles.headerLightItem}>
+                    <Text style={styles.nameLight}>{item.name}</Text>
+                    <Switch
+                        value={item.state === "1" ? true : false}
+                        style={styles.toggleLight}
+                        onValueChange={(value) => this.setLightState(value,index + countLeft)}
                     />
                 </View>
                 <View style={styles.bodyLightItem}>
@@ -56,17 +77,17 @@ class LightList extends Component {
 
         return (
             <View style = {styles.container}>
-                <View style={styles.lightContainer}>
+                <View style={styles.containerLight}>
                     <View style={styles.lightCardCol}>
                         <FlatList
                             data={dataLeft}
-                            renderItem={this.lightItem}
+                            renderItem={this.lightItemLeft}
                         />
                     </View>
                     <View style={styles.lightCardCol}>
                         <FlatList
                             data={dataRight}
-                            renderItem={this.lightItem}
+                            renderItem={this.lightItemRight}
                         />
                     </View>
                 </View>
@@ -92,7 +113,7 @@ function LightScreen({route}) {
     data = filter(LightData, id);
     return (
         <LightList/>
-    ); 
+    );
 }
 
 export default LightScreen;

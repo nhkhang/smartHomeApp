@@ -521,7 +521,7 @@ const styles = StyleSheet.create({
         color: "#0A2866",
     },
     /////////////Light Styles/////////////
-    lightContainer:{
+    containerLight:{
         flexDirection: 'row',
         justifyContent: "flex-start",
     },
