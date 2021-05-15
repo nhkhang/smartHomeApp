@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 function RoomDetail({route, navigation}){
-    const {screen} = route.params;
+    const {name, id} = route.params;
     return (
         <View style = {styles.container}>
             <View style={styles.containerRoomDetail}>
@@ -18,33 +18,33 @@ function RoomDetail({route, navigation}){
                 </View>
 
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.roomDetailBtnLeft} onPress={()=>navigation.navigate("Door", {screen: screen})}>
+                    <TouchableOpacity style={styles.roomDetailBtnLeft} onPress={()=>navigation.navigate("Door", {name: name, id: id})}>
                         <FontAwesome5Pro name={'door-open'} size={30} />
                         <Text>1 Locked </Text>
                         <Text>0 Unclocked</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.roomDetailBtnRight} onPress={()=>navigation.navigate("Door", {screen: screen})}>
+                    <TouchableOpacity style={styles.roomDetailBtnRight} onPress={()=>navigation.navigate("Door", {name: name, id: id})}>
                         <MaterialCommunityIcons name="window-closed-variant" size={30} />
                         <Text>1 Locked </Text>
                         <Text>0 Unclocked</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.roomDetailBtnLeft} onPress={()=>navigation.navigate("ElementDetail", {screen:"Temperature " + screen})}>
+                    <TouchableOpacity style={styles.roomDetailBtnLeft} onPress={()=>navigation.navigate("ElementDetail", {name:"Temperature " + name, id: id})}>
                         <FontAwesome5Pro name={'temperature-low'} size={30} />
                         <Text>27℃</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.roomDetailBtnRight} onPress={()=>navigation.navigate("Light", {screen: screen})}>
+                    <TouchableOpacity style={styles.roomDetailBtnRight} onPress={()=>navigation.navigate("Light", {name: name, id: id})}>
                         <MaterialCommunityIcons name="lightbulb-on" size={30} />
                         <Text>1 On - 1 Off</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.roomDetailBtnLeft} onPress={()=>navigation.navigate("ElementDetail", {screen:"Gas " + screen})}>
+                    <TouchableOpacity style={styles.roomDetailBtnLeft} onPress={()=>navigation.navigate("ElementDetail", {name:"Gas " + name, id: id})}>
                         <MaterialCommunityIcons name="gas-cylinder" size={30} />
                         <Text>Low</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.roomDetailBtnRight} onPress={()=>navigation.navigate("ElementDetail", {screen:"Water " + screen})}>
+                    <TouchableOpacity style={styles.roomDetailBtnRight} onPress={()=>navigation.navigate("ElementDetail", {name:"Water " + name, id: id})}>
                         <MaterialCommunityIcons name="water-percent" size={30} />
                         <Text>50%</Text>
                     </TouchableOpacity>

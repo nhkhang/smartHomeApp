@@ -544,7 +544,10 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent: "center",
         width: "100%",
-    }
+    },
+    toggleLight: {
+
+    },
 });
 
 export default styles;

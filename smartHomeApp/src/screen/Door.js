@@ -1,14 +1,14 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import _ from "lodash";
 import { View, Text, Switch, FlatList, TouchableOpacity, Image} from "react-native";
 import styles from '../style/screen'
 import DoorData from '../data/DoorData';
 
 
-function filter(data, room) {
-    if(room === "General")
+function filter(data, id) {
+    if(id === "0")
         return data;
-    return data.filter(item => item.room === room);
+    return data.filter(item => item.room === id);
 }
 
 var data = [];
@@ -67,8 +67,8 @@ class DoorList extends Component {
 
 
 function DoorScreen({route}) {
-    const {screen} = route.params;
-    data = filter(DoorData, screen);
+    const id = route.params.id;
+    data = filter(DoorData, id);
     return (
         <DoorList/>
     );

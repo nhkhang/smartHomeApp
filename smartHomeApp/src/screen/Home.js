@@ -15,7 +15,7 @@ class FlatListRooms extends Component {
   render() {
       return (
         <View style={styles.homeRoomScreenItem}>
-          <TouchableOpacity style={styles.roomSceenBtn} onPress= {() => this.props.navigation.navigate('RoomDetail', {screen: this.props.item.name})}>
+          <TouchableOpacity style={styles.roomSceenBtn} onPress= {() => this.props.navigation.navigate('RoomDetail', {name: this.props.item.name, id: this.props.item.key})}>
               <Image
                   source = {{uri: this.props.item.url}}
                   style={styles.homeRoomSceenBtnImage}>
@@ -56,30 +56,30 @@ function HomeScreen({route, navigation}) {
             showsHorizontalScrollIndicator={false}
             style={styles.scrollViewHorizontalHomeFeature}
             >
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {screen: "General"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {name: "General", id: "0"})}>
                 <FontAwesome5Pro name={'door-open'} size={30} />
                 <Text style={styles.roomBtnText}>Door</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {screen:"General"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {name:"General", id: "0"})}>
                 <MaterialCommunityIcons name="window-closed-variant" size={30} />
                 <Text style={styles.roomBtnText}>Window</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("DetailsRoom", {screen:"Temperature"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("DetailsRoom", {name:"Temperature", id: "0"})}>
                 <FontAwesome5Pro name={'temperature-low'} size={30} />
                 <Text style={styles.roomBtnText}>Temperature</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Light", {screen:"General"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Light", {name:"General", id: "0"})}>
                   <MaterialCommunityIcons name="lightbulb-on" size={30} />
                   <Text style={styles.roomBtnText}>Light</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("DetailsRoom", {screen:"Gas"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("DetailsRoom", {name:"Gas", id: "0"})}>
                   <MaterialCommunityIcons name="gas-cylinder" size={30} />
                   <Text style={styles.roomBtnText}>Gas</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("DetailsRoom", {screen:"Water"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("DetailsRoom", {name:"Water", id: "0"})}>
                   <MaterialCommunityIcons name="water-percent" size={30} />
                   <Text style={styles.roomBtnText}>Water</Text>
               </TouchableOpacity>
@@ -162,14 +162,14 @@ function HomeStackScreen(){
       <HomeStack.Screen name="Feature" component={Feature} options={{
           headerShown: false,
         }}/>
-      <HomeStack.Screen name="RoomDetail" component={RoomDetail} options={({route}) => ({title: route.params.screen})}/>
-      <HomeStack.Screen name="Door" component={Door} options={({route}) => ({title: "Door " + route.params.screen})}/>
-      <HomeStack.Screen name="Light" component={Light} options={({route}) => ({title: "Light " + route.params.screen})}/>
-      <HomeStack.Screen name="DetailsRoom" component={DetailsScreen} options={({route}) => ({title: route.params.screen})}/>
+      <HomeStack.Screen name="RoomDetail" component={RoomDetail} options={({route}) => ({title: route.params.name})}/>
+      <HomeStack.Screen name="Door" component={Door} options={({route}) => ({title: "Door " + route.params.name})}/>
+      <HomeStack.Screen name="Light" component={Light} options={({route}) => ({title: "Light " + route.params.name})}/>
+      <HomeStack.Screen name="DetailsRoom" component={DetailsScreen} options={({route}) => ({title: route.params.name})}/>
       <HomeStack.Screen
           name="ElementDetail"
           component={DetailsScreen}
-          options={({route}) => ({title: route.params.screen})}
+          options={({route}) => ({title: route.params.name})}
       />
     </HomeStack.Navigator>
   )

@@ -13,26 +13,26 @@ function FeaturesScreen({navigation}) {
         <View style = {styles.container}>
             <View style={styles.containerFeature}>
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {screen: "Door"})}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {name: "Door", id: "0"})}>
                         <FontAwesome5Pro name={'door-open'} size={30} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {screen: "Window"})}>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {name: "Window", id: "0"})}>
                         <MaterialCommunityIcons name="window-closed-variant" size={30} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {screen: "Temparature"})}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {name: "Temparature", id: "0"})}>
                         <FontAwesome5Pro name={'temperature-low'} size={30} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {screen: "Light"})}>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {name: "Light", id: "0"})}>
                         <MaterialCommunityIcons name="lightbulb-on" size={30} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {screen: "Gas"})}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {name: "Gas", id: "0"})}>
                         <MaterialCommunityIcons name="gas-cylinder" size={30} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {screen: "Water"})}>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {name: "Water", id: "0"})}>
                         <MaterialCommunityIcons name="water-percent" size={30} />
                     </TouchableOpacity>
                 </View>
@@ -47,7 +47,7 @@ function FeaturesStackScreen() {
     return (
         <FeaturesStack.Navigator>
             <FeaturesStack.Screen name="Features" component={FeaturesScreen}/>
-            <FeaturesStack.Screen name="Details" component={DetailsScreen} options={({route}) => ({title: route.params.screen})}/>
+            <FeaturesStack.Screen name="Details" component={DetailsScreen} options={({route}) => ({title: route.params.name})}/>
         </FeaturesStack.Navigator>
     )
 }

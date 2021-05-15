@@ -11,7 +11,7 @@ class FlatListItem extends Component {
     render(){
         return(
             <View style={styles.roomScreenItem}>
-                <TouchableOpacity style={styles.roomSceenBtn} onPress= {() => this.props.navigation.navigate('RoomDetail', {screen: this.props.item.name})}>
+                <TouchableOpacity style={styles.roomSceenBtn} onPress= {() => this.props.navigation.navigate('RoomDetail', {name: this.props.item.name, id: this.props.item.key})}>
                     <Image
                         source = {{uri: this.props.item.url}}
                         style={styles.roomSceenBtnImage}>
@@ -62,22 +62,22 @@ function RoomsStackScreen() {
             <RoomsStack.Screen
                 name="RoomDetail"
                 component={RoomDetail}
-                options={({route}) => ({title: route.params.screen})}
+                options={({route}) => ({title: route.params.name})}
             />
             <RoomsStack.Screen
                 name="Door"
                 component={Door}
-                options={({route}) => ({title: "Door " + route.params.screen})}
+                options={({route}) => ({title: "Door " + route.params.name})}
             />
             <RoomsStack.Screen
                 name="Light"
                 component={Light}
-                options={({route}) => ({title: "Light " + route.params.screen})}
+                options={({route}) => ({title: "Light " + route.params.name})}
             />
             <RoomsStack.Screen
                 name="ElementDetail"
                 component={DetailsScreen}
-                options={({route}) => ({title: route.params.screen})}
+                options={({route}) => ({title: route.params.name})}
             />
         </RoomsStack.Navigator>
     )
