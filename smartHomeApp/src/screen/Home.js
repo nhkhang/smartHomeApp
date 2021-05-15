@@ -27,7 +27,7 @@ function TemparatureChart() {
       }}
       width={200}
       height={100}
-      bezier
+      
       chartConfig={{
         backgroundColor: "#fff",
         backgroundGradientFrom: "#ecf0f1",
@@ -55,7 +55,6 @@ function HumidityChart() {
       }}
       width={200}
       height={100}
-      bezier
       chartConfig={{
         backgroundColor: "#fff",
         backgroundGradientFrom: "#ecf0f1",
