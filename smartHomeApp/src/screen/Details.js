@@ -3,10 +3,10 @@ import { View, Text} from "react-native";
 import styles from '../style/screen'
 
 function DetailsScreen({route}) {
-    const {screen} = route.params;
+    const {name, id} = route.params;
     return (
         <View style={styles.content}>
-            <Text>{screen} details</Text>
+            <Text>{name}</Text>
         </View>
     )
 }

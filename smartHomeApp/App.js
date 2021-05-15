@@ -1,52 +1,109 @@
-import React from 'react';
-// import { View, Text, Button } from "react-native";
-import { NavigationContainer} from '@react-navigation/native'
-import { createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import HomeScreen from './src/screen/Home'
-import NotificationsScreen from './src/screen/Notification'
-import RoomsScreen from './src/screen/Rooms'
-import SettingsScreen from './src/screen/Setting'
+import * as React from 'react';
+import * as SecureStore from 'expo-secure-store';
+import TabNavigator from './src/screen/TabNavigator';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { AuthContext } from './src/api/context';
+import SignIn from './src/screen/SignIn';
+import SignUp from './src/screen/SignUp'
 
-const Tab = createBottomTabNavigator();
 
-function App() {
+
+function App ({navigation}) {
+  const [state, dispatch] = React.useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case 'RESTORE_TOKEN':
+          return {
+            ...prevState,
+            userToken: action.token,
+            isLoading: false,
+          };
+        case "SIGN_IN":
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.token,
+          };
+        case "SIGN_OUT":
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+        
+      }
+    },
+    {
+      isLoading: true,
+      isSignout: false,
+      userToken: null,
+    }
+  );
+
+  React.useEffect(() => {
+    const bootstrapAsync = async () => {
+      let userToken;
+
+      try{
+        userToken = await SecureStore.getItemAsync("userToken");
+      }
+      catch(e){
+        // Restoring token fail
+      }
+
+      // Need to validate token in production apps
+      
+
+      dispatch({type: "RESTORE_TOKEN", token: userToken});
+    };
+    bootstrapAsync();
+  }, []);
+  
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async data => {
+
+        //Process with 'data' to signin
+        console.log(data);
+
+        if(data.username == "" && data.password == ""){
+          dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
+        }
+      },
+      signOut: () => dispatch({type: "SIGN_OUT"}),
+      signUp: async data => {
+
+        // Process with 'data' to signup
+        console.log(data);
+        dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
+      },
+    }),
+    []
+  );
+
+  const Stack = createStackNavigator();
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Home"
-        screenOptions={({route})=>({
-          tabBarIcon: ({focused, color, size}) => {
-            let iconName;
-
-            if(route.name === 'Home') {
-              iconName = focused ? 'home' : 'home-outline';
-            }
-            else if(route.name === 'Settings') {
-              iconName = focused ? 'cog' : 'cog-outline';
-            }
-            else if(route.name === 'Rooms') {
-              iconName = focused ? 'list' : 'list-outline';
-            }
-            else if (route.name === 'Notifications') {
-              iconName = focused ? 'notifications' : 'notifications-outline';
-            }
-            return <Ionicons name={iconName} size={size} color={color} />
-          }
-        })}
-
-        tabBarOptions ={{
-          activeTintColor: '#000',
-          inactiveTintColor: 'gray',
-        }}
-      >
-        <Tab.Screen name="Home" component={HomeScreen}/>
-        <Tab.Screen name="Rooms" component={RoomsScreen}/>
-        <Tab.Screen name="Notifications" component={NotificationsScreen}/>
-        <Tab.Screen name="Settings" component={SettingsScreen}/>
-      </Tab.Navigator>
-    </NavigationContainer>
+    <AuthContext.Provider value={authContext}>
+      {state.userToken == null ? (
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="SignIn"
+            screenOptions={{
+              headerShown: false
+            }}
+          >
+            <Stack.Screen name="SignIn" component={SignIn}/>
+            <Stack.Screen name="SignUp" component={SignUp}/>
+          </Stack.Navigator>
+        </NavigationContainer>
+      ): (
+        <TabNavigator />
+      )} 
+    </AuthContext.Provider>
   )
 }
+
 
 export default App;

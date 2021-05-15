@@ -1871,7 +1871,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@unimodules/core@~6.0.0":
+"@unimodules/core@*", "@unimodules/core@~6.0.0":
   "integrity" "sha512-+KCVh+NjU33lkHOFiRfJZR6dDsSF8zCY1CVARMYJbQ7w1epRsalpKnCK08JoNYHQqkPR79d2zQSWMxd20zBvoA=="
   "resolved" "https://registry.npmjs.org/@unimodules/core/-/core-6.0.0.tgz"
   "version" "6.0.0"
@@ -3078,6 +3078,13 @@
     "regex-not" "^1.0.0"
     "snapdragon" "^0.8.1"
     "to-regex" "^3.0.1"
+
+"expo-app-auth@~9.3.0":
+  "integrity" "sha512-f8OdQDNmC5vSdBWzwtic5pq+bmtSCYGU1KeVhKV3W8VgGIgVx40Q72q3M+SMs68bz4RCuC1g7LOGTOBWzXIuNw=="
+  "resolved" "https://registry.npmjs.org/expo-app-auth/-/expo-app-auth-9.3.0.tgz"
+  "version" "9.3.0"
+  dependencies:
+    "invariant" "^2.2.4"
 
 "expo-application@~2.4.1":
   "integrity" "sha512-VHDvXz55LIYdLoE1aR0AFycB1jz4ggbMToUbKAbCEjro+PdUNm/Gj8gQeFgH6wL2oAztQH4qJ+uiOwrw8SFK+Q=="
@@ -4389,7 +4396,7 @@
   "resolved" "https://registry.npmjs.org/lodash.throttle/-/lodash.throttle-4.1.1.tgz"
   "version" "4.1.1"
 
-"lodash@^4.17.13", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.3.0", "lodash@^4.5.0", "lodash@^4.6.0":
+"lodash@^4.17.13", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.17.21", "lodash@^4.3.0", "lodash@^4.5.0", "lodash@^4.6.0":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -5460,6 +5467,11 @@
   "resolved" "https://registry.npmjs.org/react-native-screens/-/react-native-screens-3.1.1.tgz"
   "version" "3.1.1"
 
+"react-native-simple-encryption@^1.2.1":
+  "integrity" "sha1-DndDXsXNtHp5DG4g0/RJCLCZh0U="
+  "resolved" "https://registry.npmjs.org/react-native-simple-encryption/-/react-native-simple-encryption-1.2.1.tgz"
+  "version" "1.2.1"
+
 "react-native-web@~0.13.12":
   "integrity" "sha512-WR/0ECAmwLQ2+2cL2Ur+0/swXFAtcSM0URoADJmG6D4MnY+wGc91JO8LoOTlgY0USBOY+qG/beRrjFa+RAuOiA=="
   "resolved" "https://registry.npmjs.org/react-native-web/-/react-native-web-0.13.18.tgz"
@@ -6386,7 +6398,7 @@
   "resolved" "https://registry.npmjs.org/unimodules-camera-interface/-/unimodules-camera-interface-5.4.0.tgz"
   "version" "5.4.0"
 
-"unimodules-constants-interface@~5.4.0":
+"unimodules-constants-interface@*", "unimodules-constants-interface@~5.4.0":
   "integrity" "sha512-6oqSt9zuI+dES56TABBi390FkVCozTN+hYfX0Kf6HdlnDpXTQqKZNfyWQgP7E78dIyB9b0q+kH7kTLLq+HNfOQ=="
   "resolved" "https://registry.npmjs.org/unimodules-constants-interface/-/unimodules-constants-interface-5.4.0.tgz"
   "version" "5.4.0"
