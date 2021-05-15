@@ -16,7 +16,6 @@ function TemparatureChart() {
   return (
     <LineChart
       data={{
-        label: ["14h", "16h", "18h", "20h", "22h"],
         datasets: [
           {
             data: [
@@ -44,7 +43,6 @@ function HumidityChart() {
   return (
     <LineChart
       data={{
-        label: ["14h", "16h", "18h", "20h", "22h"],
         datasets: [
           {
             data: [

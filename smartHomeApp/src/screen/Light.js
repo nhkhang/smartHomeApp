@@ -13,8 +13,7 @@ function filter(data, id) {
 }
 
 var data = [];
-var count = 0;
-var countLeft = Math.ceil(LightData.length/2);
+var countLeft = 0;
 
 
 class LightList extends Component {
@@ -22,7 +21,7 @@ class LightList extends Component {
         super();
         this.state = {
             listLights : data
-        } 
+        }
     }
 
 
@@ -58,7 +57,7 @@ class LightList extends Component {
                     <Switch
                         value={item.state === "1" ? true : false}
                         style={styles.toggleLight}
-                        onValueChange={(value) => this.setLightState(value,index + countLeft)}
+                        onValueChange={(value) => this.setLightState(value, index + countLeft)}
                     />
                 </View>
                 <View style={styles.bodyLightItem}>
@@ -111,6 +110,7 @@ function grouping (data){
 function LightScreen({route}) {
     const {name, id} = route.params;
     data = filter(LightData, id);
+    countLeft = Math.ceil(data.length/2);
     return (
         <LightList/>
     );
