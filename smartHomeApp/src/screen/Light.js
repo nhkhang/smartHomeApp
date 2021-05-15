@@ -31,25 +31,9 @@ class LightList extends Component {
 
     lightItem = ({item, index}) => (
         <View style={styles.lightCard}>
-            {/* <View style={styles.doorItem}>
-                <Image
-                    source = {{uri: item.url}}
-                    style={styles.doorImage}>
-                </Image>
-
-                <View style={styles.doorText}>
-                    <Text style={styles.doorName}>{item.name}</Text>
-                    <Text style={styles.doorState}>{item.state === "1" ? "Locked" : "No Locked"}</Text>
-                    <Switch
-                        value={item.state === "1" ? true : false}
-                        style={styles.toggleDoor}
-                        onValueChange={(value) => this.setDoorState(value,index)}
-                    />
-                </View>
-            </View> */}
             <View style={styles.lightItem}>
                 <View style={styles.headerLightItem}>
-                    <Text>{item.name}</Text>
+                    <Text style={styles.nameLight}>{item.name}</Text>
                     <Switch
                         value={item.state === "1" ? true : false}
                         style={styles.toggleLight}
@@ -57,7 +41,7 @@ class LightList extends Component {
                     />
                 </View>
                 <View style={styles.bodyLightItem}>
-                    <MaterialCommunityIcons name={item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
+                    <MaterialCommunityIcons style={item.state == "1"?styles.lightOn:styles.lightOff} name={item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
                 </View>
             </View>
         </View>
@@ -85,45 +69,3 @@ function LightScreen({route}) {
 
 export default LightScreen;
 
-// function DetailsScreen({route}) {
-//     const {screen} = route.params;
-//     if({screen}.screen =="General"){
-//         return(
-//             <View style={styles.container}>
-//                 <Text>Light {screen}</Text>
-//             </View>
-//         )
-//     }
-//     else{
-//         return (
-//             <View style = {styles.container}>
-//                 <View style={styles.lightCard}>
-//                     <View style={styles.lightItem}>
-//                         <View style={styles.headerLightItem}>
-//                             <Text>Light 1</Text>
-//                             <TouchableOpacity>
-//                                 <MaterialCommunityIcons name={'toggle-switch-off'} size={30} />
-//                             </TouchableOpacity>
-//                         </View>
-//                         <View style={styles.bodyLightItem}>
-//                             <MaterialCommunityIcons name={'lightbulb-on'} size={50} color={"#000000"} />
-//                         </View>
-//                     </View>
-//                     <View style={styles.lightItem}>
-//                         <View style={styles.headerLightItem}>
-//                             <Text>Light 1</Text>
-//                             <TouchableOpacity>
-//                                 <MaterialCommunityIcons name={'toggle-switch-off'} size={30} />
-//                             </TouchableOpacity>
-//                         </View>
-//                         <View style={styles.bodyLightItem}>
-//                             <MaterialCommunityIcons name={'lightbulb-on'} size={50} color={"#000000"} />
-//                         </View>
-//                     </View>              
-//                 </View>
-//             </View>
-//         )
-//     }
-// }
-
-// export default DetailsScreen;

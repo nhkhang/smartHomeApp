@@ -39,10 +39,11 @@ class DoorList extends Component {
 
                 <View style={styles.doorText}>
                     <Text style={styles.doorName}>{item.name}</Text>
-                    <Text style={styles.doorState}>{item.state === "1" ? "Locked" : "No Locked"}</Text>
+                    <Text style={styles.doorState}>{item.state === "1" ? "Locked" : "Not Locked"}</Text>
                     <Switch
                         value={item.state === "1" ? true : false}
-                        style={styles.toggleDoor}
+                        // thumbColor="#7f8c8d"
+                        // trackColor="#ecf0f1"
                         onValueChange={(value) => this.setDoorState(value,index)}
                     />
                 </View>

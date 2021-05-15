@@ -503,8 +503,8 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 7,
     },
     doorText: {
-        backgroundColor: "#7A8599",
-        height: 30,
+        backgroundColor: "#CFD7E6",
+        height: 40,
         borderBottomLeftRadius: 7,
         borderBottomRightRadius: 7,
         flexDirection: "row",
@@ -512,22 +512,22 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     doorName: {
+        fontSize: 18,
         marginLeft: 10,
-        color: "#fff"
+        color: "#0A2866"
     },
     doorState: {
-    },
-    toggleDoor: {
-
+        fontSize: 18,
+        color: "#0A2866",
     },
     //Light Styles
     lightCard:{
-        flexDirection: 'row',
-        justifyContent: "flex-start",
+        flex: 1,
+        alignItems:'center',
     },
     lightItem:{
         height: 150,
-        width: 150,
+        width: 200,
         backgroundColor: "#CFD7E6",
         alignItems:"center",
         borderRadius: 8,
@@ -541,10 +541,21 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         justifyContent: "space-between"
     },
+    nameLight: {
+        marginHorizontal: 10,
+        fontSize: 16,
+    },
     bodyLightItem:{
+        flex: 1,
         alignItems:"center",
         justifyContent: "center",
         width: "100%",
+    },
+    lightOn: {
+        color: "#FFC107",
+    },
+    lightOff: {
+        color: "#000"
     },
     toggleLight: {
 
