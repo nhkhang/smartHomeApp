@@ -503,18 +503,19 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 7,
     },
     doorText: {
-        backgroundColor: "#CFD7E6",
+        backgroundColor: "#7A8599",
         height: 30,
-        justifyContent: "center",
         borderBottomLeftRadius: 7,
         borderBottomRightRadius: 7,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     doorName: {
         marginLeft: 10,
         color: "#fff"
     },
     doorState: {
-
     },
     toggleDoor: {
 
