@@ -16,9 +16,7 @@ function SignIn({navigation}) {
         <View style={styles.logo}>
           <Image
               style={styles.logo}
-              source={{
-                uri: "../img/logo.jpg",
-              }}>
+              source={require('../img/logo.jpg')}>
 
           </Image>
         </View>
