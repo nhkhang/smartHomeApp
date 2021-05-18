@@ -23,7 +23,7 @@ module.exports.light = async (req, res) => {
     mqtt.publish(adafruitConfig.FEED_LED, JSON.stringify(message));
     console.log("Published the message: ")
     console.log(message);
-    res.send("OK");
+    res.send(JSON.stringify({status: "Chay duoc roi ae oi"}));
     res.end();
 }
 

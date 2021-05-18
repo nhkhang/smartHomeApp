@@ -5,8 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AuthContext } from './src/api/context';
 import SignIn from './src/screen/SignIn';
-import SignUp from './src/screen/SignUp'
-
+import SignUp from './src/screen/SignUp';
+import Test from './src/screen/Test';
 
 
 function App ({navigation}) {
@@ -89,13 +89,14 @@ function App ({navigation}) {
       {state.userToken == null ? (
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="SignIn"
+            initialRouteName="Test"
             screenOptions={{
               headerShown: false
             }}
           >
             <Stack.Screen name="SignIn" component={SignIn}/>
             <Stack.Screen name="SignUp" component={SignUp}/>
+            <Stack.Screen name="Test" component={Test}/>
           </Stack.Navigator>
         </NavigationContainer>
       ): (

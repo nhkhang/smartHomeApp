@@ -63,6 +63,17 @@ const styles = StyleSheet.create({
         marginTop: 30,
         backgroundColor: "#3377FF",
     },
+
+    connectBtn:{
+        width: "60%",
+        borderRadius: 8,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 30,
+        backgroundColor: "#3377FF",
+    },
+
     signinText: {
         fontSize: 24,
         fontStyle: "normal",
