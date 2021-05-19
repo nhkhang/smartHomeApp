@@ -1,20 +1,53 @@
 import React, {Component} from 'react';
-import {ScrollView, View, Text, FlatList, TouchableOpacity } from "react-native";
+import {ScrollView, View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import RNPickerSelect from "react-native-picker-select";
 import { createStackNavigator} from '@react-navigation/stack'
 import DetailsScreen from './Details'
 import styles from '../style/screen';
-import NotificationData from '../data/NotificationData';
+import LightModeData from '../data/LightModeData';
 
-class FlatListLightMode extends Component {
+function convertToDisplay(data){
+    var res = []
+    data.forEach(item => {
+        res.push({
+            label: item.name,
+            value: item.key,
+        })
+    });
+    return res;
+}
+
+
+
+
+class LighModeItem extends Component {
+
+    createButtonDeleteMode = (item) =>
+        Alert.alert(
+            "Notification",
+            "Do you want to delete " + this.props.item.name + " ?",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel"
+                },
+                {
+                    text: "Remove",
+                    onPress: ()=> {console.log("Removed " + this.props.item.key)}
+                }
+            ]
+        );   
+
     render() {
         return (
-            <View>
-                <TouchableOpacity style={styles.notificationCard} onPress={()=> navigation.navigate("Details", {screen: "Notification"})}>
-                    <View style={styles.titleNoti}>
-                        <Text style={this.props.item.type == "Warning" ? styles.warningNoti : (this.props.item.type == "Setting" ? styles.settingNoti : styles.alertNoti)}>{this.props.item.type}</Text>
-                        <Text style={styles.timeNoti}>{this.props.item.time}</Text>
-                    </View>                  
-                    <Text style={styles.contentNoti}>{this.props.item.content}</Text>
+            <View style={styles.modeView}>
+                <TouchableOpacity style={styles.editModeButton}>
+                    <Ionicons name="create-outline" size={24}/>
+                </TouchableOpacity>
+                <Text style={styles.nameMode}>{this.props.item.name}</Text>
+                <TouchableOpacity style={styles.deleteModeButton} onPress={this.createButtonDeleteMode}>
+                    <Ionicons name="trash-outline" size={24}/>
                 </TouchableOpacity>
             </View>
         ); 
@@ -23,18 +56,35 @@ class FlatListLightMode extends Component {
 
 function LightModesScreen({navigation}) {
     return (
-        <View style={styles.headerlightMode}>
-            <FlatList data={NotificationData}
-            renderItem={({item, index})=>{
-                // console.log(`Item = ${item}, index = ${index}`);
-                return(
-                    
-                    <FlatListLightMode item={item} index={index}>
-                    </FlatListLightMode>
-                );
-            }}>
-
-            </FlatList>
+        <View>
+            <Text>Choose mode:</Text>
+            <RNPickerSelect
+                value={"1"}
+                onValueChange={(value) => console.log(value)}
+                items={convertToDisplay(LightModeData)}
+                pickerProps={{style: styles.pickerProps}}
+            />
+            <TouchableOpacity style={styles.saveButton}>
+                <Text style={styles.saveButtonText}>Save</Text>
+            </TouchableOpacity>
+            <View style={styles.modeList}>
+                <FlatList data={LightModeData}
+                    renderItem={({item, index})=>{
+                        // console.log(`Item = ${item}, index = ${index}`);
+                        return(
+                            
+                            <LighModeItem item={item} index={index}>
+                            </LighModeItem>
+                        );
+                    }}>
+                </FlatList>
+            </View>
+            <View style={styles.createModeButtonContainer}>
+                <TouchableOpacity style={styles.createModeButton}>
+                    <Text>Create new mode </Text>
+                    <Ionicons name="add-circle-outline" size={24}/>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }

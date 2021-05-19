@@ -7,6 +7,7 @@ import RoomsData from '../data/RoomsData';
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Feature from './Feature';
+import Rooms from './Rooms'
 import RoomDetail from './RoomDetail';
 import Door from './Door';
 import Light from './Light';
@@ -218,6 +219,9 @@ function HomeStackScreen(){
       <HomeStack.Screen name="Feature" component={Feature} options={{
           headerShown: false,
         }}/>
+      <HomeStack.Screen name="Rooms" component={Rooms} options={{
+          headerShown: false,
+      }}/>
       <HomeStack.Screen name="RoomDetail" component={RoomDetail} options={({route}) => ({title: route.params.name})}/>
       <HomeStack.Screen name="Door" component={Door} options={({route}) => ({title: "Door " + route.params.name})}/>
       <HomeStack.Screen name="Light" component={Light} options={({route}) => ({title: "Light " + route.params.name})}/>

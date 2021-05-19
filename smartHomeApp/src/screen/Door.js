@@ -23,11 +23,11 @@ class DoorList extends Component {
     }
 
 
-    setDoorState = (value, index) => {
-        const tempData = _.cloneDeep(this.state.listDoors);
-        tempData[index].state = value ? "1" : "0";
-        this.setState({listDoors: tempData});
-    }
+    // setDoorState = (value, index) => {
+    //     const tempData = _.cloneDeep(this.state.listDoors);
+    //     tempData[index].state = value ? "1" : "0";
+    //     this.setState({listDoors: tempData});
+    // }
 
     doorItem = ({item, index}) => (
         <View style={styles.DoorScreen}>
@@ -40,12 +40,6 @@ class DoorList extends Component {
                 <View style={styles.doorText}>
                     <Text style={styles.doorName}>{item.name}</Text>
                     <Text style={styles.doorState}>{item.state === "1" ? "Locked" : "Not Locked"}</Text>
-                    <Switch
-                        value={item.state === "1" ? true : false}
-                        // thumbColor="#7f8c8d"
-                        // trackColor="#ecf0f1"
-                        onValueChange={(value) => this.setDoorState(value,index)}
-                    />
                 </View>
             </View>
         </View>

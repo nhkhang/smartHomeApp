@@ -569,6 +569,71 @@ const styles = StyleSheet.create({
     toggleLight: {
 
     },
+
+    // LightMode styles
+    saveButton: {
+        width: 80,
+        borderRadius: 8,
+        height: 40,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 30,
+        backgroundColor: "#aaa",
+    },
+    saveButtonText: {
+        fontSize: 18,
+        fontStyle: "normal",
+        color: "#000"
+    },
+    pickerProps: {
+        height: 35,
+        overflow: 'hidden',
+        width: "50%",
+    },
+    modeList: {
+        marginHorizontal: 10,
+        marginVertical: 15,
+    },
+    modeView: {
+        marginVertical: 10,
+        backgroundColor: "#CFD7E6",
+        height: 50,
+        borderRadius: 7,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    editModeButton: {
+        marginLeft: 10,
+        color: "#0A2866"
+    },
+    nameMode: {
+        fontSize: 16,
+        color: "#0A2866",
+    },
+    modeContainer: {
+        width: "100%",
+        alignItems:'center',
+        marginVertical: 10,
+    },
+    deleteModeButton:{
+        marginRight: 10,
+        color: "#f00",
+    },
+    createModeButtonContainer: {
+        alignItems: 'center',
+    },
+    createModeButton: {
+        width: "60%",
+        marginVertical: 10,
+        backgroundColor: "#CFD7E6",
+        height: 50,
+        borderRadius: 7,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: 'center'
+    }
+
 });
 
 export default styles;
