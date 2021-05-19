@@ -517,6 +517,7 @@ const styles = StyleSheet.create({
         color: "#0A2866"
     },
     doorState: {
+        marginRight: 20,
         fontSize: 18,
         color: "#0A2866",
     },
