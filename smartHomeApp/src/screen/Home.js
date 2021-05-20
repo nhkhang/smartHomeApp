@@ -136,7 +136,7 @@ function HomeScreen({route, navigation}) {
               </TouchableOpacity>
               <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("DetailsRoom", {name:"Water", id: "0"})}>
                   <MaterialCommunityIcons name="water-percent" size={30} />
-                  <Text style={styles.roomBtnText}>Water</Text>
+                  <Text style={styles.roomBtnText}>Humidity</Text>
               </TouchableOpacity>
             </ScrollView>
 

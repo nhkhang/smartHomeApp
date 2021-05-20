@@ -8,7 +8,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Door from './Door';
-import Light from './Light'
+import Light from './Light';
+import Temperature from './Temparature';
 
 function FeaturesScreen({navigation}) {
     return (
@@ -19,13 +20,13 @@ function FeaturesScreen({navigation}) {
                         <FontAwesome5Pro name={'door-open'} size={30} />
                         <Text>Door</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Door", {name: "General", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Window", {name: "General", id: "0"})}>
                         <MaterialCommunityIcons name="window-closed-variant" size={30} />
                         <Text>Window</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {name: "Temparature", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Temparature", {name: "General", id: "0"})}>
                         <FontAwesome5Pro name={'temperature-low'} size={30} />
                         <Text>Temparature</Text>
                     </TouchableOpacity>
@@ -35,11 +36,11 @@ function FeaturesScreen({navigation}) {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Details", {name: "Gas", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Gas", {name: "General", id: "0"})}>
                         <MaterialCommunityIcons name="gas-cylinder" size={30} />
                         <Text>Gas</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Details", {name: "Humidity", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Humidity", {name: "General", id: "0"})}>
                         <MaterialCommunityIcons name="water-percent" size={30} />
                         <Text>Humidity</Text>
                     </TouchableOpacity>
