@@ -16,7 +16,19 @@ class TemparatureList extends Component {
     }
 
     temparatureListItem = ({item, index}) => (
-        <Text>Window Item</Text>
+        <View style={styles.DoorScreen}>
+            <View style={styles.doorItem}>
+                <Image
+                    source = {{uri: item.url}}
+                    style={styles.doorImage}>
+                </Image>
+
+                <View style={styles.doorText}>
+                    <Text style={styles.doorName}>{item.name}</Text>
+                    <Text style={styles.doorState}>{item.temperature}</Text>
+                </View>
+            </View>
+        </View>
     )
 
     render() {
