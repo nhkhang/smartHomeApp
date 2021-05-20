@@ -662,8 +662,69 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         padding: 20,
-    }
+    },
 
+    // Light Mode Setting styles
+    containerLightMode: {
+        margin: 10,
+        marginTop: 20,
+    },
+    rowLightMode: {
+        flexDirection: "row",
+        height: 50,
+        padding: 10,
+    },
+    titleRow: {
+        fontWeight: 'bold',
+        fontSize: 17
+    },
+    nameMode: {
+        marginLeft: 31,
+        fontSize: 17,
+    },
+    stateModeOn: {
+        marginLeft: 30,
+        fontSize: 17,
+        color: "#0f0",
+        fontWeight: 'bold',
+    },
+    stateModeOff: {
+        marginLeft: 30,
+        fontSize: 17,
+        color: "#f00",
+        fontWeight: 'bold',
+    },
+
+    buttonRow: {
+        alignSelf: 'center',
+        width: "65%",
+        marginVertical: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    cancelLightModeButton: {
+        fontSize: 18,
+        color: "#f00"
+    },
+    saveLightModeButton: {
+        fontSize: 18,
+        color: "#00f",
+    },
+    dateRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginLeft: 10,
+        marginRight: 20,
+        marginTop: 10,
+    },
+    timeRow: {
+        margin: 30,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    timeLightMode: {
+        fontSize: 30,
+    }
 });
 
 export default styles;
