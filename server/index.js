@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 
 // Run:
-// node index.js --IO_PASSWORD=aio_WiDV89yEj0gueRFjNkMRvKXn4R4B
+// node index.js --IO_PASSWORD=aio_TvTg56hn37NwF1RgvCRjzCqJQN86
 
 const dbConfig = require("./config/db.config");
 mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DATABASE_NAME}`, {

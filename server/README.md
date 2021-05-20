@@ -13,9 +13,6 @@ unit = "
 
 ## TEST
 
-Run server in smartHomeApp/server
-node index.js --IO_PASSWORD=aio_WiDV89yEj0gueRFjNkMRvKXn4R4B
-
 Run client app in smartHomeApp/client
 expo start 
 
