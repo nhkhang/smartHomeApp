@@ -6,7 +6,6 @@ import RoomsData from '../data/RoomsData';
 
 var data = [];
 
-
 class WindowList extends Component {
     constructor() {
         super();

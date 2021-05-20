@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Text, Button, Touchable, TouchableOpacity } from "react-native";
 import { createStackNavigator} from '@react-navigation/stack'
-import DetailsScreen from './Details'
 import styles from '../style/screen'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import Icon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Door from './Door';
 import Light from './Light';
-import Temperature from './Temparature';
+import Temperature from './Temperature';
+import Gas from './Gas';
+import Humidity from './Humidity';
+import Window from './Window';
 
 function FeaturesScreen({navigation}) {
     return (
@@ -26,7 +26,7 @@ function FeaturesScreen({navigation}) {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Temparature", {name: "General", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Temperature", {name: "General", id: "0"})}>
                         <FontAwesome5Pro name={'temperature-low'} size={30} />
                         <Text>Temparature</Text>
                     </TouchableOpacity>
@@ -56,9 +56,12 @@ function FeaturesStackScreen() {
     return (
         <FeaturesStack.Navigator>
             <FeaturesStack.Screen name="Features" component={FeaturesScreen}/>
-            <FeaturesStack.Screen name="Details" component={DetailsScreen} options={({route}) => ({title: route.params.name})}/>
             <FeaturesStack.Screen name="Door" component={Door} options={({route}) => ({title: "Door " + route.params.name})}/>
             <FeaturesStack.Screen name="Light" component={Light} options={({route}) => ({title: "Light " + route.params.name})}/>
+            <FeaturesStack.Screen name="Gas" component={Gas} options={({route}) => ({title: "Gas" + route.params.name})}/>
+            <FeaturesStack.Screen name="Temperature" component={Temperature} options={({route}) => ({title: "Temperature" + route.params.name})}/>
+            <FeaturesStack.Screen name="Humidity" component={Humidity} options={({route}) => ({title: "Humidity" + route.params.name})}/>
+            <FeaturesStack.Screen name="Window" component={Window} options={({route}) => ({title: "Window" + route.params.name})}/>
         </FeaturesStack.Navigator>
     )
 }
