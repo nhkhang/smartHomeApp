@@ -572,32 +572,55 @@ const styles = StyleSheet.create({
     },
 
     // LightMode styles
+    headerLightMode: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: 10,
+         
+    },
     saveButton: {
         width: 80,
         borderRadius: 8,
-        height: 40,
+        height: 30,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 30,
-        backgroundColor: "#aaa",
+        backgroundColor: "#CFD7E6",
     },
     saveButtonText: {
         fontSize: 18,
         fontStyle: "normal",
         color: "#000"
     },
-    pickerProps: {
+    selectHeaderLightMode:{
         height: 35,
+        width: 120,
+        backgroundColor: "#CFD7E6",
+    },
+    pickerProps: {
+        height: "100%",
         overflow: 'hidden',
-        width: "50%",
+        width: "100%",
+        //width: 120,
+        
     },
     modeList: {
         marginHorizontal: 10,
         marginVertical: 15,
+        height: "60%",
     },
     modeView: {
         marginVertical: 10,
         backgroundColor: "#CFD7E6",
+        height: 50,
+        borderRadius: 7,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    modeViewChoose:{
+        marginVertical: 10,
+        backgroundColor: "#0EB2D6",
         height: 50,
         borderRadius: 7,
         flexDirection: "row",
@@ -621,18 +644,24 @@ const styles = StyleSheet.create({
         marginRight: 10,
         color: "#f00",
     },
+    footerLightMode:{
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+    },
     createModeButtonContainer: {
+        marginTop: 5,
         alignItems: 'center',
     },
     createModeButton: {
-        width: "60%",
-        marginVertical: 10,
+        width: "50%",
         backgroundColor: "#CFD7E6",
         height: 50,
         borderRadius: 7,
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: 'center'
+        justifyContent: "space-between",
+        padding: 20,
     }
 
 });

@@ -19,8 +19,6 @@ function convertToDisplay(data){
 }
 
 
-
-
 class LighModeItem extends Component {
 
     createButtonDeleteMode = (item) =>
@@ -41,7 +39,7 @@ class LighModeItem extends Component {
 
     render() {
         return (
-            <View style={styles.modeView}>
+            <View style={this.props.item.state=="1" ? styles.modeViewChoose : styles.modeView}>
                 <TouchableOpacity style={styles.editModeButton}>
                     <Ionicons name="create-outline" size={24}/>
                 </TouchableOpacity>
@@ -56,17 +54,26 @@ class LighModeItem extends Component {
 
 function LightModesScreen({navigation}) {
     return (
-        <View>
-            <Text>Choose mode:</Text>
-            <RNPickerSelect
-                value={"1"}
-                onValueChange={(value) => console.log(value)}
-                items={convertToDisplay(LightModeData)}
-                pickerProps={{style: styles.pickerProps}}
-            />
-            <TouchableOpacity style={styles.saveButton}>
-                <Text style={styles.saveButtonText}>Save</Text>
-            </TouchableOpacity>
+        <View style={styles.container}>
+            <View style={styles.headerLightMode}>
+                <View style={styles.textHeaderLightMode}>
+                    <Text>Choose mode:</Text>
+                </View>
+                <View style={styles.selectHeaderLightMode}>
+                    <RNPickerSelect
+                        value={"1"}
+                        onValueChange={(value) => console.log(value)}
+                        items={convertToDisplay(LightModeData)}
+                        pickerProps={{style: styles.pickerProps}}
+                    />
+                </View>
+                <View style={styles.saveHeaderLightMode}>
+                    <TouchableOpacity style={styles.saveButton}>
+                        <Text style={styles.saveButtonText}>Save</Text>
+                    </TouchableOpacity>
+                </View>             
+            </View>
+            
             <View style={styles.modeList}>
                 <FlatList data={LightModeData}
                     renderItem={({item, index})=>{
@@ -79,12 +86,16 @@ function LightModesScreen({navigation}) {
                     }}>
                 </FlatList>
             </View>
-            <View style={styles.createModeButtonContainer}>
-                <TouchableOpacity style={styles.createModeButton}>
-                    <Text>Create new mode </Text>
-                    <Ionicons name="add-circle-outline" size={24}/>
-                </TouchableOpacity>
+            <View style={styles.footerLightMode}>
+                <View style={styles.dividingLine}></View>
+                <View style={styles.createModeButtonContainer}>
+                    <TouchableOpacity style={styles.createModeButton}>
+                        <Text>Create new mode </Text>
+                        <Ionicons name="add-circle-outline" size={24}/>
+                    </TouchableOpacity>
+                </View>
             </View>
+            
         </View>
     );
 }
