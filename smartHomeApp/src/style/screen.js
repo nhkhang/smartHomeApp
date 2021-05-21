@@ -702,16 +702,23 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    cancelLightModeButton: {
+
+    lightModeButton:{
+        width: 100,
+        borderRadius: 8,
+        height: 40,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#CFD7E6",
+    },
+
+    cancelLightModeText:{
         fontSize: 18,
         color: "#f00"
     },
-    saveLightModeButton: {
+    saveLightModeText:{
         fontSize: 18,
         color: "#00f",
-    },
-    timeLightModeSetting:{
-
     },
     dateRow: {
         flexDirection: 'row',
@@ -727,6 +734,23 @@ const styles = StyleSheet.create({
     },
     timeLightMode: {
         fontSize: 30,
+    },
+    settimeButton:{
+        width: 80,
+        borderRadius: 8,
+        height: 30,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#CFD7E6",
+    },
+
+    //Mode Styles
+    containerMode: {
+        margin: 10,
+        marginTop: 20,
+    },
+    lightSystemMode:{
+        marginLeft: 10,
     }
 });
 

@@ -17,18 +17,18 @@ class DateTime extends Component{
         }
     }
 
-    handlePicker =  () => {
+    handlePicker =  (datetime) => {
         this.setState({
-            isVisible : false
-        })
-    }
-
-    showPicker =  (datetime) => {
-        this.setState({
-            isVisible : true,
+            isVisible : false,
             chosenDate: moment(datetime).format('YYYY-MM-DD HH:mm'),
             date: moment(datetime).format('YYYY-MM-DD'),
             time: moment(datetime).format('HH:mm')
+        })
+    }
+
+    showPicker =  () => {
+        this.setState({
+            isVisible : true,
         })
     }
 
@@ -52,10 +52,14 @@ class DateTime extends Component{
                     </Text>
                 </View>
                 
-                <TouchableOpacity onPress = {this.showPicker}>
-                    <Text>Set Time</Text>
-                </TouchableOpacity>
-
+                <View>
+                    <TouchableOpacity onPress = {this.showPicker}>
+                        <View style={styles.settimeButton}>
+                            <Text>Set Time</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                
                 <DateTimePicker
                     isVisible={this.state.isVisible}
                     onConfirm={this.handlePicker}
@@ -85,15 +89,16 @@ function LightModeSetting({route, navigation}) {
             </View>
             <View style={styles.dividingLine}></View>
             
-            <View style={styles.timeLightModeSetting}>
+            <View>
                 <DateTime></DateTime>
             </View>
+            <View style={styles.dividingLine}></View>
             <View style={styles.buttonRow}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Text style={styles.cancelLightModeButton}>Cancel</Text>
+                <TouchableOpacity style ={styles.lightModeButton} onPress={() => navigation.goBack()}>
+                    <Text style={styles.cancelLightModeText}>Cancel</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Text style={styles.saveLightModeButton}>Save</Text>
+                <TouchableOpacity style ={styles.lightModeButton} onPress={() => navigation.goBack()}>
+                    <Text style={styles.saveLightModeText}>Save</Text>
                 </TouchableOpacity>
             </View>
         
