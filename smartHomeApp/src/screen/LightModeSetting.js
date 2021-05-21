@@ -64,14 +64,7 @@ class DateTime extends Component{
                     is24Hour = {true}
                 />
 
-                <View style={styles.buttonRow}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Text style={styles.cancelLightModeButton}>Cancel</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Text style={styles.saveLightModeButton}>Save</Text>
-                    </TouchableOpacity>
-                </View>
+                
             </View>
         );
     }
@@ -94,6 +87,14 @@ function LightModeSetting({route, navigation}) {
             
             <View style={styles.timeLightModeSetting}>
                 <DateTime></DateTime>
+            </View>
+            <View style={styles.buttonRow}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text style={styles.cancelLightModeButton}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text style={styles.saveLightModeButton}>Save</Text>
+                </TouchableOpacity>
             </View>
         
         </View>
