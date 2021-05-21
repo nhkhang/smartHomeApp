@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity} from "react-native";
 import styles from '../style/screen'
 import DateTimePicker from "react-native-modal-datetime-picker";
 import { Component } from 'react';
-import Moment from 'react-moment';
 import moment from 'moment';
 
 class DateTime extends Component{
@@ -11,8 +10,8 @@ class DateTime extends Component{
         super()
         this.state = {
             isVisible: false,
-            chosenDate: moment(new Date().toLocaleString()).format('YYYY-MM-DD HH:mm'),
-            date: moment(new Date().toLocaleString()).format('YYYY-MM-DD'),
+            chosenDate: moment(new Date().toLocaleString()).format('MMM-DD-YYYY HH:mm'),
+            date: moment(new Date().toLocaleString()).format('MMM-DD-YYYY'),
             time: moment(new Date().toLocaleString()).format('HH:mm')
         }
     }
@@ -20,8 +19,8 @@ class DateTime extends Component{
     handlePicker =  (datetime) => {
         this.setState({
             isVisible : false,
-            chosenDate: moment(datetime).format('YYYY-MM-DD HH:mm'),
-            date: moment(datetime).format('YYYY-MM-DD'),
+            chosenDate: moment(datetime).format('MMM-DD-YYYY HH:mm'),
+            date: moment(datetime).format('MMM-DD-YYYY'),
             time: moment(datetime).format('HH:mm')
         })
     }

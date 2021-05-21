@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from "lodash";
 import { View, Text, TouchableOpacity, ScrollView, Switch } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import RNPickerSelect from "react-native-picker-select";
@@ -8,38 +9,44 @@ import RoomsData from '../data/RoomsData'
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { Component } from 'react';
 import DateTimePicker from "react-native-modal-datetime-picker";
-import Moment from 'react-moment';
 import moment from 'moment';
 import LightData from '../data/LightData';
 
 function convertToDisplay(data){
     var res = []
+    res.push({
+        label: "All room",
+        value: "0",
+    });
     data.forEach(item => {
         res.push({
             label: item.name,
             value: item.key,
         })
     });
+
     return res;
 }
 
 function filter(data, id) {
+    if(id==0) return data;
     return data.filter(item => item.room === id);
 }
+
 
 class ActivatedAt extends Component{
     constructor(){
         super()
         this.state = {
             isVisible: false,
-            chosenDate: moment(new Date().toLocaleString()).format('YYYY-MM-DD HH:mm'),
+            chosenDate: moment(new Date().toLocaleString()).format('MMM-DD-YYYY HH:mm'),
         }
     }
 
     handlePicker =  (datetime) => {
         this.setState({
             isVisible : false,
-            chosenDate: moment(datetime).format('YYYY-MM-DD HH:mm'),
+            chosenDate: moment(datetime).format('MMM-DD-YYYY HH:mm'),
         })
     }
 
@@ -87,14 +94,14 @@ class DeactivatedAt extends Component{
         super()
         this.state = {
             isVisible: false,
-            chosenDate: moment(new Date().toLocaleString()).format('YYYY-MM-DD HH:mm'),
+            chosenDate: moment(new Date().toLocaleString()).format('MMM-DD-YYYY HH:mm'),
         }
     }
 
     handlePicker =  (datetime) => {
         this.setState({
             isVisible : false,
-            chosenDate: moment(datetime).format('YYYY-MM-DD HH:mm'),
+            chosenDate: moment(datetime).format('MMM-DD-YYYY HH:mm'),
         })
     }
 
@@ -137,31 +144,85 @@ class DeactivatedAt extends Component{
     }
 }
 
-class LightItem extends Component{
+class LightItemList extends Component{
+    constructor({itemChoose}) {
+        super();
+        this.state = {
+            listLights : filter(LightData, itemChoose)
+        }
+    }
 
-    render(){
-        return(
-            <View style={styles.lightCard}>
-                <View style={styles.lightItem}>
-                    <View style={styles.headerLightItem}>
-                        <Text style={styles.nameLight}>{this.props.item.name}</Text>
-                        <Switch
-                            value={this.props.item.state === "1" ? true : false}
-                            style={styles.toggleLight}
-                        />
-                    </View>
-                    <View style={styles.bodyLightItem}>
-                        <MaterialCommunityIcons style={this.props.item.state == "1"?styles.lightOn:styles.lightOff} name={this.props.item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
-                    </View>
+
+    setLightState = (value, index) => {
+        const tempData = _.cloneDeep(this.state.listLights);
+        tempData[index].state = value ? "1" : "0";
+        this.setState({listLights: tempData});
+    }
+
+    LightItem = ({item,index}) => (
+        <View style={styles.lightCard}>
+            <View style={styles.lightItem}>
+                <View style={styles.headerLightItem}>
+                    <Text style={styles.nameLight}>{item.name}</Text>
+                    <Switch
+                        value={item.state == "1" ? true : false}
+                        style={styles.toggleLight}
+                        onValueChange={(value) => this.setLightState(value,index)}
+                    />
+                </View>
+                <View style={styles.bodyLightItem}>
+                    <MaterialCommunityIcons style={item.state == "1"?styles.lightOn:styles.lightOff} name={item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
                 </View>
             </View>
-        )    
+        </View>
+    )
+    render() {
+        return (
+            <View style={styles.lightSystemMode}>
+                <ScrollView>
+                    <FlatList
+                        data ={this.state.listLights}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={this.LightItem}>
+                    </FlatList>
+                </ScrollView>
+            </View>
+        )
     }
 }
 
-function Mode({route}) {
+function Mode({route, navigation}) {
 
-    const [itemChoose, setItemChoose] = React.useState("1");
+    const [itemChoose, setItemChoose] = React.useState("0");
+
+    const [listLight, setListLight] = React.useState(filter(LightData,itemChoose));
+
+    const setLightState = (value, index) => {
+        const tempData = _.cloneDeep(listLight);
+        tempData[index].state = value ? "1" : "0";
+        setListLight(tempData);
+    }
+
+    const LightItem = ({item,index}) => (
+        <View style={styles.lightCard}>
+            <View style={styles.lightItem}>
+                <View style={styles.headerLightItem}>
+                    <Text style={styles.nameLight}>{item.name}</Text>
+                    <Switch
+                        value={item.state == "1" ? true : false}
+                        style={styles.toggleLight}
+                        onValueChange={(value) => setLightState(value,index)}
+                    />
+                </View>
+                <View style={styles.bodyLightItem}>
+                    <MaterialCommunityIcons style={item.state == "1"?styles.lightOn:styles.lightOff} name={item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
+                </View>
+            </View>
+        </View>
+    )
+
+
 
     return (
         <View style={styles.containerMode}>
@@ -182,6 +243,7 @@ function Mode({route}) {
                         value = {itemChoose}
                         onValueChange={(value) =>{
                             setItemChoose(value);
+                            setListLight(filter(LightData, itemChoose));
                         }}
                         items={convertToDisplay(RoomsData)}
                         pickerProps={{style: styles.pickerProps}}
@@ -213,21 +275,21 @@ function Mode({route}) {
                 <View style={styles.rowLightMode}>
                     <Text style={styles.titleRow}>Light system:</Text>
                 </View>
+                
                 <View style={styles.lightSystemMode}>
                     <ScrollView>
                         <FlatList
-                            data ={filter(LightData,itemChoose)}
+                            data ={listLight}
                             horizontal
                             showsHorizontalScrollIndicator={false}
-                            renderItem={({item, index})=>{
-                                return(                                    
-                                    <LightItem item={item} index={index}>
-                                    </LightItem>
-                                );
-                            }}>
+                            renderItem={({item,index}) => (
+                                <LightItem item={item} index={index}/>
+                            )}>
                         </FlatList>
                     </ScrollView>
                 </View>
+
+
             </View>
             
             <View style={styles.dividingLine}></View>

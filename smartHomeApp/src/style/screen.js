@@ -534,6 +534,7 @@ const styles = StyleSheet.create({
     lightCard:{
         flex: 1,
         alignItems:'center',
+        marginRight: 10,
     },
     lightItem:{
         height: 120,
