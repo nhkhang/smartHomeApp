@@ -16,31 +16,31 @@ function FeaturesScreen({navigation}) {
         <View style = {styles.container}>
             <View style={styles.containerFeature}>
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Door", {name: "General", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Door", {name: " General", id: "0"})}>
                         <FontAwesome5Pro name={'door-open'} size={30} />
                         <Text>Door</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Window", {name: "General", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Window", {name: " General", id: "0"})}>
                         <MaterialCommunityIcons name="window-closed-variant" size={30} />
                         <Text>Window</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Temperature", {name: "General", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Temperature", {name: " General", id: "0"})}>
                         <FontAwesome5Pro name={'temperature-low'} size={30} />
                         <Text>Temperature</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Light", {name: "General", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Light", {name: " General", id: "0"})}>
                         <MaterialCommunityIcons name="lightbulb-on" size={30} />
                         <Text>Light</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.featureRow}>
-                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Gas", {name: "General", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Gas", {name: " General", id: "0"})}>
                         <MaterialCommunityIcons name="gas-cylinder" size={30} />
                         <Text>Gas</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Humidity", {name: "General", id: "0"})}>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Humidity", {name: " General", id: "0"})}>
                         <MaterialCommunityIcons name="water-percent" size={30} />
                         <Text>Humidity</Text>
                     </TouchableOpacity>

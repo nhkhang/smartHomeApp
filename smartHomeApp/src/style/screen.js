@@ -710,6 +710,9 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: "#00f",
     },
+    timeLightModeSetting:{
+
+    },
     dateRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',

@@ -13,7 +13,6 @@ function filter(data, id) {
 
 var data = [];
 
-
 class DoorList extends Component {
     constructor() {
         super();
@@ -21,13 +20,6 @@ class DoorList extends Component {
             listDoors : data
         } 
     }
-
-
-    // setDoorState = (value, index) => {
-    //     const tempData = _.cloneDeep(this.state.listDoors);
-    //     tempData[index].state = value ? "1" : "0";
-    //     this.setState({listDoors: tempData});
-    // }
 
     doorItem = ({item, index}) => (
         <View style={styles.DoorScreen}>
@@ -56,10 +48,6 @@ class DoorList extends Component {
         )
     }
 }
-
-
-
-
 
 function DoorScreen({route}) {
     const id = route.params.id;
