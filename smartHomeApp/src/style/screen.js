@@ -673,6 +673,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         height: 50,
         padding: 10,
+        alignItems: "center",
+        //justifyContent: "space-between"
     },
     titleRow: {
         fontWeight: 'bold',
@@ -751,7 +753,30 @@ const styles = StyleSheet.create({
     },
     lightSystemMode:{
         marginLeft: 10,
-    }
+    },
+    selectRoomMode:{
+        height: 40,
+        width: 180,
+        backgroundColor: "#CFD7E6", 
+    },
+    rowMode: {
+        flexDirection: "row",
+        height: 50,
+        padding: 10,
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    timeButtonMode:{
+        height: 40,
+        width: 180,
+        backgroundColor: "#CFD7E6",
+        alignItems: 'center', 
+        justifyContent: 'space-between',
+        fontSize: 18,
+        flexDirection: 'row',
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
 });
 
 export default styles;
