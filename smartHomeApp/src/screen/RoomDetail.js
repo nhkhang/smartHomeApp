@@ -14,7 +14,6 @@ import Window from './Window';
 
 function RoomDetail({route, navigation}){
     const {name, id} = route.params;
-    console.log(id);
     return (
         <View style = {styles.container}>
             <View style={styles.containerRoomDetail}>

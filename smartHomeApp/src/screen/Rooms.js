@@ -63,6 +63,9 @@ function RoomsStackScreen() {
                 name="RoomDetail"
                 component={RoomDetail}
                 options={({route}) => ({title: route.params.name})}
+                options={{
+                    headerShown: false
+                }}
             />
             {/* <RoomsStack.Screen
                 name="Door"

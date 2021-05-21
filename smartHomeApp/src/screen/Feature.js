@@ -28,7 +28,7 @@ function FeaturesScreen({navigation}) {
                 <View style={styles.featureRow}>
                     <TouchableOpacity style={styles.ViewBtnLeft} onPress={()=> navigation.navigate("Temperature", {name: "General", id: "0"})}>
                         <FontAwesome5Pro name={'temperature-low'} size={30} />
-                        <Text>Temparature</Text>
+                        <Text>Temperature</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Light", {name: "General", id: "0"})}>
                         <MaterialCommunityIcons name="lightbulb-on" size={30} />
@@ -56,12 +56,12 @@ function FeaturesStackScreen() {
     return (
         <FeaturesStack.Navigator>
             <FeaturesStack.Screen name="Features" component={FeaturesScreen}/>
-            <FeaturesStack.Screen name="Door" component={Door} options={({route}) => ({title: "Door " + route.params.name})}/>
-            <FeaturesStack.Screen name="Light" component={Light} options={({route}) => ({title: "Light " + route.params.name})}/>
-            <FeaturesStack.Screen name="Gas" component={Gas} options={({route}) => ({title: "Gas" + route.params.name})}/>
-            <FeaturesStack.Screen name="Temperature" component={Temperature} options={({route}) => ({title: "Temperature" + route.params.name})}/>
-            <FeaturesStack.Screen name="Humidity" component={Humidity} options={({route}) => ({title: "Humidity" + route.params.name})}/>
-            <FeaturesStack.Screen name="Window" component={Window} options={({route}) => ({title: "Window" + route.params.name})}/>
+            <FeaturesStack.Screen name="Door" component={Door}/>
+            <FeaturesStack.Screen name="Light" component={Light}/>
+            <FeaturesStack.Screen name="Gas" component={Gas}/>
+            <FeaturesStack.Screen name="Temperature" component={Temperature}/>
+            <FeaturesStack.Screen name="Humidity" component={Humidity}/>
+            <FeaturesStack.Screen name="Window" component={Window}/>
         </FeaturesStack.Navigator>
     )
 }
