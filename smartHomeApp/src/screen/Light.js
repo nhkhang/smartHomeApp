@@ -95,17 +95,17 @@ class LightList extends Component {
     }
 }
 
-function groupByKey(array, key) {
-    return array
-        .reduce((hash, obj) => {
-            if(obj[key] === undefined) return hash; 
-            return Object.assign(hash, { [obj[key]]:( hash[obj[key]] || [] ).concat(obj)})
-        }, {})
-}
+// function groupByKey(array, key) {
+//     return array
+//         .reduce((hash, obj) => {
+//             if(obj[key] === undefined) return hash; 
+//             return Object.assign(hash, { [obj[key]]:( hash[obj[key]] || [] ).concat(obj)})
+//         }, {})
+// }
 
-function grouping (data){
-    return groupByKey(data, 'room')
-}
+// function grouping (data){
+//     return groupByKey(data, 'room')
+// }
 
 function LightScreen({route}) {
     const {name, id} = route.params;

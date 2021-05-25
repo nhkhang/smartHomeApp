@@ -7,9 +7,15 @@ import RoomsData from '../data/RoomsData';
 import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Feature from './Feature';
+import Rooms from './Rooms'
 import RoomDetail from './RoomDetail';
 import Door from './Door';
 import Light from './Light';
+import Temperature from './Temperature';
+import Gas from './Gas';
+import Humidity from './Humidity';
+import Window from './Window';
+
 import { LineChart } from 'react-native-chart-kit';
 
 function TemparatureChart() {
@@ -120,7 +126,7 @@ function HomeScreen({route, navigation}) {
                 <Text style={styles.roomBtnText}>Window</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("DetailsRoom", {name:"Temperature", id: "0"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Temperature", {name:"General", id: "0"})}>
                 <FontAwesome5Pro name={'temperature-low'} size={30} />
                 <Text style={styles.roomBtnText}>Temperature</Text>
               </TouchableOpacity>
@@ -129,13 +135,13 @@ function HomeScreen({route, navigation}) {
                   <MaterialCommunityIcons name="lightbulb-on" size={30} />
                   <Text style={styles.roomBtnText}>Light</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("DetailsRoom", {name:"Gas", id: "0"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Gas", {name:"General", id: "0"})}>
                   <MaterialCommunityIcons name="gas-cylinder" size={30} />
                   <Text style={styles.roomBtnText}>Gas</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("DetailsRoom", {name:"Water", id: "0"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Humidity", {name:"General", id: "0"})}>
                   <MaterialCommunityIcons name="water-percent" size={30} />
-                  <Text style={styles.roomBtnText}>Water</Text>
+                  <Text style={styles.roomBtnText}>Humidity</Text>
               </TouchableOpacity>
             </ScrollView>
 
@@ -218,15 +224,18 @@ function HomeStackScreen(){
       <HomeStack.Screen name="Feature" component={Feature} options={{
           headerShown: false,
         }}/>
-      <HomeStack.Screen name="RoomDetail" component={RoomDetail} options={({route}) => ({title: route.params.name})}/>
-      <HomeStack.Screen name="Door" component={Door} options={({route}) => ({title: "Door " + route.params.name})}/>
-      <HomeStack.Screen name="Light" component={Light} options={({route}) => ({title: "Light " + route.params.name})}/>
-      <HomeStack.Screen name="DetailsRoom" component={DetailsScreen} options={({route}) => ({title: route.params.name})}/>
-      <HomeStack.Screen
-          name="ElementDetail"
-          component={DetailsScreen}
-          options={({route}) => ({title: route.params.name})}
-      />
+      <HomeStack.Screen name="Rooms" component={Rooms} options={{
+          headerShown: false,
+      }}/>
+      <HomeStack.Screen name="RoomDetail" component={RoomDetail} options={({route}) => ({title: route.params.name})} options={{
+          headerShown: false,
+      }}/>
+      <HomeStack.Screen name="Door" component={Door}/>
+      <HomeStack.Screen name="Light" component={Light}/>
+      <HomeStack.Screen name="Window" component={Window}/>
+      <HomeStack.Screen name="Gas" component={Gas}/>
+      <HomeStack.Screen name="Temperature" component={Temperature}/>
+      <HomeStack.Screen name="Humidity" component={Humidity}/>
     </HomeStack.Navigator>
   )
 }

@@ -528,6 +528,7 @@ const styles = StyleSheet.create({
         color: "#0A2866"
     },
     doorState: {
+        marginRight: 20,
         fontSize: 18,
         color: "#0A2866",
     },
@@ -544,6 +545,7 @@ const styles = StyleSheet.create({
     lightCard:{
         flex: 1,
         alignItems:'center',
+        marginRight: 10,
     },
     lightItem:{
         height: 120,
@@ -579,6 +581,213 @@ const styles = StyleSheet.create({
     },
     toggleLight: {
 
+    },
+
+    // LightMode styles
+    headerLightMode: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: 10,
+         
+    },
+    saveButton: {
+        width: 80,
+        borderRadius: 8,
+        height: 30,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#CFD7E6",
+    },
+    saveButtonText: {
+        fontSize: 18,
+        fontStyle: "normal",
+        color: "#000"
+    },
+    selectHeaderLightMode:{
+        height: 35,
+        width: 120,
+        backgroundColor: "#CFD7E6",
+    },
+    pickerProps: {
+        height: "100%",
+        overflow: 'hidden',
+        width: "100%",
+        //width: 120,
+        
+    },
+    modeList: {
+        marginHorizontal: 10,
+        marginVertical: 15,
+        height: "60%",
+    },
+    modeView: {
+        marginVertical: 10,
+        backgroundColor: "#CFD7E6",
+        height: 50,
+        borderRadius: 7,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    modeViewChoose:{
+        marginVertical: 10,
+        backgroundColor: "#0EB2D6",
+        height: 50,
+        borderRadius: 7,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    editModeButton: {
+        marginLeft: 10,
+        color: "#0A2866"
+    },
+    nameMode: {
+        fontSize: 16,
+        color: "#0A2866",
+    },
+    modeContainer: {
+        width: "100%",
+        alignItems:'center',
+        marginVertical: 10,
+    },
+    deleteModeButton:{
+        marginRight: 10,
+        color: "#f00",
+    },
+    footerLightMode:{
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    createModeButtonContainer: {
+        marginTop: 5,
+        alignItems: 'center',
+    },
+    createModeButton: {
+        width: "50%",
+        backgroundColor: "#CFD7E6",
+        height: 50,
+        borderRadius: 7,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: 20,
+    },
+
+    // Light Mode Setting styles
+    containerLightMode: {
+        margin: 10,
+        marginTop: 20,
+    },
+    rowLightMode: {
+        flexDirection: "row",
+        height: 50,
+        padding: 10,
+        alignItems: "center",
+        //justifyContent: "space-between"
+    },
+    titleRow: {
+        fontWeight: 'bold',
+        fontSize: 17
+    },
+    nameMode: {
+        marginLeft: 31,
+        fontSize: 17,
+    },
+    stateModeOn: {
+        marginLeft: 30,
+        fontSize: 17,
+        color: "#0f0",
+        fontWeight: 'bold',
+    },
+    stateModeOff: {
+        marginLeft: 30,
+        fontSize: 17,
+        color: "#f00",
+        fontWeight: 'bold',
+    },
+
+    buttonRow: {
+        alignSelf: 'center',
+        width: "65%",
+        marginVertical: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+
+    lightModeButton:{
+        width: 100,
+        borderRadius: 8,
+        height: 40,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#CFD7E6",
+    },
+
+    cancelLightModeText:{
+        fontSize: 18,
+        color: "#f00"
+    },
+    saveLightModeText:{
+        fontSize: 18,
+        color: "#00f",
+    },
+    dateRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginLeft: 10,
+        marginRight: 20,
+        marginTop: 10,
+    },
+    timeRow: {
+        margin: 30,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    timeLightMode: {
+        fontSize: 30,
+    },
+    settimeButton:{
+        width: 80,
+        borderRadius: 8,
+        height: 30,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#CFD7E6",
+    },
+
+    //Mode Styles
+    containerMode: {
+        margin: 10,
+        marginTop: 20,
+    },
+    lightSystemMode:{
+        marginLeft: 10,
+    },
+    selectRoomMode:{
+        height: 40,
+        width: 180,
+        backgroundColor: "#CFD7E6", 
+    },
+    rowMode: {
+        flexDirection: "row",
+        height: 50,
+        padding: 10,
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    timeButtonMode:{
+        height: 40,
+        width: 180,
+        backgroundColor: "#CFD7E6",
+        alignItems: 'center', 
+        justifyContent: 'space-between',
+        fontSize: 18,
+        flexDirection: 'row',
+        paddingLeft: 10,
+        paddingRight: 10,
     },
 });
 

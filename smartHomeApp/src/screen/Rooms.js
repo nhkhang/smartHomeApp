@@ -63,8 +63,11 @@ function RoomsStackScreen() {
                 name="RoomDetail"
                 component={RoomDetail}
                 options={({route}) => ({title: route.params.name})}
+                options={{
+                    headerShown: false
+                }}
             />
-            <RoomsStack.Screen
+            {/* <RoomsStack.Screen
                 name="Door"
                 component={Door}
                 options={({route}) => ({title: "Door " + route.params.name})}
@@ -78,7 +81,7 @@ function RoomsStackScreen() {
                 name="ElementDetail"
                 component={DetailsScreen}
                 options={({route}) => ({title: route.params.name})}
-            />
+            /> */}
         </RoomsStack.Navigator>
     )
 }
