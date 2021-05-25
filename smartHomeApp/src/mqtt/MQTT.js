@@ -1,95 +1,53 @@
-import React, { Component } from 'react';
-import init from 'react_native_mqtt';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Button,
-  Alert
- } from 'react-native';
- import AsyncStorage from '@react-native-community/async-storage';
-
-
-init({
-  size: 10000,
-  storageBackend: AsyncStorage,
-  defaultExpires: 1000 * 3600 * 24,
-  enableCache: true,
-  sync: {},
-});
-
-
+import AsyncStorage from '@react-native-community/async-storage';
+import topicList from './topics';
+// import mqtt from 'mqtt';
 export default class MQTT {
-
-  constructor(){
-    super();
-    this.onMessageArrived = this.onMessageArrived.bind(this)
-    this.onConnectionLost = this.onConnectionLost.bind(this)
-
-
-    const client = new Paho.MQTT.Client("io.adafruit.com", 80, 'someClientID',);
-    client.onMessageArrived = this.onMessageArrived;
-    client.onConnectionLost = this.onConnectionLost;
-    client.connect({ 
-      onSuccess: this.onConnect,
-      useSSL: false ,
-      userName: 'nhkhang',
-      password: 'aio_EMsV874aTTl0E7r60qHu20EGhZL9',
-      onFailure: (e) => {console.log("Here is the error: " , e); }
-
+  constructor() {
+    var mqtt = require('mqtt');
+    this.client  = mqtt.connect('http://io.adafruit.com', {
+      port: 80,
+      username: 'nhkhang',
+      password: 'aio_aCEU51nRq9kMPpLAYqHVyncIA7jU'
     });
 
     this.state = {
-      message: [''],
-      topic: '',
-      client,
-      messageToSend:'',
-      isConnected: false,
-    };
-  }
-
-  onMessageArrived(entry) {
-    console.log("onMessageArrived: "+ entry.payloadString);
-    this.setState({message: [...this.state.message, entry.payloadString]});
-  }
-
-  onConnect = () => {
-    this.setState({isConnected: true, error: ''})
-    console.log("Connected!!!");
-  };
-
-  subscribeTopic(){
-    const { client } = this.state;
-    console.log("Subscribe to topic: " + this.state.topic);
-    client.subscribe(this.state.topic);
-  }
-
-  sendMessage(){
-    let message = new Paho.MQTT.Message(this.state.messageToSend);
-    message.destinationName = this.state.topic;
-
-    if(this.state.isConnected){
-      this.state.client.send(message);    
-      console.log("Message sent: " + message.payloadString);
+      isConnected: false
     }
-    else{
-      this.connect(this.state.client)
-      .then(() => {
-        this.state.client.send(message);
-        this.setState({error: '', isConnected: true});
-      })
-      .catch((error)=> {
-        console.log(error);
-        this.setState({error: error});
-      });
+
+    this.client.on('connect', () => {
+      console.log("CONNECT!");
+      this.onConnect();
+    })
+  }
+
+  onConnect() {
+    this.state.isConnected = true;
+    this.subscribeAllTopic();
+
+    this.client.on('message', (topic, message) => {
+      // message is Buffer
+      console.log(message.toString());
+      this.client.end();
+    })
+  }
+
+  subscribeTopic(topic, data) {
+    try {
+      if (this.state.isConnected) {
+        this.client.subscribe(topic, (e) => {
+          if (!e) console.log("Done: Subscribe topic ", topic) 
+          else    console.error(e);
+        });
+      } else {
+        throw new Error("State is not connected");
+      }
+    } catch(e) {
+      console.error(e);
     }
   }
 
-  onConnectionLost(responseObject) {
-    if (responseObject.errorCode !== 0) {
-      console.log("onConnectionLost:" + responseObject.errorMessage);
-      this.setState({error: 'Lost Connection', isConnected: false});
-    }
-  }
+  subscribeAllTopic() {
+    topicList.map(topic => this.subscribeTopic(topic));
+    console.log("Done: subscribe all topic!");
+  }  
 }
