@@ -1,14 +1,6 @@
 const mqtt = require('mqtt'); 
 const adafruitConfig = require("../config/adafruit.config");
 
-class Client{
-
-    constructor(client, message){
-        this.client = client;
-        this.message = message;
-    }
-}
-
 module.exports = () => {
 
     var client = mqtt.connect('mqtts://io.adafruit.com', {
