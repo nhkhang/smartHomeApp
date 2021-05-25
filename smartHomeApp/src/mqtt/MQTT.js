@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import init from 'react_native_mqtt';
-import { AsyncStorage,
+import {
   StyleSheet,
   Text,
   View,
@@ -8,6 +8,8 @@ import { AsyncStorage,
   Button,
   Alert
  } from 'react-native';
+ import AsyncStorage from '@react-native-community/async-storage';
+
 
 init({
   size: 10000,
