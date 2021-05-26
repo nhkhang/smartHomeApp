@@ -1,7 +1,7 @@
 const User = require('../model/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { use } = require('../routes/auth')
+const user  = require('../routes/auth')
 
 const register = (req, res, next) =>{
     bcrypt.hash(req.body.password, 10, function(err, hashedPass){
@@ -18,7 +18,7 @@ const register = (req, res, next) =>{
             phone: req.body.phone
         })
         user.save()
-        .then(user=>{
+        .then(user => {
             res.json({
                 message: 'User added Successfully!'
             })
@@ -37,8 +37,8 @@ const login = (req, res, next) => {
     var password = req.body.password
 
     User.findOne({$or: [{email:username}, {phone:username}]})
-    .then (use=>{
-        if(use){
+    .then (user=>{
+        if(user){
             bcrypt.compare(password, user.password, function(err, result){
                 if(err){
                     req.json({
@@ -66,5 +66,5 @@ const login = (req, res, next) => {
 }
 
 module.exports = {
-    register
+    register, login
 }
