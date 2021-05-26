@@ -112,7 +112,6 @@ class LightGeneral extends Component{
         this.state = {
             data: data
         }
-        console.log(this.state.data);
     }
     //const [listLight, setListLight] = React.useState(filter(LightData,itemChoose));
 
@@ -162,6 +161,7 @@ class LightGeneral extends Component{
                 <FlatList
                     data = {this.state.data}
                     renderItem={this.LightGeneralItem}
+                    keyExtractor={(item, index) => index.toString()}
                 />
             </View>
         )
