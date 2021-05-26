@@ -62,10 +62,10 @@ export default class MQTT {
   }
 
   generatePassword() {
-    str1 = 'aio_mqRW';
-    str2 = '49GV7WWi';
-    str3 = 'jaWc2gK4g';
-    str4 = '5fVcrMl';
+    const str1 = 'aio_mqRW';
+    const str2 = '49GV7WWi';
+    const str3 = 'jaWc2gK4g';
+    const str4 = '5fVcrMl';
     return str1 + str2 + str3 + str4;
   }
 }
