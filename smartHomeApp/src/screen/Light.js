@@ -15,6 +15,7 @@ function filter(data, id) {
 var data = [];
 var countLeft = 0;
 
+const topic = "nhkhang/feeds/bk-iot-led";
 
 class LightList extends Component {
     constructor() {

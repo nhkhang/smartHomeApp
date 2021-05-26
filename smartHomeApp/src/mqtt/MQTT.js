@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import init from 'react_native_mqtt';
-import { AsyncStorage,
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { render } from 'react-dom';
+import styles from '../style/mqtt';
+import {
   StyleSheet,
   Text,
   View,
@@ -9,34 +11,25 @@ import { AsyncStorage,
   Alert
  } from 'react-native';
 
-init({
-  size: 10000,
-  storageBackend: AsyncStorage,
-  defaultExpires: 1000 * 3600 * 24,
-  enableCache: true,
-  sync: {},
-});
-
-
-export default class MQTT {
+export default class MQTT extends Component{
 
   constructor(){
     super();
     this.onMessageArrived = this.onMessageArrived.bind(this)
     this.onConnectionLost = this.onConnectionLost.bind(this)
 
-
-    const client = new Paho.MQTT.Client("io.adafruit.com", 80, 'someClientID',);
+    const client = new Paho.MQTT.Client("io.adafruit.com", 80, 'smartHomeApp',);
     client.onMessageArrived = this.onMessageArrived;
     client.onConnectionLost = this.onConnectionLost;
-    client.connect({ 
+
+    const options = { 
       onSuccess: this.onConnect,
       useSSL: false ,
       userName: 'nhkhang',
-      password: 'aio_EMsV874aTTl0E7r60qHu20EGhZL9',
+      password: 'aio_mqRW49GV7WWijaWc2gK4g5fVcrMl',
       onFailure: (e) => {console.log("Here is the error: " , e); }
-
-    });
+    }
+    client.connect(options);
 
     this.state = {
       message: [''],
@@ -53,7 +46,7 @@ export default class MQTT {
   }
 
   onConnect = () => {
-    this.setState({isConnected: true, error: ''})
+    this.setState({isConnected: true, ersror: ''})
     console.log("Connected!!!");
   };
 
@@ -66,13 +59,13 @@ export default class MQTT {
   sendMessage(){
     let message = new Paho.MQTT.Message(this.state.messageToSend);
     message.destinationName = this.state.topic;
-
+    
     if(this.state.isConnected){
       this.state.client.send(message);    
       console.log("Message sent: " + message.payloadString);
     }
     else{
-      this.connect(this.state.client)
+      this.state.client.connect(options)
       .then(() => {
         this.state.client.send(message);
         this.setState({error: '', isConnected: true});
@@ -90,4 +83,54 @@ export default class MQTT {
       this.setState({error: 'Lost Connection', isConnected: false});
     }
   }
+
+  render(){
+    return (
+      <View>
+        <Text style={styles.welcome}>
+          Welcome to React Native MQTT!
+        </Text>
+        <Text style={{color: 'red'}}>
+          {this.state.error}
+        </Text>
+        { this.state.isConnected ?
+            <Text style={{color: 'green'}}>
+              State: Connected
+            </Text> : null
+        }
+        
+        <View>
+          <Text>Subscribe to topic: </Text>
+          <TextInput
+            value={this.state.topic} 
+            onChangeText={(value => this.setState({topic: value}))} 
+            placeholder="Topic..."
+            style={styles.input} />
+          <Button onPress={this.subscribeTopic.bind(this) } title="Subscribe" />
+  
+          <Text style={styles.instructions}>
+            Message received: {this.state.message.join('')}
+          </Text>
+        </View>
+  
+        <View>
+          <Text>Publish to topic: </Text>
+          <TextInput
+            value={this.state.topic} 
+            onChangeText={(value => this.setState({topic: value}))} 
+            placeholder="Topic..."
+            style={styles.input} />
+          <Text>Message send: </Text>
+          <TextInput
+            value={this.state.messageToSend} 
+            onChangeText={(value => this.setState({messageToSend: value}))} 
+            placeholder="Message..."
+            style={styles.input} />
+          <Button onPress={this.sendMessage.bind(this) } title="Send Message" />
+        </View>
+      </View>
+    );
+  }
 }
+
+
