@@ -64,7 +64,7 @@ function App ({navigation}) {
   // }, []
   // );
   // ==========
-  
+
   const authContext = React.useMemo(
     () => ({
       signIn: async data => {
