@@ -45,7 +45,7 @@ export default class MQTT {
     })
   }
 
-  subscribeTopic(topic, data) {
+  subscribeTopic(topic) {
     try {
       this.client.subscribe(topic, (e) => {
         if (!e) {console.log("Done: Subscribe topic ", topic); return topic;} 
@@ -62,10 +62,10 @@ export default class MQTT {
   }
 
   generatePassword() {
-    str1 = 'aio_ZXev';
-    str2 = '69q2MQp0u';
-    str3 = 'PAmhVRBS';
-    str4 = 'Tv3uERs';
+    str1 = 'aio_mqRW';
+    str2 = '49GV7WWi';
+    str3 = 'jaWc2gK4g';
+    str4 = '5fVcrMl';
     return str1 + str2 + str3 + str4;
   }
 }
