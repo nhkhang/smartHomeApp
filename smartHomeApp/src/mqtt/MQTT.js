@@ -62,7 +62,6 @@ export default class MQTT {
   }
 
   generatePassword() {
-    // 'aio_ZXev69q2MQp0uPAmhVRBSTv3uERs'
     str1 = 'aio_ZXev';
     str2 = '69q2MQp0u';
     str3 = 'PAmhVRBS';
