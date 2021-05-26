@@ -4,7 +4,18 @@ import { View, Text, TouchableOpacity, FlatList, Switch} from "react-native";
 import styles from '../style/screen'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import LightData from '../data/LightData';
-import RoomsData from '../data/RoomsData'
+import RoomsData from '../data/RoomsData';
+import { ScrollView } from 'react-native-gesture-handler';
+
+function RoomName(){
+    roomName = [];
+    RoomsData.forEach(item => {
+        roomName[item.key] = item.name;
+    });
+    return roomName;
+}
+
+var roomName = RoomName();
 
 function filter(data, id) {
     if(id === "0")
@@ -14,7 +25,6 @@ function filter(data, id) {
 
 var data = [];
 var countLeft = 0;
-
 
 class LightList extends Component {
     constructor() {
@@ -94,32 +104,34 @@ class LightList extends Component {
         )
     }
 }
-var groups;
+
 
 class LightGeneral extends Component{
     constructor(){
         super();
         this.state = {
-            data: groups
+            data: data
         }
+        console.log(this.state.data);
     }
     //const [listLight, setListLight] = React.useState(filter(LightData,itemChoose));
 
-    const setLightState = (value, index) => {
-        const tempData = _.cloneDeep(listLight);
-        tempData[index].state = value ? "1" : "0";
-        setListLight(tempData);
+    setLightState = (value, index, idRoom) => {
+        const tempData = _.cloneDeep(this.state.data);
+        tempData[idRoom - 1][index].state = value ? "1" : "0";
+        this.setState({data: tempData});
     }
 
-    const LightItem = ({item,index}) => (
+    LightItem = ({item,index}) => (
         <View style={styles.lightCard}>
+            
             <View style={styles.lightItem}>
                 <View style={styles.headerLightItem}>
                     <Text style={styles.nameLight}>{item.name}</Text>
                     <Switch
                         value={item.state == "1" ? true : false}
                         style={styles.toggleLight}
-                        onValueChange={(value) => setLightState(value,index)}
+                        onValueChange={(value) => this.setLightState(value, index, item.room)}
                     />
                 </View>
                 <View style={styles.bodyLightItem}>
@@ -128,32 +140,30 @@ class LightGeneral extends Component{
             </View>
         </View>
     )
-    lightGeneralItem = ({name, list}) =>(
-        <View style={styles.rowLightMode}>
-            <Text style={styles.titleRow}>name</Text>
-        </View>
+    LightGeneralItem = ({item, index}) => (
         <View style={styles.lightSystemMode}>
+            
+            <View style={styles.rowLightMode}>
+                <Text style={styles.titleRow}>{roomName[index + 1]}</Text>
+            </View>
             <ScrollView>
                 <FlatList
-                    data ={list}
+                    data ={item}
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    renderItem={({item,index}) => (
-                        <LightItem item={item} index={index}/>
-                    )}>
+                    renderItem={this.LightItem}>
                 </FlatList>
             </ScrollView>
         </View>
     )
     render(){
-        var data = this.state.data;
-
-        Object.keys(data).forEach(key =>{
-            let value = data[key];
-            console.log(`${key}: ${value}`);
-        })
         return(
-            <Text>Light General</Text>
+            <View>
+                <FlatList
+                    data = {this.state.data}
+                    renderItem={this.LightGeneralItem}
+                />
+            </View>
         )
     }
 }
@@ -170,13 +180,25 @@ function grouping(data){
     return groupByKey(data, 'room')
 }
 
+function convertObjectToArray(obj){
+    var entries = Object.entries(obj);
+    var arr = [];
+    entries.forEach(([key, value]) => {
+        arr[key] = value;
+    })
+    arr.shift();
+    return arr;
+}
+
 function LightScreen({route}) {
     const {name, id} = route.params;
-    if(id==0){
-        groups = grouping(LightData);
-        console.log(groups);
+    if(id=="0"){
+        data = grouping(LightData);
+
+        data = convertObjectToArray(data);
         return(
             <LightGeneral/>
+            // <Text>Hello</Text>
         )
         
     }
