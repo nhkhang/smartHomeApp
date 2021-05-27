@@ -4,7 +4,7 @@ import messHandler from './messHandler';
 export default class MQTT {
   constructor() {
     var mqtt = require('mqtt');
-    this.client  = mqtt.connect('mqtts://io.adafruit.com', {
+    this.client  = mqtt.connect('io.adafruit.com', {
       clientId: 'smartHomeApp',
       username: 'nhkhang',
       password: "aio_mqRW49GV7WWijaWc2gK4g5fVcrMl"
