@@ -6,7 +6,8 @@ class MessHandler {
         console.log("handle led", data);
         storeData('led', data);
         setTimeout(()=>{
-            retrieveData('led');
+            var value = retrieveData('led');
+            console.log(value);
         }, 3000);
     }
     handleHudmid(data) {
@@ -27,6 +28,7 @@ const storeData = async (key, val) => {
     try {
         console.log(`Storage store ${key} -`, val);
         val = JSON.stringify(val);
+        console.log(val);
         await AsyncStorage.setItem(key, val);
     } catch (error) {
         // Error saving data

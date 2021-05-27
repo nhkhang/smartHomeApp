@@ -14,6 +14,14 @@ export default class MQTT extends Component{
     this.client.onMessageArrived = this.onMessageArrived;
     this.client.onConnectionLost = this.onConnectionLost;
 
+    this.state = {
+      isConnected: false,
+    };
+
+    this.connect();
+  }
+
+  connect = () => {
     const options = { 
       onSuccess: this.onConnect,
       useSSL: false ,
@@ -22,28 +30,29 @@ export default class MQTT extends Component{
       onFailure: (e) => {console.log("Here is the error: " , e); }
     }
     this.client.connect(options);
-
-    this.state = {
-      isConnected: false,
-    };
   }
 
   onMessageArrived(entry) {
     console.log("onMessageArrived: "+ entry.payloadString);
+    this.handleMessage(entry.topic, entry.padloadString);
   }
 
   onConnect = () => {
     this.state.isConnected = true;
     console.log("Connected!!!");
     this.subscribeAllTopic();
-    this.publishMessage("nhkhang/feeds/bk-iot-led", "testABC");
   };
 
   subscribeTopic(topic) {
     try {
-      this.client.subscribe(topic, 
-        {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
-        onFailure: (e) => (console.log(e))});
+      if (this.client.isConnected){
+        this.client.subscribe(topic, 
+          {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
+          onFailure: (e) => (console.log(e))});
+      }
+      else{
+        this.connect();
+      }
     } catch(e) {
       console.error(e);
     }
@@ -58,7 +67,7 @@ export default class MQTT extends Component{
         console.log("Message sent: " + message.payloadString);   
       }
       else{
-        console.log("Fail to connect!");
+        this.connect();
       }
     }
     catch(e){
@@ -73,10 +82,9 @@ export default class MQTT extends Component{
     }
   }
 
-  handleMessage(topic, message) {
+  handleMessage(topic, data) {
     try {
       topic = topic.split('/')[2]; // Get the part has 'bk=iot-ligth'
-      let data = JSON.parse(message);
       switch(topic) {
         case 'bk-iot-led':      messHandler.handleLed(data); break;
         case 'bk-iot-humid':    messHandler.handleHumid(data); break;
