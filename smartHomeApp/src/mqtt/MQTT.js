@@ -18,7 +18,7 @@ export default class MQTT extends Component{
       onSuccess: this.onConnect,
       useSSL: false ,
       userName: 'nhkhang',
-      password: 'aio_mqRW49GV7WWijaWc2gK4g5fVcrMl',
+      password: 'aio_YGcn64qyrXaV' + 'DgAimW3kFitHmf3J',
       onFailure: (e) => {console.log("Here is the error: " , e); }
     }
     this.client.connect(options);
