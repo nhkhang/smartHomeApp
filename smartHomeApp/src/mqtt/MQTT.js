@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import topicList from './topics';
-// import mqtt from 'mqtt';
+import {topicList} from './topics';
+import messHandler from './messHandler';
 export default class MQTT {
   constructor() {
     var mqtt = require('mqtt');
@@ -39,9 +39,26 @@ export default class MQTT {
 
     this.client.on('message', (topic, message) => {
       // message is Buffer
-      console.log(message.toString());
+      console.log(`${message.toString()} from ${topic}`);
+      this.handleMessage(topic, message);
       this.client.end();
     })
+  }
+
+  handleMessage(topic, message) {
+    try {
+      topic = topic.split('/')[2]; // Get the part has 'bk=iot-ligth'
+      let data = JSON.parse(message);
+      switch(topic) {
+        case 'bk-iot-led':      messHandler.handleLed(data); break;
+        case 'bk-iot-humid':    messHandler.handleHumid(data); break;
+        case 'bk-iot-light':    messHandler.handleLight(data); break;
+        case 'bk-iot-gas':      messHandler.handleGas(data); break;
+        case 'bk-iot-magnetic': messHandler.handleMagnetic(data); break;
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   subscribeTopic(topic) {
@@ -61,10 +78,10 @@ export default class MQTT {
   }
 
   generatePassword() {
-    str1 = 'aio_mqRW';
-    str2 = '49GV7WWi';
-    str3 = 'jaWc2gK4g';
-    str4 = '5fVcrMl';
+    const str1 = 'aio_mqRW';
+    const str2 = '49GV7WWi';
+    const str3 = 'jaWc2gK4g';
+    const str4 = '5fVcrMl';
     return str1 + str2 + str3 + str4;
   }
 }

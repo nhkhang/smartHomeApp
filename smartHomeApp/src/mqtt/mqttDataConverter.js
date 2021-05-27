@@ -1,31 +1,3 @@
-// export default model = {
-//     led: {
-//         "id":"1",
-//         "name":"LED",
-//         "data":"X",
-//         "unit":""
-//     },
-//     tempHumid: {
-//         "id":"7",
-//         "name":"TEMP-HUMID",
-//         "data":"x",
-//         "unit": "C"
-//     },
-//     magnetic: {
-//         "id":"8",
-//         "name":"MAGNETIC",
-//         "data":"x",
-//         "unit":""
-//     },
-//     light: {
-//         "id":"13",
-//         "name":"LIGHT",
-//         "data":"X",
-//         "unit":""
-//     }
-// }
-
-
 export default class mqttDataConverter {
     // Convert data from mqtt
 
