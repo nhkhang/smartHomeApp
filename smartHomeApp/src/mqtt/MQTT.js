@@ -4,11 +4,10 @@ import topicList from './topics';
 export default class MQTT {
   constructor() {
     var mqtt = require('mqtt');
-    const pass = this.generatePassword();
-    this.client  = mqtt.connect('http://io.adafruit.com', {
-      port: 80,
+    this.client  = mqtt.connect('mqtts://io.adafruit.com', {
+      clientId: 'smartHomeApp',
       username: 'nhkhang',
-      password: pass
+      password: "aio_mqRW49GV7WWijaWc2gK4g5fVcrMl"
     });
 
     this.state = {
