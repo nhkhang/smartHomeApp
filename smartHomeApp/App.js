@@ -6,7 +6,27 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AuthContext } from './src/api/context';
 import SignIn from './src/screen/SignIn';
 import SignUp from './src/screen/SignUp'
+import { render } from 'react-dom';
 import MQTT from './src/mqtt/MQTT';
+
+import init from 'react_native_mqtt';
+import { AsyncStorage,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  Alert
+ } from 'react-native';
+import { ContributionGraph } from 'react-native-chart-kit';
+
+init({
+  size: 10000,
+  storageBackend: AsyncStorage,
+  defaultExpires: 1000 * 3600 * 24,
+  enableCache: true,
+  sync: {},
+});
 
 function App ({navigation}) {
   const [state, dispatch] = React.useReducer(
@@ -40,31 +60,25 @@ function App ({navigation}) {
     }
   );
 
-  // Initialize MQTT
-  var mqtt = new MQTT();
+  React.useEffect(() => {
+    const bootstrapAsync = async () => {
+      let userToken;
 
-  // =====This useEffect calls this App twice, consider another options for this=====
-  // React.useEffect(() => {
-  //   const bootstrapAsync = async () => {
-  //     let userToken;
+      try{
+        userToken = await SecureStore.getItemAsync("userToken");
+      }
+      catch(e){
+        // Restoring token fail
+      }
 
-  //     try{
-  //       userToken = await SecureStore.getItemAsync("userToken");
-  //     }
-  //     catch(e){
-  //       // Restoring token fail
-  //     }
-
-  //     // Need to validate token in production apps
+      // Need to validate token in production apps
       
 
-  //     dispatch({type: "RESTORE_TOKEN", token: userToken});
-  //   };
-  //   bootstrapAsync();
-  // }, []
-  // );
-  // ==========
-
+      dispatch({type: "RESTORE_TOKEN", token: userToken});
+    };
+    bootstrapAsync();
+  }, []);
+  
   const authContext = React.useMemo(
     () => ({
       signIn: async data => {
@@ -88,6 +102,33 @@ function App ({navigation}) {
   );
 
   const Stack = createStackNavigator();
+  
+  const init = new MQTT();
+  // return (
+  //   <AuthContext.Provider value={authContext}>
+  //     {state.userToken == null ? (
+  //       <NavigationContainer>
+  //         <Stack.Navigator
+  //           initialRouteName="SignIn"
+  //           screenOptions={{
+  //             headerShown: false
+  //           }}
+  //         >
+  //           <Stack.Screen name="SignIn" component={SignIn}/>
+  //           <Stack.Screen name="SignUp" component={SignUp}/>
+  //         </Stack.Navigator>
+  //       </NavigationContainer>
+  //     ): (
+  //       <TabNavigator />
+  //     )} 
+  //   </AuthContext.Provider>
+  // )
+  const container = {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  };
 
   return (
     <AuthContext.Provider value={authContext}>
@@ -108,7 +149,7 @@ function App ({navigation}) {
       )} 
     </AuthContext.Provider>
   )
-}
+};
 
 
 export default App;
