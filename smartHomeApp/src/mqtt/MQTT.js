@@ -33,14 +33,16 @@ export default class MQTT extends Component{
   }
 
   onMessageArrived(entry) {
-    console.log("onMessageArrived: "+ entry.payloadString);
-    this.handleMessage(entry.topic, entry.padloadString);
+    var message = entry.payloadString;
+    console.log("onMessageArrived: " + message);
+    this.handleMessage(entry.topic, message);
   }
 
   onConnect = () => {
     this.state.isConnected = true;
     console.log("Connected!!!");
     this.subscribeAllTopic();
+    messHandler.init([]);
   };
 
   subscribeTopic(topic) {
@@ -100,13 +102,5 @@ export default class MQTT extends Component{
   async subscribeAllTopic() {
     let list = new Promise((resolve, reject)=>resolve(topicList.map(topic => this.subscribeTopic(topic))));
     return list;
-  }
-
-  generatePassword() {
-    const str1 = 'aio_mqRW';
-    const str2 = '49GV7WWi';
-    const str3 = 'jaWc2gK4g';
-    const str4 = '5fVcrMl';
-    return str1 + str2 + str3 + str4;
   }
 }

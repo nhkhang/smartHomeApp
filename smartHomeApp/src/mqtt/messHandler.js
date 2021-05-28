@@ -1,51 +1,71 @@
-import dataConverter from './mqttDataConverter';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import { map } from '../data/LightData';
+import ConvertData from './ConvertData';
 class MessHandler {
-    handleLed(data) {
-        console.log("handle led", data);
-        storeData('led', data);
-        setTimeout(()=>{
-            var value = retrieveData('led');
-            console.log(value);
-        }, 3000);
+    init(data){
+        storeData("led", data);
     }
-    handleHudmid(data) {
-        console.log("handle");
+    handleLed(data) {
+        updateData("led", data);
+    }
+    handleHumid(data) {
+        updateData("humid", data);
     }
     handleLight(data) {
-        console.log("handle");
+        updateData("light", data);
     }
     handleGas(data) {
-        console.log("handle");
+        updateData("gas", data);
     }
     handleMagnetic(data) {
-        console.log("handle");
+        updateData("magnetic", data);
     }
 }
 
 const storeData = async (key, val) => {
     try {
-        console.log(`Storage store ${key} -`, val);
         val = JSON.stringify(val);
-        console.log(val);
         await AsyncStorage.setItem(key, val);
+        console.log(`Storage store ${key} -`, val);
     } catch (error) {
         // Error saving data
         console.error(`Can't store data with key '${key}' and val '${val}: ${error}`);
     }
 };
 
+const updateData = async (key, val) => {
+    try{
+        var array = await retrieveData(key);
+        var converted = ConvertData.convertLight(JSON.parse(val));
+        const idx = array.findIndex(data => data.key == converted.key);
+        if (idx == -1)
+            array.push(converted);
+        else
+            array[idx] = converted;
+        storeData(key, array);
+    }
+    catch(err) {
+        console.log(`Can't update data because: ` + err);
+    }
+}
+
 const retrieveData = async (key) => {
     try {
-      const value = await AsyncStorage.getItem(key);
+      var value = await AsyncStorage.getItem(key);
       if (value !== null) {
         value = JSON.parse(value);
+        if (value != null){
+            console.log(`Empty array`);
+            return value;
+        }
+        value = JSON.parse(value);
+        console.log(`Retrieve ` + value + ` from ` + key);
         return value;
       }
     } catch (error) {
       // Error retrieving data
       console.error(`Can't get data with key '${key}': ${error}`);
+      return null;
     }
 };
 

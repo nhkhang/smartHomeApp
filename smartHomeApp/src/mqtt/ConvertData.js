@@ -1,5 +1,6 @@
-export default class mqttDataConverter {
-    // Convert data from mqtt
+import messHandler from './messHandler';
+
+class ConvertData {
 
     // id of room contains light id
     roomID = {
@@ -22,10 +23,10 @@ export default class mqttDataConverter {
             "key": lightData.id,
             "name": lightData.name + lightData.id,
             "room": this.getRoomID(this.roomID.light, lightData.id),
-            "state": lightData.data == "0" ? "0" : "1",
+            "state": lightData.data,
             "Intensity": String(lightData.data),
         }
-    }
+    }   
 
     convertDoor(doorData) {
         return {
@@ -54,3 +55,5 @@ export default class mqttDataConverter {
         }
     }
 }
+
+export default new ConvertData();
