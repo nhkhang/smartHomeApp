@@ -19,6 +19,9 @@ init({
 });
 
 
+// Initialize MQTT
+var mqtt = new MQTT();
+
 function App ({navigation}) {
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
@@ -51,8 +54,6 @@ function App ({navigation}) {
     }
   );
 
-  // Initialize MQTT
-  var mqtt = new MQTT();
 
   // =====This useEffect calls this App twice, consider another options for this=====
   // React.useEffect(() => {

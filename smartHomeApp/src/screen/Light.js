@@ -3,7 +3,7 @@ import _ from "lodash";
 import { View, Text, TouchableOpacity, FlatList, Switch} from "react-native";
 import styles from '../style/screen'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import LightData from '../data/LightData';
+import getData from '../data/getData';
 
 
 function filter(data, id) {
@@ -68,7 +68,7 @@ class LightList extends Component {
     )
 
     render() {
-        var data=this.state.listLights;
+        var data= this.state.listLights;
         var right = Math.floor(data.length/2);
         var left = data.length - right;
         var dataLeft = data.slice(0,left);
@@ -109,7 +109,7 @@ class LightList extends Component {
 
 function LightScreen({route}) {
     const {name, id} = route.params;
-    data = filter(LightData, id);
+    data = filter(getData("led"), id);
     countLeft = Math.ceil(data.length/2);
     return (
         <LightList/>

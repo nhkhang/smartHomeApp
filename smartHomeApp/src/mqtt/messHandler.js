@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import ConvertData from './ConvertData';
 import { topicList } from './topics';
+
 class MessHandler {
     init(data){
-        var topics = ["led", "humid", "light", "gas", "magnetic"]
+        var topics = ["led", "door", "room"];
         topics.map(topic => storeData(topic, data));
     }
     handleLed(data) {
@@ -21,11 +22,16 @@ class MessHandler {
     handleMagnetic(data) {
         updateData("magnetic", data);
     }
+    getData(key){
+        return retrieveData(key);
+    }
 }
 
 const storeData = async (key, val) => {
     try {
         val = JSON.stringify(val);
+        if (key == "magnetic") key = "door";
+        else if (key == "gas" || key == "humid" || key == "light") key = "room";
         await AsyncStorage.setItem(key, val);
         console.log(`Storage store ${key} -`, val);
     } catch (error) {
@@ -37,7 +43,7 @@ const storeData = async (key, val) => {
 const updateData = async (key, val) => {
     try{
         var array = await retrieveData(key);
-        var converted = ConvertData.convertLight(JSON.parse(val));
+        var converted = ConvertData.convert(key, JSON.parse(val));
         const idx = array.findIndex(data => data.key == converted.key);
         if (idx == -1)
             array.push(converted);
