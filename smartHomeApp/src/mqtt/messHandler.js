@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { map } from '../data/LightData';
 import ConvertData from './ConvertData';
+import { topicList } from './topics';
 class MessHandler {
     init(data){
-        storeData("led", data);
+        var topics = ["led", "humid", "light", "gas", "magnetic"]
+        topics.map(topic => storeData(topic, data));
     }
     handleLed(data) {
         updateData("led", data);
