@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import getData from '../data/getData';
 import LightData from '../data/LightData';
 import {mqtt} from "../mqtt/MQTT";
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 function filter(data, id) {
@@ -21,13 +22,10 @@ var countLeft = 0;
 class LightList extends Component {
     constructor() {
         super();
-        getData("light").then((res) => {
-            this.state = {
-                listLights: res,
-                countLeft: 0
-            }
-        })
-        console.log("Hi");
+        this.state = {
+            listLights: data,
+            countLeft: 0
+        }
     }
 
 
@@ -73,21 +71,13 @@ class LightList extends Component {
         </View>
     )
 
-    async componentDidMount() {
-        getData("light").then(res => {
-            this.state = {
-                listLights: res
-            }
-        })
-    }
-
     render() {
-        var data= this.state.listLights;
+        var data = this.state.listLights;
+        console.log(data);
         var right = Math.floor(data.length/2);
         var left = data.length - right;
         var dataLeft = data.slice(0,left);
         var dataRight = data.slice(left,data.length);
-
         return (
             <View style = {styles.container}>
                 <View style={styles.containerLight}>
@@ -109,13 +99,15 @@ class LightList extends Component {
     }
 }
 
-function LightScreen({route}) {
+async function LightScreen({route}) {
     const {name, id} = route.params;
-    data = filter(getData("relay"), id);
-    countLeft = Math.ceil(data.length/2);
-    return (
-        <LightList/>
-    );
+    AsyncStorage.getItem('relay', (e, value) => {
+        data = filter(value, id);
+        countLeft = Math.ceil(data.length/2);
+        return (
+            <LightList/>
+        );
+    })
 }
 
 export default LightScreen;
