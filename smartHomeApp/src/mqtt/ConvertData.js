@@ -3,6 +3,12 @@ import DoorData from '../data/DoorData';
 class ConvertData {
     // id of room contains light id
     roomID = {
+        relay: {
+            "1": ["1", "2", "3"],
+            "2": ["4", "5"],
+            "3": ["6", "7", "8"],
+            "4": ["9", "10"]
+        },
         door: {
             "1": ["1"],
             "2": ["2", "3", "4"],
@@ -38,7 +44,7 @@ class ConvertData {
         return {
             "key": relayData.id,
             "name": relayData.name + relayData.id,
-            "room": this.getRoomID(this.roomID.led, ledData.id),
+            "room": this.getRoomID(this.roomID.relay, relayData.id),
             "state": relayData.data,
         }
     }   

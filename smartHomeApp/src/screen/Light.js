@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import _ from "lodash";
 import { View, Text, TouchableOpacity, FlatList, Switch} from "react-native";
 import styles from '../style/screen'
@@ -6,7 +6,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import getData from '../data/getData';
 import LightData from '../data/LightData';
 import {mqtt} from "../mqtt/MQTT";
-
 
 function filter(data, id) {
     if(id === "0")
@@ -16,24 +15,30 @@ function filter(data, id) {
 
 var data = [];
 var countLeft = 0;
-
-
 class LightList extends Component {
-    constructor() {
-        super();
-        getData("light").then((res) => {
-            this.state = {
-                listLights: res,
-                countLeft: 0
-            }
-        })
-        console.log("Hi");
+    constructor(props) {
+        super(props);
+        this.state = {
+            listLights: [],
+            id: props.id,
+            isLoading: true
+        }
+        console.log("Init");
     }
 
+    async componentDidMount() {
+        getData("relay").then(res => {
+            this.setState({
+                listLights: res,
+                isLoading: false
+            });
+        });
+    }
 
     setLightState = (value, index) => {
         const tempData = _.cloneDeep(this.state.listLights);
         tempData[index].state = value ? "1" : "0";
+        mqtt.changeLight(index, tempData[index].state);
         this.setState({listLights: tempData});
     }
 
@@ -73,48 +78,43 @@ class LightList extends Component {
         </View>
     )
 
-    async componentDidMount() {
-        getData("light").then(res => {
-            this.state = {
-                listLights: res
-            }
-        })
-    }
-
     render() {
-        var data= this.state.listLights;
-        var right = Math.floor(data.length/2);
-        var left = data.length - right;
-        var dataLeft = data.slice(0,left);
-        var dataRight = data.slice(left,data.length);
+        console.log(`load? ${this.state.isLoading}`);
+        if (this.state.isLoading == true) {
+            return <View><Text>Loading...</Text></View>;
+        } else {
+            var data= this.state.listLights;
+            var right = Math.floor(data.length/2);
+            var left = data.length - right;
+            var dataLeft = data.slice(0,left);
+            var dataRight = data.slice(left,data.length);
 
-        return (
-            <View style = {styles.container}>
-                <View style={styles.containerLight}>
-                    <View style={styles.lightCardCol}>
-                        <FlatList
-                            data={dataLeft}
-                            renderItem={this.lightItemLeft}
-                        />
-                    </View>
-                    <View style={styles.lightCardCol}>
-                        <FlatList
-                            data={dataRight}
-                            renderItem={this.lightItemRight}
-                        />
+            return (
+                <View style = {styles.container}>
+                    <View style={styles.containerLight}>
+                        <View style={styles.lightCardCol}>
+                            <FlatList
+                                data={dataLeft}
+                                renderItem={this.lightItemLeft}
+                            />
+                        </View>
+                        <View style={styles.lightCardCol}>
+                            <FlatList
+                                data={dataRight}
+                                renderItem={this.lightItemRight}
+                            />
+                        </View>
                     </View>
                 </View>
-            </View>
-        )
+            )
+        }
     }
 }
 
 function LightScreen({route}) {
     const {name, id} = route.params;
-    data = filter(getData("relay"), id);
-    countLeft = Math.ceil(data.length/2);
     return (
-        <LightList/>
+        <LightList id={id}/>
     );
 }
 
