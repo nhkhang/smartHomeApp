@@ -127,8 +127,10 @@ class LightList extends Component {
 class LightGeneral extends Component{
     constructor(){
         super();
+        // let mock = grouping([]);
+        let mock = convertObjectToArray([]);
         this.state = {
-            data: data,
+            data: mock,
             isLoading: true
         }
     }
@@ -139,7 +141,7 @@ class LightGeneral extends Component{
             res = grouping(res);
             res = convertObjectToArray(res);
             this.setState({
-                listLights: res,
+                data: res,
                 isLoading: false
             });
         });
@@ -148,12 +150,12 @@ class LightGeneral extends Component{
     setLightState = (value, index, idRoom) => {
         const tempData = _.cloneDeep(this.state.data);
         tempData[idRoom - 1][index].state = value ? "1" : "0";
+        mqtt.changeLight(tempData[idRoom - 1][index].key, tempData[idRoom - 1][index].state);
         this.setState({data: tempData});
     }
 
     LightItem = ({item,index}) => (
         <View style={styles.lightCard}>
-            
             <View style={styles.lightItem}>
                 <View style={styles.headerLightItem}>
                     <Text style={styles.nameLight}>{item.name}</Text>
@@ -171,7 +173,6 @@ class LightGeneral extends Component{
     )
     LightGeneralItem = ({item, index}) => (
         <View style={styles.lightSystemMode}>
-            
             <View style={styles.rowLightMode}>
                 <Text style={styles.titleRow}>{roomName[index + 1]}</Text>
             </View>
@@ -227,9 +228,7 @@ function convertObjectToArray(obj){
 function LightScreen({route}) {
     const {name, id} = route.params;
     if (id == "0") {
-        data = grouping(LightData);
-        data = convertObjectToArray(data);
-        return(
+        return (
             <LightGeneral/>
         )
     }
