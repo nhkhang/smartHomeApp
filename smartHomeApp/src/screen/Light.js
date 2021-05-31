@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import _ from "lodash";
 import { View, Text, TouchableOpacity, FlatList, Switch} from "react-native";
 import styles from '../style/screen'
@@ -8,7 +8,6 @@ import LightData from '../data/LightData';
 import {mqtt} from "../mqtt/MQTT";
 import AsyncStorage from '@react-native-community/async-storage';
 
-
 function filter(data, id) {
     if(id === "0")
         return data;
@@ -17,21 +16,30 @@ function filter(data, id) {
 
 var data = [];
 var countLeft = 0;
-
-
 class LightList extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            listLights: data,
-            countLeft: 0
+            listLights: [],
+            id: props.id,
+            isLoading: true
         }
+        console.log("Init");
     }
 
+    async componentDidMount() {
+        getData("relay").then(res => {
+            this.setState({
+                listLights: res,
+                isLoading: false
+            });
+        });
+    }
 
     setLightState = (value, index) => {
         const tempData = _.cloneDeep(this.state.listLights);
         tempData[index].state = value ? "1" : "0";
+        mqtt.changeLight(index, tempData[index].state);
         this.setState({listLights: tempData});
     }
 
@@ -72,42 +80,43 @@ class LightList extends Component {
     )
 
     render() {
-        var data = this.state.listLights;
-        console.log(data);
-        var right = Math.floor(data.length/2);
-        var left = data.length - right;
-        var dataLeft = data.slice(0,left);
-        var dataRight = data.slice(left,data.length);
-        return (
-            <View style = {styles.container}>
-                <View style={styles.containerLight}>
-                    <View style={styles.lightCardCol}>
-                        <FlatList
-                            data={dataLeft}
-                            renderItem={this.lightItemLeft}
-                        />
-                    </View>
-                    <View style={styles.lightCardCol}>
-                        <FlatList
-                            data={dataRight}
-                            renderItem={this.lightItemRight}
-                        />
+        console.log(`load? ${this.state.isLoading}`);
+        if (this.state.isLoading == true) {
+            return <View><Text>Loading...</Text></View>;
+        } else {
+            var data= this.state.listLights;
+            var right = Math.floor(data.length/2);
+            var left = data.length - right;
+            var dataLeft = data.slice(0,left);
+            var dataRight = data.slice(left,data.length);
+
+            return (
+                <View style = {styles.container}>
+                    <View style={styles.containerLight}>
+                        <View style={styles.lightCardCol}>
+                            <FlatList
+                                data={dataLeft}
+                                renderItem={this.lightItemLeft}
+                            />
+                        </View>
+                        <View style={styles.lightCardCol}>
+                            <FlatList
+                                data={dataRight}
+                                renderItem={this.lightItemRight}
+                            />
+                        </View>
                     </View>
                 </View>
-            </View>
-        )
+            )
+        }
     }
 }
 
 async function LightScreen({route}) {
     const {name, id} = route.params;
-    AsyncStorage.getItem('relay', (e, value) => {
-        data = filter(value, id);
-        countLeft = Math.ceil(data.length/2);
-        return (
-            <LightList/>
-        );
-    })
+    return (
+        <LightList id={id}/>
+    );
 }
 
 export default LightScreen;
