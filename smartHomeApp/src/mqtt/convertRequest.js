@@ -43,7 +43,7 @@ class ConvertRequest {
     convertRelay(data) {
         return {
             "id": data.key,
-            "name": "RELAY",
+            "name": "Light ",
             "data": data.state,
             "unit": ""
         }
