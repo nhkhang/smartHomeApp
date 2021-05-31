@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import ConvertData from './ConvertData';
+import {convertData} from './ConvertData';
 import { topicList } from './topics';
 import DoorData from '../data/DoorData';
 import LightData from '../data/LightData';
@@ -14,7 +14,7 @@ class MessHandler {
     handleLed(data) {
         updateData("led", data);
     }
-    handleHumid(data) {
+    handleTempHumid(data) {
         updateData("humid", data);
     }
     handleLight(data) {
@@ -26,7 +26,7 @@ class MessHandler {
     handleMagnetic(data) {
         updateData("magnetic", data);
     }
-    getData(key){
+    async getData(key){
         return retrieveData(key);
     }
 }
@@ -39,7 +39,6 @@ const storeData = async (key, val) => {
         await AsyncStorage.setItem(key, val);
         console.log(`Storage store ${key} -`, val);
     } catch (error) {
-        // Error saving data
         console.error(`Can't store data with key '${key}' and val '${val}: ${error}`);
     }
 };
@@ -47,7 +46,8 @@ const storeData = async (key, val) => {
 const updateData = async (key, val) => {
     try{
         var array = await retrieveData(key);
-        var converted = ConvertData.convert(key, JSON.parse(val));
+        var converted = convertData.convert(key, JSON.parse(val));
+        console.log(JSON.stringify(converted));
         const idx = array.findIndex(data => data.key == converted.key);
         array[idx] = converted;
         storeData(key, array);
@@ -67,11 +67,32 @@ const retrieveData = async (key) => {
             console.log(`Retrieve ` + value + ` from ` + key);
             return value;
         }
-        } catch (error) {
+    } catch (error) {
         // Error retrieving data
         console.error(`Can't get data with key '${key}': ${error}`);
         return null;
     }
-};
+}
+
+// const retrieveData = async (key) => {
+//     try {
+//       var value = await AsyncStorage.getItem(key);
+//       if (value !== null) {
+//         value = JSON.parse(value);
+//         if (value != null){
+//             console.log(`Empty array`);
+//             return value;
+//         }
+//         value = JSON.parse(value);
+//         console.log(`Retrieve ` + value + ` from ` + key);
+//         return value;
+//       } else {
+//           return false;
+//       }
+//     } catch (error) {
+//       console.error(`Can't get data with key '${key}': ${error}`);
+//       return null;
+//     }
+// };
 
 export default new MessHandler();

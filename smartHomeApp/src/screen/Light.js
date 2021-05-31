@@ -3,7 +3,9 @@ import _ from "lodash";
 import { View, Text, TouchableOpacity, FlatList, Switch} from "react-native";
 import styles from '../style/screen'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import getData from '../data/getData';
 import LightData from '../data/LightData';
+import {mqtt} from "../mqtt/MQTT";
 
 
 function filter(data, id) {
@@ -19,9 +21,12 @@ var countLeft = 0;
 class LightList extends Component {
     constructor() {
         super();
-        this.state = {
-            listLights : data
-        }
+        getData("light").then((res) => {
+            this.state = {
+                listLights: res,
+                countLeft: 0
+            }
+        })
     }
 
 
@@ -67,6 +72,14 @@ class LightList extends Component {
         </View>
     )
 
+    async componentDidMount() {
+        getData("light").then(res => {
+            this.state = {
+                listLights: res
+            }
+        })
+    }
+
     render() {
         var data= this.state.listLights;
         var right = Math.floor(data.length/2);
@@ -94,18 +107,6 @@ class LightList extends Component {
         )
     }
 }
-
-// function groupByKey(array, key) {
-//     return array
-//         .reduce((hash, obj) => {
-//             if(obj[key] === undefined) return hash; 
-//             return Object.assign(hash, { [obj[key]]:( hash[obj[key]] || [] ).concat(obj)})
-//         }, {})
-// }
-
-// function grouping (data){
-//     return groupByKey(data, 'room')
-// }
 
 function LightScreen({route}) {
     const {name, id} = route.params;

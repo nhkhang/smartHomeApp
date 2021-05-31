@@ -1,13 +1,8 @@
+import RoomsData from '../data/RoomsData';
+import DoorData from '../data/DoorData';
 class ConvertData {
-
     // id of room contains light id
     roomID = {
-        led: {
-            "1": ["1","2","3","4"],
-            "2": ["5","6","7","8"],
-            "3": ["9"],
-            "4": ["10"]
-        },
         door: {
             "1": ["1"],
             "2": ["2", "3", "4"],
@@ -28,82 +23,17 @@ class ConvertData {
         },
     }
 
-    roomsData = [
-        {
-            "key": "1",
-            "name": "Living room",
-            "url": "https://noithatroyal.vn/uploads/details/2019/12/images/2e801cca4482a2dcfb93.jpg",
-            "lightIntensity": "40",
-            "temperature": "27℃",
-            "humidity": "50%",
-            "gasConcentration": "low"
-        },
-        {
-            "key": "2",
-            "name": "Kitchen",
-            "url": "https://c1.staticflickr.com/9/8725/28609601352_59ebbba9b5_o.png",
-            "lightIntensity": "40",
-            "temperature": "27℃",
-            "humidity": "50%",
-            "gasConcentration": "low"
-        },
-        {
-            "key": "3",
-            "name": "Bedroom 1",
-            "url": "https://cdn.mos.cms.futurecdn.net/sbj3Y757EZpEFw4adsVVs8-768-80.jpg",
-            "lightIntensity": "40",
-            "temperature": "27℃",
-            "humidity": "50%",
-            "gasConcentration": "low"
-        },
-        {
-            "key": "4",
-            "name": "Bedroom 2",
-            "url": "https://assets.blog.hgtv.ca/wp-content/uploads/2020/07/27141435/creative-bedroom-upgrades-feature.jpg",
-            "lightIntensity": "40",
-            "temperature": "27℃",
-            "humidity": "50%",
-            "gasConcentration": "low"
-        },
-        {
-            "key": "5",
-            "name": "Bedroom 2",
-            "url": "https://assets.blog.hgtv.ca/wp-content/uploads/2020/07/27141435/creative-bedroom-upgrades-feature.jpg",
-            "lightIntensity": "40",
-            "temperature": "27℃",
-            "humidity": "50%",
-            "gasConcentration": "low"
-        },
-        {
-            "key": "6",
-            "name": "Bedroom 2",
-            "url": "https://assets.blog.hgtv.ca/wp-content/uploads/2020/07/27141435/creative-bedroom-upgrades-feature.jpg",
-            "lightIntensity": "40",
-            "temperature": "27℃",
-            "humidity": "50%",
-            "gasConcentration": "low"
-        },
-        {
-            "key": "7",
-            "name": "Bedroom 2",
-            "url": "https://assets.blog.hgtv.ca/wp-content/uploads/2020/07/27141435/creative-bedroom-upgrades-feature.jpg",
-            "lightIntensity": "40",
-            "temperature": "27℃",
-            "humidity": "50%",
-            "gasConcentration": "low"
-        },
-    ];
+    roomsData = RoomsData;
 
     convert(topic, data){
         switch(topic){
             case "led": return this.convertLed(data); break;
             case "light": return this.convertLight(data); break;
-            case "humid": return this.convertHumid(data); break;
+            case "temp-humid": return this.convertHumid(data); break;
             case "magnetic": return this.convertMagnetic(data); break;
             case "gas": return this.convertGas(data); break;
         }
     }
-
     convertLed(ledData) {
         return {
             "key": ledData.id,
@@ -113,13 +43,12 @@ class ConvertData {
             "Intensity": String(ledData.data),
         }
     }   
-
     convertMagnetic(doorData) {
         return {
             "key": doorData.id,
             "name": "Door " + doorData.id,
             "room": this.getRoomID(this.roomID.door, doorData.id),
-            "url": "https://noithatroyal.vn/uploads/details/2019/12/images/2e801cca4482a2dcfb93.jpg",
+            "url": DoorData[doorData.id],
             "state": String(doorData.data)
         }
     }
@@ -149,7 +78,8 @@ class ConvertData {
                 return String(key);
             }
         }
+        return -1;
     }
 }
 
-export default new ConvertData();
+export var convertData = new ConvertData();
