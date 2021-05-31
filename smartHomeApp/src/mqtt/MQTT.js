@@ -7,10 +7,11 @@ export default class MQTT extends Component{
 
   constructor(){
     super();
-    this.onMessageArrived = this.onMessageArrived.bind(this)
-    this.onConnectionLost = this.onConnectionLost.bind(this)
+    this.onMessageArrived = this.onMessageArrived.bind(this);
+    this.onConnectionLost = this.onConnectionLost.bind(this);
     
-    this.client = new Paho.MQTT.Client("io.adafruit.com", 80, 'smartHomeApp',);
+    var clientID = "web" + new Date().getTime();
+    this.client = new Paho.MQTT.Client("io.adafruit.com", 80, clientID,);
     this.client.onMessageArrived = this.onMessageArrived;
     this.client.onConnectionLost = this.onConnectionLost;
 
@@ -42,7 +43,7 @@ export default class MQTT extends Component{
     this.state.isConnected = true;
     console.log("Connected!!!");
     this.subscribeAllTopic();
-    messHandler.init([]);
+    messHandler.init();
   };
 
   subscribeTopic(topic) {

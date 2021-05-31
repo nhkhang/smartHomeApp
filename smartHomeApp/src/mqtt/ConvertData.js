@@ -19,13 +19,13 @@ class ConvertData {
             "2": ["2"],
         },
         humid: {
-            "1": ["1"],
+            "1": ["1"], // Room {1} have humid sensor with id {1}
             "2": ["2"],
         },
         light: {
             "1": ["1"],
             "2": ["2"],
-        }
+        },
     }
 
     roomsData = [
@@ -108,13 +108,13 @@ class ConvertData {
         return {
             "key": ledData.id,
             "name": ledData.name + ledData.id,
-            "room": this.getRoomID(this.roomID.light, ledData.id),
+            "room": this.getRoomID(this.roomID.led, ledData.id),
             "state": ledData.data,
             "Intensity": String(ledData.data),
         }
     }   
 
-    convertDoor(doorData) {
+    convertMagnetic(doorData) {
         return {
             "key": doorData.id,
             "name": "Door " + doorData.id,
@@ -125,19 +125,19 @@ class ConvertData {
     }
 
     convertHumid(humidData) {
-        const idx = this.getRoomID(this.roomID.humid, humidData.id);
-        this.roomData[idx].humidity = humidData.data;
+        const idx = this.getRoomID(this.roomID.humid, humidData.id) - 1;
+        this.roomsData[idx].humidity = humidData.data + humidData.unit;
         return this.roomsData[idx];
     }
 
     convertGas(gasData) {
-        const idx = this.getRoomID(this.roomID.humid, gasData.id);
-        this.roomsData[idx].gasConcentration = gasData.data == 0? "Low" : "High";
+        const idx = this.getRoomID(this.roomID.gas, gasData.id) - 1;
+        this.roomsData[idx].gasConcentration = gasData.data == 0? "low" : "high";
         return this.roomsData[idx];
     }
 
     convertLight(lightData){
-        const idx = this.getRoomID(this.roomID.humid, lightData.id);
+        const idx = this.getRoomID(this.roomID.light, lightData.id) - 1;
         this.roomsData[idx].lightIntensity = lightData.data;
         return this.roomsData[idx];
     }

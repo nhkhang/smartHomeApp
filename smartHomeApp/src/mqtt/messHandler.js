@@ -1,11 +1,15 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import ConvertData from './ConvertData';
 import { topicList } from './topics';
+import DoorData from '../data/DoorData';
+import LightData from '../data/LightData';
+import RoomsData from '../data/RoomsData';
 
 class MessHandler {
-    init(data){
-        var topics = ["led", "door", "room"];
-        topics.map(topic => storeData(topic, data));
+    init(){
+        storeData("led", LightData);
+        storeData("door", DoorData);
+        storeData("room", RoomsData);
     }
     handleLed(data) {
         updateData("led", data);
@@ -45,10 +49,7 @@ const updateData = async (key, val) => {
         var array = await retrieveData(key);
         var converted = ConvertData.convert(key, JSON.parse(val));
         const idx = array.findIndex(data => data.key == converted.key);
-        if (idx == -1)
-            array.push(converted);
-        else
-            array[idx] = converted;
+        array[idx] = converted;
         storeData(key, array);
     }
     catch(err) {
@@ -58,21 +59,18 @@ const updateData = async (key, val) => {
 
 const retrieveData = async (key) => {
     try {
-      var value = await AsyncStorage.getItem(key);
-      if (value !== null) {
-        value = JSON.parse(value);
-        if (value != null){
-            console.log(`Empty array`);
+        if (key == "magnetic") key = "door";
+        else if (key == "gas" || key == "humid" || key == "light") key = "room";
+        var value = await AsyncStorage.getItem(key);
+        if (value !== null) {
+            value = JSON.parse(value);
+            console.log(`Retrieve ` + value + ` from ` + key);
             return value;
         }
-        value = JSON.parse(value);
-        console.log(`Retrieve ` + value + ` from ` + key);
-        return value;
-      }
-    } catch (error) {
-      // Error retrieving data
-      console.error(`Can't get data with key '${key}': ${error}`);
-      return null;
+        } catch (error) {
+        // Error retrieving data
+        console.error(`Can't get data with key '${key}': ${error}`);
+        return null;
     }
 };
 
