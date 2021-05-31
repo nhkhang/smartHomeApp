@@ -4,8 +4,8 @@ var RoomsData = [
         "name": "Living room",
         "url": "https://noithatroyal.vn/uploads/details/2019/12/images/2e801cca4482a2dcfb93.jpg",
         "lightIntensity": "40",
-        "temperature": "27℃",
-        "humidity": "50%",
+        "temperature": "25℃",
+        "humidity": "20%",
         "gasConcentration": "low"
     },
     {
