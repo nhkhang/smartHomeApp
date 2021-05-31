@@ -6,21 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AuthContext } from './src/api/context';
 import SignIn from './src/screen/SignIn';
 import SignUp from './src/screen/SignUp'
-import MQTT from './src/mqtt/MQTT';
+import {mqtt} from './src/mqtt/MQTT';
 import init from 'react_native_mqtt';
 import AsyncStorage from '@react-native-community/async-storage';
-
-init({
-  size: 10000,
-  storageBackend: AsyncStorage,
-  defaultExpires: 1000 * 3600 * 24,
-  enableCache: true,
-  sync: {},
-});
-
-
-// Initialize MQTT
-var mqtt = new MQTT();
 
 function App ({navigation}) {
   const [state, dispatch] = React.useReducer(
@@ -53,8 +41,7 @@ function App ({navigation}) {
       userToken: null,
     }
   );
-
-
+  
   // =====This useEffect calls this App twice, consider another options for this=====
   // React.useEffect(() => {
   //   const bootstrapAsync = async () => {

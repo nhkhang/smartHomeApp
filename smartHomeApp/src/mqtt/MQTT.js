@@ -3,11 +3,22 @@ import {topicList} from './topics';
 import messHandler from './messHandler';
 import React, { Component } from 'react';
 import convertRequest from './convertRequest';
+import init from 'react_native_mqtt';
 
-export default class MQTT extends Component{
+init({
+  size: 10000,
+  storageBackend: AsyncStorage,
+  defaultExpires: 1000 * 3600 * 24,
+  enableCache: true,
+  sync: {},
+});
+
+class MQTT extends Component{
 
   constructor(){
     super();
+    console.log("Init MQTT");
+
     this.onMessageArrived = this.onMessageArrived.bind(this)
     this.onConnectionLost = this.onConnectionLost.bind(this)
     
@@ -43,8 +54,7 @@ export default class MQTT extends Component{
     this.state.isConnected = true;
     console.log("Connected!!!");
     this.subscribeAllTopic();
-    messHandler.init([]);
-    this.changeLight(1, 1);
+    messHandler.init();
   };
 
   subscribeTopic(topic) {
@@ -116,6 +126,7 @@ export default class MQTT extends Component{
     if (responseObject.errorCode !== 0) {
       console.log("onConnectionLost:" + responseObject.errorMessage);
       this.state.isConnected = false;
+      this.connect();
     }
   }
 
@@ -123,8 +134,7 @@ export default class MQTT extends Component{
     try {
       topic = topic.split('/')[2]; // Get the part has 'bk-iot-ligth'
       switch(topic) {
-        case 'bk-iot-led':      messHandler.handleLed(data); break;
-        case 'bk-iot-humid':    messHandler.handleHumid(data); break;
+        case 'bk-iot-temp-humid':    messHandler.handleHumid(data); break;
         case 'bk-iot-light':    messHandler.handleLight(data); break;
         case 'bk-iot-gas':      messHandler.handleGas(data); break;
         case 'bk-iot-magnetic': messHandler.handleMagnetic(data); break;
@@ -139,3 +149,5 @@ export default class MQTT extends Component{
     return list;
   }
 }
+
+export const mqtt = new MQTT();

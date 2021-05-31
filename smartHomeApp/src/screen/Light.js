@@ -4,6 +4,8 @@ import { View, Text, TouchableOpacity, FlatList, Switch} from "react-native";
 import styles from '../style/screen'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import getData from '../data/getData';
+import LightData from '../data/LightData';
+import {mqtt} from "../mqtt/MQTT";
 
 
 function filter(data, id) {
@@ -109,7 +111,8 @@ class LightList extends Component {
 
 function LightScreen({route}) {
     const {name, id} = route.params;
-    data = filter(getData("led"), id);
+    data = filter(getData("light"), id);
+    // data = filter(LightData, id);
     countLeft = Math.ceil(data.length/2);
     return (
         <LightList/>

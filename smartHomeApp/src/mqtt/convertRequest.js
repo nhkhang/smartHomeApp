@@ -1,16 +1,12 @@
 class ConvertRequest {
     convert(type, data) {
         switch(type) {
-            case "led": return this.convertLed(data); break;
             case "light": return this.convertLight(data); break;
-            case "humid": return this.convertHumid(data); break;
+            case "temp-humid": return this.convertHumid(data); break;
             case "magnetic": return this.convertMagnetic(data); break;
             case "gas": return this.convertGas(data); break;
             case "relay": return this.convertRelay(data); break;
         }
-    }
-    convertLed(data) {
-        return data;
     }
     convertLight(data) {
         return {
