@@ -7,9 +7,12 @@ import { AuthContext } from './src/api/context';
 import SignIn from './src/screen/SignIn';
 import SignUp from './src/screen/SignUp'
 import {mqtt} from './src/mqtt/MQTT';
+import MQTT from "./src/mqtt/MQTT";
 import init from 'react_native_mqtt';
 import AsyncStorage from '@react-native-community/async-storage';
+// import MQTT from 'paho-mqtt';
 
+// var mqtt = new MQTT();
 function App ({navigation}) {
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
@@ -41,7 +44,7 @@ function App ({navigation}) {
       userToken: null,
     }
   );
-  
+
   // =====This useEffect calls this App twice, consider another options for this=====
   // React.useEffect(() => {
   //   const bootstrapAsync = async () => {

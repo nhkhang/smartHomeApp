@@ -8,13 +8,15 @@ import RoomsData from '../data/DoorData';
 class MessHandler {
     async init() {
         // Initialize mock data when app starts
-        const initBefore = await retrieveData("init");
+        const initBefore = await retrieveData("initBefore");
         if (!initBefore) {
             AsyncStorage.setItem('initBefore', true);
+            await storeData("light", LightData);
+            await storeData("door", DoorData);
+            await storeData("room", RoomsData);
         } else {
-            storeData("light", LightData);
-            storeData("door", DoorData);
-            storeData("room", RoomsData);
+            const light = await retrieveData("light");
+            console.log("Light: ", light);
         }
     }
     handleTempHumid(data) {
@@ -33,7 +35,7 @@ class MessHandler {
         data = convertData.convert("magnetic", data);
         storeData("room", data);
     }
-    getData(key){
+    async getData(key){
         return retrieveData(key);
     }
 }
@@ -73,7 +75,7 @@ const updateData = async (key, val) => {
 const retrieveData = async (key) => {
     const value = await AsyncStorage.getItem(key);
     if (!value) {
-        console.error("Key not exist");
+        console.error("Key not exist", key);
     }
     return JSON.parse(value);
 }

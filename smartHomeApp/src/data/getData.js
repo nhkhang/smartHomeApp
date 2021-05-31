@@ -1,4 +1,4 @@
 import messHandler from '../mqtt/messHandler';
-export default function getData(key){
+export default async function getData(key){
     return messHandler.getData(key);
 }
