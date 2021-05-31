@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {topicList} from './topics';
 import messHandler from './messHandler';
 import React, { Component } from 'react';
+import convertRequest from './convertRequest';
 
 export default class MQTT extends Component{
 
@@ -43,6 +44,7 @@ export default class MQTT extends Component{
     console.log("Connected!!!");
     this.subscribeAllTopic();
     messHandler.init([]);
+    this.changeLight(1, 1);
   };
 
   subscribeTopic(topic) {
@@ -60,10 +62,43 @@ export default class MQTT extends Component{
     }
   }
 
+  /**
+   * @param lightId the 'key' of light
+   * @param state 0: Off, 1: On
+  */
+  changeLight(lightId, state) {
+    const data = {
+      "key": String(lightId),
+      "state": String(state)
+    }
+    this.sendPublishMessage("relay", data);
+  }
+
+  /**
+   * @param type "relay" -> turn on/off light
+   * @param data like the current format of data eg: {"key": ..., "name": ..., "url": ..., "state": ...}.
+  */
+  sendPublishMessage(type, data) {
+    try {
+      const message = convertRequest.convert(type, data);
+      const topic = topicList.filter(topic => topic.search(type) != -1)[0];
+      if (topic == []) {
+        console.error("Cannot find topic!");
+      } else {
+        console.log(`Topic: ${topic}, message:`, message);
+        this.publishMessage(topic, message);
+      }
+    } catch(e) {
+      console.error(e);
+    }
+  }
+
   publishMessage(topic, msg){
     try{
+      msg = JSON.stringify(msg);
       let message = new Paho.MQTT.Message(msg);
       message.destinationName = topic;
+      this.client.send(message);
       if (this.state.isConnected){    
         this.client.send(message);
         console.log("Message sent: " + message.payloadString);   
@@ -86,7 +121,7 @@ export default class MQTT extends Component{
 
   handleMessage(topic, data) {
     try {
-      topic = topic.split('/')[2]; // Get the part has 'bk=iot-ligth'
+      topic = topic.split('/')[2]; // Get the part has 'bk-iot-ligth'
       switch(topic) {
         case 'bk-iot-led':      messHandler.handleLed(data); break;
         case 'bk-iot-humid':    messHandler.handleHumid(data); break;
