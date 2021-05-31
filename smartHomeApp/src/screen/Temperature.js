@@ -2,26 +2,20 @@ import React, {Component} from 'react';
 import _ from "lodash";
 import { View, Text, Switch, FlatList, TouchableOpacity, Image} from "react-native";
 import styles from '../style/screen'
-import DoorData from '../data/DoorData';
-
-
-function filter(data, id) {
-    if(id === "0")
-        return data;
-    return data.filter(item => item.room === id);
-}
+import RoomsData from '../data/RoomsData';
 
 var data = [];
 
-class DoorList extends Component {
+
+class TemparatureList extends Component {
     constructor() {
         super();
         this.state = {
-            listDoors : data
+            listRooms : data
         } 
     }
 
-    doorItem = ({item, index}) => (
+    temparatureListItem = ({item, index}) => (
         <View style={styles.DoorScreen}>
             <View style={styles.doorItem}>
                 <Image
@@ -31,7 +25,7 @@ class DoorList extends Component {
 
                 <View style={styles.doorText}>
                     <Text style={styles.doorName}>{item.name}</Text>
-                    <Text style={styles.doorState}>{item.state === "1" ? "Locked" : "Not Locked"}</Text>
+                    <Text style={styles.doorState}>{item.temperature}</Text>
                 </View>
             </View>
         </View>
@@ -41,20 +35,23 @@ class DoorList extends Component {
         return (
             <View>
                 <FlatList
-                    data={this.state.listDoors}
-                    renderItem={this.doorItem}
+                    data={this.state.listRooms}
+                    renderItem={this.temparatureListItem}
                 />
             </View>
         )
     }
 }
 
-function DoorScreen({route}) {
-    const id = route.params.id;
-    data = filter(DoorData, id);
+
+
+
+
+function TemparatureScreen({route}) {
+    data = RoomsData;
     return (
-        <DoorList/>
+        <TemparatureList/>
     );
 }
 
-export default DoorScreen;
+export default TemparatureScreen;

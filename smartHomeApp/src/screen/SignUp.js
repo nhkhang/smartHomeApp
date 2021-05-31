@@ -15,13 +15,13 @@ function SignUp({navigation}) {
 
     return (
       <View style={styles.containerSignIn}>
-        <Image 
-          style={styles.logo}
-          source={{
-            uri: '../img/logo.jpg',
-          }}
-        >
-        </Image>
+        <View style={styles.logo}>
+          <Image
+              style={styles.logo}
+              source={require('../img/logo.jpg')}>
+
+          </Image>
+        </View>
         <Text style={styles.title}>Smart Home App</Text>
 
         <View style={styles.inputView}>

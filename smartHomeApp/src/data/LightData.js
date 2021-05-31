@@ -3,7 +3,7 @@ var LightData = [
         "key": "1",
         "name": "Light 1",
         "room": "1",
-        "state": "1",
+        "state": "0",
         "Intensity": "45",
     },
     {
@@ -17,7 +17,7 @@ var LightData = [
         "key": "3",
         "name": "Light 3",
         "room": "1",
-        "state": "1",
+        "state": "0",
         "Intensity": "45",
     },
     {
@@ -31,7 +31,7 @@ var LightData = [
         "key": "5",
         "name": "Light 5",
         "room": "2",
-        "state": "1",
+        "state": "0",
         "Intensity": "45",
     },
     {
@@ -45,7 +45,7 @@ var LightData = [
         "key": "7",
         "name": "Light 7",
         "room": "3",
-        "state": "1",
+        "state": "0",
         "Intensity": "45",
     },
     {
@@ -59,7 +59,7 @@ var LightData = [
         "key": "9",
         "name": "Light 9",
         "room": "4",
-        "state": "1",
+        "state": "0",
         "Intensity": "45",
     },
     {
