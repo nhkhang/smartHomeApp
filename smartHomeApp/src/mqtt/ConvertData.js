@@ -27,20 +27,19 @@ class ConvertData {
 
     convert(topic, data){
         switch(topic){
-            case "led": return this.convertLed(data); break;
+            case "relay": return this.convertRelay(data); break;
             case "light": return this.convertLight(data); break;
             case "temp-humid": return this.convertHumid(data); break;
             case "magnetic": return this.convertMagnetic(data); break;
             case "gas": return this.convertGas(data); break;
         }
     }
-    convertLed(ledData) {
+    convertRelay(relayData) {
         return {
-            "key": ledData.id,
-            "name": ledData.name + ledData.id,
+            "key": relayData.id,
+            "name": relayData.name + relayData.id,
             "room": this.getRoomID(this.roomID.led, ledData.id),
-            "state": ledData.data,
-            "Intensity": String(ledData.data),
+            "state": relayData.data,
         }
     }   
     convertMagnetic(doorData) {
@@ -48,7 +47,7 @@ class ConvertData {
             "key": doorData.id,
             "name": "Door " + doorData.id,
             "room": this.getRoomID(this.roomID.door, doorData.id),
-            "url": DoorData[doorData.id],
+            "url": DoorData[doorData.id].url,
             "state": String(doorData.data)
         }
     }

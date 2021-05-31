@@ -27,6 +27,7 @@ class LightList extends Component {
                 countLeft: 0
             }
         })
+        console.log("Hi");
     }
 
 
@@ -110,7 +111,7 @@ class LightList extends Component {
 
 function LightScreen({route}) {
     const {name, id} = route.params;
-    data = filter(LightData, id);
+    data = filter(getData("relay"), id);
     countLeft = Math.ceil(data.length/2);
     return (
         <LightList/>

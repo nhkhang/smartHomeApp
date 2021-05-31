@@ -20,7 +20,7 @@ class MQTT extends Component{
     this.onMessageArrived = this.onMessageArrived.bind(this);
     this.onConnectionLost = this.onConnectionLost.bind(this);
     
-    var clientID = "web" + new Date().getTime();
+    var clientID = "Client" + new Date().getTime();
     this.client = new Paho.MQTT.Client("io.adafruit.com", 80, clientID,);
     this.client.onMessageArrived = this.onMessageArrived;
     this.client.onConnectionLost = this.onConnectionLost;
@@ -53,7 +53,6 @@ class MQTT extends Component{
     this.state.isConnected = true;
     console.log("Connected!!!");
     this.subscribeAllTopic();
-    messHandler.init();
   };
 
   subscribeTopic(topic) {
@@ -125,18 +124,19 @@ class MQTT extends Component{
     if (responseObject.errorCode !== 0) {
       console.log("onConnectionLost:" + responseObject.errorMessage);
       this.state.isConnected = false;
-      this.connect();
     }
   }
 
   handleMessage(topic, data) {
     try {
-      topic = topic.split('/')[2]; // Get the part has 'bk-iot-ligth'
+      topic = topic.split('/')[2]; // Get the part has 'bk-iot-light'
       switch(topic) {
-        case 'bk-iot-temp-humid':    messHandler.handleHumid(data); break;
-        case 'bk-iot-light':    messHandler.handleLight(data); break;
-        case 'bk-iot-gas':      messHandler.handleGas(data); break;
-        case 'bk-iot-magnetic': messHandler.handleMagnetic(data); break;
+        case 'bk-iot-button':       messHandler.handleButton(data); break;
+        case 'bk-iot-relay':        messHandler.handleRelay(data); break;
+        case 'bk-iot-temp-humid':   messHandler.handleTempHumid(data); break;
+        case 'bk-iot-light':        messHandler.handleLight(data); break;
+        case 'bk-iot-gas':          messHandler.handleGas(data); break;
+        case 'bk-iot-magnetic':     messHandler.handleMagnetic(data); break;
       }
     } catch (e) {
       console.error(e);

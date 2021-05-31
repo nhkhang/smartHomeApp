@@ -6,16 +6,16 @@ import LightData from '../data/LightData';
 import RoomsData from '../data/RoomsData';
 
 class MessHandler {
-    init(){
-        storeData("led", LightData);
+    constructor(){        
+        storeData("relay", LightData);
         storeData("door", DoorData);
         storeData("room", RoomsData);
     }
-    handleLed(data) {
-        updateData("led", data);
+    handleRelay(data) {
+        updateData("relay", data);
     }
     handleTempHumid(data) {
-        updateData("humid", data);
+        updateData("temp-humid", data);
     }
     handleLight(data) {
         updateData("light", data);
@@ -35,7 +35,7 @@ const storeData = async (key, val) => {
     try {
         val = JSON.stringify(val);
         if (key == "magnetic") key = "door";
-        else if (key == "gas" || key == "humid" || key == "light") key = "room";
+        else if (key == "gas" || key == "temp-humid" || key == "light") key = "room";
         await AsyncStorage.setItem(key, val);
         console.log(`Storage store ${key} -`, val);
     } catch (error) {
@@ -47,7 +47,6 @@ const updateData = async (key, val) => {
     try{
         var array = await retrieveData(key);
         var converted = convertData.convert(key, JSON.parse(val));
-        console.log(JSON.stringify(converted));
         const idx = array.findIndex(data => data.key == converted.key);
         array[idx] = converted;
         storeData(key, array);
@@ -60,7 +59,7 @@ const updateData = async (key, val) => {
 const retrieveData = async (key) => {
     try {
         if (key == "magnetic") key = "door";
-        else if (key == "gas" || key == "humid" || key == "light") key = "room";
+        else if (key == "gas" || key == "temp-humid" || key == "light") key = "room";
         var value = await AsyncStorage.getItem(key);
         if (value !== null) {
             value = JSON.parse(value);
@@ -73,26 +72,5 @@ const retrieveData = async (key) => {
         return null;
     }
 }
-
-// const retrieveData = async (key) => {
-//     try {
-//       var value = await AsyncStorage.getItem(key);
-//       if (value !== null) {
-//         value = JSON.parse(value);
-//         if (value != null){
-//             console.log(`Empty array`);
-//             return value;
-//         }
-//         value = JSON.parse(value);
-//         console.log(`Retrieve ` + value + ` from ` + key);
-//         return value;
-//       } else {
-//           return false;
-//       }
-//     } catch (error) {
-//       console.error(`Can't get data with key '${key}': ${error}`);
-//       return null;
-//     }
-// };
 
 export default new MessHandler();
