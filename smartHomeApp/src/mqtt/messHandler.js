@@ -63,7 +63,7 @@ const retrieveData = async (key) => {
         var value = await AsyncStorage.getItem(key);
         if (value !== null) {
             value = JSON.parse(value);
-            console.log(`Retrieve ` + value + ` from ` + key);
+            console.log(`Retrieve from ` + key);
             return value;
         }
     } catch (error) {

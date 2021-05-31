@@ -41,6 +41,7 @@ class LightList extends Component {
 
     async componentDidMount() {
         getData("relay").then(res => {
+            res = filter(res, this.state.id);
             this.setState({
                 listLights: res,
                 isLoading: false
@@ -52,7 +53,7 @@ class LightList extends Component {
     setLightState = (value, index) => {
         const tempData = _.cloneDeep(this.state.listLights);
         tempData[index].state = value ? "1" : "0";
-        mqtt.changeLight(index, tempData[index].state);
+        mqtt.changeLight(tempData[index].key, tempData[index].state);
         this.setState({listLights: tempData});
     }
 
