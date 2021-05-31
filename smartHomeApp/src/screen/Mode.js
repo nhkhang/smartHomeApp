@@ -144,53 +144,53 @@ class DeactivatedAt extends Component{
     }
 }
 
-class LightItemList extends Component{
-    constructor({itemChoose}) {
-        super();
-        this.state = {
-            listLights : filter(LightData, itemChoose)
-        }
-    }
+// class LightItemList extends Component{
+//     constructor({itemChoose}) {
+//         super();
+//         this.state = {
+//             listLights : filter(LightData, itemChoose)
+//         }
+//     }
 
 
-    setLightState = (value, index) => {
-        const tempData = _.cloneDeep(this.state.listLights);
-        tempData[index].state = value ? "1" : "0";
-        this.setState({listLights: tempData});
-    }
+//     setLightState = (value, index) => {
+//         const tempData = _.cloneDeep(this.state.listLights);
+//         tempData[index].state = value ? "1" : "0";
+//         this.setState({listLights: tempData});
+//     }
 
-    LightItem = ({item,index}) => (
-        <View style={styles.lightCard}>
-            <View style={styles.lightItem}>
-                <View style={styles.headerLightItem}>
-                    <Text style={styles.nameLight}>{item.name}</Text>
-                    <Switch
-                        value={item.state == "1" ? true : false}
-                        style={styles.toggleLight}
-                        onValueChange={(value) => this.setLightState(value,index)}
-                    />
-                </View>
-                <View style={styles.bodyLightItem}>
-                    <MaterialCommunityIcons style={item.state == "1"?styles.lightOn:styles.lightOff} name={item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
-                </View>
-            </View>
-        </View>
-    )
-    render() {
-        return (
-            <View style={styles.lightSystemMode}>
-                <ScrollView>
-                    <FlatList
-                        data ={this.state.listLights}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={this.LightItem}>
-                    </FlatList>
-                </ScrollView>
-            </View>
-        )
-    }
-}
+//     LightItem = ({item,index}) => (
+//         <View style={styles.lightCard}>
+//             <View style={styles.lightItem}>
+//                 <View style={styles.headerLightItem}>
+//                     <Text style={styles.nameLight}>{item.name}</Text>
+//                     <Switch
+//                         value={item.state == "1" ? true : false}
+//                         style={styles.toggleLight}
+//                         onValueChange={(value) => this.setLightState(value,index)}
+//                     />
+//                 </View>
+//                 <View style={styles.bodyLightItem}>
+//                     <MaterialCommunityIcons style={item.state == "1"?styles.lightOn:styles.lightOff} name={item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
+//                 </View>
+//             </View>
+//         </View>
+//     )
+//     render() {
+//         return (
+//             <View style={styles.lightSystemMode}>
+//                 <ScrollView>
+//                     <FlatList
+//                         data ={this.state.listLights}
+//                         horizontal
+//                         showsHorizontalScrollIndicator={false}
+//                         renderItem={this.LightItem}>
+//                     </FlatList>
+//                 </ScrollView>
+//             </View>
+//         )
+//     }
+// }
 
 function Mode({route, navigation}) {
 
