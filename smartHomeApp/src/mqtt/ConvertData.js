@@ -43,7 +43,7 @@ class ConvertData {
     convertRelay(relayData) {
         return {
             "key": relayData.id,
-            "name": relayData.name + relayData.id,
+            "name": "Light " + relayData.id,
             "room": this.getRoomID(this.roomID.relay, relayData.id),
             "state": relayData.data,
         }
