@@ -60,10 +60,19 @@ class GasList extends Component {
     }
 }
 
-function GasScreen({route, navigation}){
-    return (
-        <GasList route={route} navigation={navigation}/>
-    );
+// function GasScreen({route, navigation}){
+//     return (
+//         <GasList route={route} navigation={navigation}/>
+//     );
+// }
+
+class GasScreen extends Component {
+    render() {
+        return (
+            <GasList route={this.props.route} navigation={this.props.navigation}/>
+        );
+        
+    }
 }
 
 export default GasScreen;

@@ -58,7 +58,7 @@ function FeaturesStackScreen() {
             <FeaturesStack.Screen name="Features" component={FeaturesScreen}/>
             <FeaturesStack.Screen name="Door" component={Door}/>
             <FeaturesStack.Screen name="Light" component={Light}/>
-            <FeaturesStack.Screen name="Gas" component={Gas}/>
+            <FeaturesStack.Screen name="Gas" component={GasScreen}/>
             <FeaturesStack.Screen name="Temperature" component={Temperature}/>
             <FeaturesStack.Screen name="Humidity" component={Humidity}/>
             <FeaturesStack.Screen name="Window" component={Window}/>
