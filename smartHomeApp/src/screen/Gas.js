@@ -8,15 +8,17 @@ import getData from '../data/getData';
 var data = [];
 
 class GasList extends Component {
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
+            route : props.route,
+            navigation : props.navigation,
             listRooms : data
         } 
     }
     
     async loadData(){
-        getData("room").then((res) => {
+        getData("gas").then((res) => {
             if (res != this.state.listRooms){
                 this.setState({listRooms: res});
             }
@@ -60,7 +62,7 @@ class GasList extends Component {
 
 function GasScreen({route, navigation}){
     return (
-        <GasList/>
+        <GasList route={route} navigation={navigation}/>
     );
 }
 
