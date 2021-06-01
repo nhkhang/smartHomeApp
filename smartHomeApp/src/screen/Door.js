@@ -22,14 +22,19 @@ class DoorList extends Component {
         } 
     }
 
+    async loadData(){
+        getData("door").then((res) => {
+            res = filter(res, this.state.id);
+            if (res != this.state.listDoors){
+                this.setState({listDoors: res});
+            }
+        });
+    };
+
     async componentDidMount(){
+        this.loadData();
         setInterval(() => {
-            getData("door").then((res) => {
-                res = filter(res, this.state.id);
-                if (res != this.state.listDoors){
-                    this.setState({listDoors: res});
-                }
-            });
+            this.loadData();
         }, 1000);
     }
 

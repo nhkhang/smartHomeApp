@@ -4,6 +4,7 @@ import { View, Text, Switch, FlatList, TouchableOpacity, Image} from "react-nati
 import styles from '../style/screen'
 import RoomsData from '../data/RoomsData';
 import getData from '../data/getData';
+
 var data = [];
 
 
@@ -15,13 +16,18 @@ class TemparatureList extends Component {
         } 
     }
 
+    async loadData(){
+        getData("room").then((res) => {
+            if (res != this.state.listRooms){
+                this.setState({listRooms: res});
+            }
+        });
+    }
+
     async componentDidMount(){
+        this.loadData();
         setInterval(() => {
-            getData("room").then((res) => {
-                if (res != this.state.listRooms){
-                    this.setState({listRooms: res});
-                }
-            });
+            this.loadData();
         }, 1000);
     }
 

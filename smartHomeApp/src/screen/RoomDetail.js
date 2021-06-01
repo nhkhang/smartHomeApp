@@ -34,8 +34,8 @@ class Room extends Component{
             isLoadingLight: true
         }
     }
-
-    async componentDidMount() {
+    
+    async loadData(){
         getData("room").then(res => {
             res = res[this.state.id-1]
             this.setState({
@@ -57,6 +57,13 @@ class Room extends Component{
                 isLoadingDoor: false
             });
         });
+    }
+    
+    async componentDidMount() {
+        this.loadData();
+        setInterval(() => {
+            this.loadData();
+        }, 1000);
     }
 
     getDoorLocked(isLock) {

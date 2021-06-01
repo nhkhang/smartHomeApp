@@ -16,13 +16,18 @@ class HumidityList extends Component {
         } 
     }
 
+    async loadData(){
+        getData("room").then((res) => {
+            if (res != this.state.listRooms){
+                this.setState({listRooms: res});
+            }
+        });
+    }
+
     async componentDidMount(){
+        this.loadData();
         setInterval(() => {
-            getData("room").then((res) => {
-                if (res != this.state.listRooms){
-                    this.setState({listRooms: res});
-                }
-            });
+            this.loadData();
         }, 1000);
     }
 

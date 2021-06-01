@@ -39,7 +39,7 @@ class LightList extends Component {
         }
     }
 
-    async componentDidMount() {
+    async loadData(){
         getData("relay").then(res => {
             res = filter(res, this.state.id);
             this.setState({
@@ -48,6 +48,13 @@ class LightList extends Component {
             });
             countLeft = Math.ceil(this.state.listLights.length/2);
         });
+    }
+
+    async componentDidMount() {
+        this.loadData();
+        setInterval(() => {
+            this.loadData();
+        }, 1000);
     }
 
     setLightState = (value, index) => {
@@ -135,7 +142,7 @@ class LightGeneral extends Component{
     }
     //const [listLight, setListLight] = React.useState(filter(LightData,itemChoose));
 
-    async componentDidMount() {
+    async loadData(){
         getData("relay").then(res => {
             res = grouping(res);
             res = convertObjectToArray(res);
@@ -144,6 +151,13 @@ class LightGeneral extends Component{
                 isLoading: false
             });
         });
+    }
+
+    async componentDidMount() {
+        this.loadData();
+        setInterval(() =>{
+            this.loadData();
+        }, 1000);
     }
 
     setLightState = (value, index, idRoom) => {
