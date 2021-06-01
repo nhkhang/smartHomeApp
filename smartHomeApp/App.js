@@ -7,7 +7,6 @@ import { AuthContext } from './src/api/context';
 import SignIn from './src/screen/SignIn';
 import SignUp from './src/screen/SignUp'
 import {mqtt} from './src/mqtt/MQTT';
-import MQTT from "./src/mqtt/MQTT";
 import init from 'react_native_mqtt';
 import AsyncStorage from '@react-native-community/async-storage';
 // import MQTT from 'paho-mqtt';

@@ -11,8 +11,6 @@ class GasList extends Component {
     constructor(props) {
         super();
         this.state = {
-            route : props.route,
-            navigation : props.navigation,
             listRooms : data
         } 
     }
@@ -60,9 +58,15 @@ class GasList extends Component {
     }
 }
 
+var reload = false;
+
 function GasScreen({route, navigation}){
+    // useEffect(() => {
+    //     navigation.push("Gas");
+    // }, [reload]);
+
     return (
-        <GasList route={route} navigation={navigation}/>
+        <GasList/>
     );
 }
 

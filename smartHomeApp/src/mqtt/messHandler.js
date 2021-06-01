@@ -4,7 +4,7 @@ import { topicList } from './topics';
 import DoorData from '../data/DoorData';
 import LightData from '../data/LightData';
 import RoomsData from '../data/RoomsData';
-import Gas from '../screen/Gas';
+import GasScreen from '../screen/Gas';
 
 class MessHandler {
     constructor(){        
