@@ -53,6 +53,8 @@ class MQTT extends Component{
     this.state.isConnected = true;
     console.log("Connected!!!");
     this.subscribeAllTopic();
+    var data = 
+   console.log(JSON.stringify(data));
   };
 
   subscribeTopic(topic) {
