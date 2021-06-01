@@ -3,6 +3,7 @@ import _ from "lodash";
 import { View, Text, Switch, FlatList, TouchableOpacity, Image} from "react-native";
 import styles from '../style/screen'
 import RoomsData from '../data/RoomsData';
+import getData from '../data/getData';
 
 var data = [];
 
@@ -13,6 +14,16 @@ class HumidityList extends Component {
         this.state = {
             listRooms : data
         } 
+    }
+
+    async componentDidMount(){
+        setInterval(() => {
+            getData("room").then((res) => {
+                if (res != this.state.listRooms){
+                    this.setState({listRooms: res});
+                }
+            });
+        }, 1000);
     }
 
     humidityItem = ({item, index}) => (
@@ -48,7 +59,6 @@ class HumidityList extends Component {
 
 
 function HumidityScreen({route}) {
-    data = RoomsData;
     return (
         <HumidityList/>
     );

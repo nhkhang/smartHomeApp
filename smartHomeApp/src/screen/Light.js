@@ -128,10 +128,8 @@ class LightList extends Component {
 class LightGeneral extends Component{
     constructor(){
         super();
-        // let mock = grouping([]);
-        let mock = convertObjectToArray([]);
         this.state = {
-            data: mock,
+            data: [],
             isLoading: true
         }
     }

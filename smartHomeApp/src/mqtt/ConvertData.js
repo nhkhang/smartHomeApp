@@ -35,7 +35,7 @@ class ConvertData {
         switch(topic){
             case "relay": return this.convertRelay(data); break;
             case "light": return this.convertLight(data); break;
-            case "temp-humid": return this.convertHumid(data); break;
+            case "temp-humid": return this.convertTempHumid(data); break;
             case "magnetic": return this.convertMagnetic(data); break;
             case "gas": return this.convertGas(data); break;
         }
@@ -58,9 +58,10 @@ class ConvertData {
         }
     }
 
-    convertHumid(humidData) {
+    convertTempHumid(humidData) {
         const idx = this.getRoomID(this.roomID.humid, humidData.id) - 1;
-        this.roomsData[idx].humidity = humidData.data + humidData.unit;
+        this.roomsData[idx].temperature = humidData.data.split("-")[0] + '\u00B0' + humidData.unit.split("-")[0];
+        this.roomsData[idx].humidity = humidData.data.split("-")[1] + humidData.unit.split("-")[1];;
         return this.roomsData[idx];
     }
 

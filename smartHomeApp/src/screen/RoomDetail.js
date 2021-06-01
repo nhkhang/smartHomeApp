@@ -18,6 +18,7 @@ function filter(data, id) {
         return data;
     return data.filter(item => item.room === id);
 }
+
 class Room extends Component{
     constructor(props) {
         super(props);
@@ -74,9 +75,6 @@ class Room extends Component{
         if (this.state.isLoadingRoom == true || this.state.isLoadingDoor == true || this.state.isLoadingLight == true) {
             return <View><Text>Loading...</Text></View>;
         } else {
-            console.log('room', this.state.room);
-            console.log('lights', this.state.lights);
-            console.log('doors', this.state.doors);
             const id = this.state.id;
             const name = this.state.name;
             const navigation = this.state.navigation;
@@ -157,10 +155,8 @@ function RoomDetailStackScreen({route, navigation}) {
             <RoomDetailStack.Screen name="Temperature" component={Temperature}/>
             <RoomDetailStack.Screen name="Humidity" component={Humidity}/>
             <RoomDetailStack.Screen name="Window" component={Window}/>
-
         </RoomDetailStack.Navigator>
     )
 }
-
 
 export default RoomDetailStackScreen;

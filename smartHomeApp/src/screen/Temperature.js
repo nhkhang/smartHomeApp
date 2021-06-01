@@ -3,7 +3,7 @@ import _ from "lodash";
 import { View, Text, Switch, FlatList, TouchableOpacity, Image} from "react-native";
 import styles from '../style/screen'
 import RoomsData from '../data/RoomsData';
-
+import getData from '../data/getData';
 var data = [];
 
 
@@ -13,6 +13,16 @@ class TemparatureList extends Component {
         this.state = {
             listRooms : data
         } 
+    }
+
+    async componentDidMount(){
+        setInterval(() => {
+            getData("room").then((res) => {
+                if (res != this.state.listRooms){
+                    this.setState({listRooms: res});
+                }
+            });
+        }, 1000);
     }
 
     temparatureListItem = ({item, index}) => (
@@ -48,7 +58,6 @@ class TemparatureList extends Component {
 
 
 function TemparatureScreen({route}) {
-    data = RoomsData;
     return (
         <TemparatureList/>
     );

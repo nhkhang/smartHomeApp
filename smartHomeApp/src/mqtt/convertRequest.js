@@ -2,7 +2,7 @@ class ConvertRequest {
     convert(type, data) {
         switch(type) {
             case "light": return this.convertLight(data); break;
-            case "temp-humid": return this.convertHumid(data); break;
+            case "temp-humid": return this.convertTempHumid(data); break;
             case "magnetic": return this.convertMagnetic(data); break;
             case "gas": return this.convertGas(data); break;
             case "relay": return this.convertRelay(data); break;
@@ -16,7 +16,7 @@ class ConvertRequest {
             "unit": ""
         }
     }
-    convertHumid(data) {
+    convertTempHumid(data) {
         return {
             "id": data.key,
             "name": data.name.split(' ')[0],
@@ -43,7 +43,7 @@ class ConvertRequest {
     convertRelay(data) {
         return {
             "id": data.key,
-            "name": "Light ",
+            "name": "RELAY",
             "data": data.state,
             "unit": ""
         }

@@ -7,7 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Door from './Door';
 import Light from './Light';
 import Temperature from './Temperature';
-import Gas from './Gas';
+import {GasScreen, Reload} from './Gas';
 import Humidity from './Humidity';
 import Window from './Window';
 

@@ -77,7 +77,7 @@ class MQTT extends Component{
   changeLight(lightId, state) {
     const data = {
       "key": String(lightId),
-      "state": String(state)
+      "state": String(state),
     }
     this.sendPublishMessage("relay", data);
   }
