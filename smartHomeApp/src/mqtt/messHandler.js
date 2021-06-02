@@ -11,8 +11,6 @@ class MessHandler {
         storeData("relay", LightData);
         storeData("door", DoorData);
         storeData("room", RoomsData);
-
-        console.log(JSON.stringify(data));
     }
     handleRelay(data) {
         updateData("relay", data);
