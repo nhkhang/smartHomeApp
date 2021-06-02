@@ -4,6 +4,7 @@ import messHandler from './messHandler';
 import React, { Component } from 'react';
 import convertRequest from './convertRequest';
 import init from 'react_native_mqtt';
+import {CSE_BBC_key, CSE_BBC1_key} from './serverKey';
 
 init({
   size: 10000,
@@ -13,6 +14,9 @@ init({
   sync: {},
 });
 
+const CLIENT_1 = 'client1';
+const CLIENT_2 = 'client2';
+
 class MQTT extends Component{
 
   constructor(){
@@ -21,26 +25,51 @@ class MQTT extends Component{
     this.onConnectionLost = this.onConnectionLost.bind(this);
     
     var clientID = "Client" + new Date().getTime();
-    this.client = new Paho.MQTT.Client("io.adafruit.com", 80, clientID,);
-    this.client.onMessageArrived = this.onMessageArrived;
-    this.client.onConnectionLost = this.onConnectionLost;
+
+    this.client1 = new Paho.MQTT.Client("io.adafruit.com", 80, clientID,);
+    this.client1.onMessageArrived = this.onMessageArrived;
+    this.client1.onConnectionLost = this.onConnectionLost;
+
+    this.client2 = new Paho.MQTT.Client("io.adafruit.com", 80, clientID,);
+    this.client2.onMessageArrived = this.onMessageArrived;
+    this.client2.onConnectionLost = this.onConnectionLost;
 
     this.state = {
-      isConnected: false,
+      isClient1Connected: false,
+      isClient2Connected: false
     };
 
     this.connect();
   }
 
-  connect = () => {
-    const options = { 
-      onSuccess: this.onConnect,
+  connect = (connectionType="both") => {
+    const options1 = { 
+      onSuccess: this.onConnect(CLIENT_1),
       useSSL: false ,
-      userName: 'nhkhang',
-      password: 'aio_YGcn64qyrXaV' + 'DgAimW3kFitHmf3J',
+      userName: 'CSE_BBC',
+      password: CSE_BBC_key,
       onFailure: (e) => {console.log("Here is the error: " , e); }
     }
-    this.client.connect(options);
+    
+    const options2 = { 
+      onSuccess: this.onConnect(CLIENT_2),
+      useSSL: false ,
+      userName: 'CSE_BBC_1',
+      password: CSE_BBC1_key,
+      onFailure: (e) => {console.log("Here is the error: " , e); }
+    }
+    switch (connectionType) {
+      case CLIENT_1:
+        this.client1.connect(options1);
+        break;
+      case CLIENT_2:
+        this.client2.connect(options2);
+        break;
+      default:
+        this.client1.connect(options1);
+        this.client2.connect(options2);
+        break;
+    }
   }
 
   onMessageArrived(entry) {
@@ -49,21 +78,35 @@ class MQTT extends Component{
     this.handleMessage(entry.topic, message);
   }
 
-  onConnect = () => {
-    this.state.isConnected = true;
-    console.log("Connected!!!");
+  onConnect = (client) => {
+    if (client == CLIENT_1) {
+      this.state.isClient1Connected = true;
+      console.log("Client 1 is connected");
+    } else {
+      this.state.isClient2Connected = true;
+      console.log("Client 2 is connected");
+    }
     this.subscribeAllTopic();
   };
 
   subscribeTopic(topic) {
     try {
-      if (this.client.isConnected){
-        this.client.subscribe(topic, 
-          {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
-          onFailure: (e) => (console.log(e))});
-      }
-      else{
-        this.connect();
+      if (this.isClient1(topic)) {
+        if (this.isClient1Connected) {
+          this.client1.subscribe(topic, 
+            {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
+            onFailure: (e) => (console.log(e))});
+        } else {
+          this.connect(CLIENT_1);
+        }
+      } else {
+        if (this.isClient2Connected) {
+          this.client2.subscribe(topic, 
+            {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
+            onFailure: (e) => (console.log(e))});
+        } else {
+          this.connect(CLIENT_2);
+        }
       }
     } catch(e) {
       console.error(e);
@@ -102,21 +145,39 @@ class MQTT extends Component{
   }
 
   publishMessage(topic, msg){
-    try{
+    try {
       msg = JSON.stringify(msg);
       let message = new Paho.MQTT.Message(msg);
       message.destinationName = topic;
-      this.client.send(message);
-      if (this.state.isConnected){    
-        this.client.send(message);
-        console.log("Message sent: " + message.payloadString);   
-      }
-      else{
-        this.connect();
+      if (this.isClient1(topic)) {
+        if (this.isClient1Connected) {
+          this.client1.send(message);
+          console.log("Message sent: " + message.payloadString);
+        } else {
+          this.connect(CLIENT_1);
+        }
+      } else {
+        if (this.isClient2Connected) {
+          this.client2.send(message);
+          console.log("Message sent: " + message.payloadString);
+        } else {
+          this.connect(CLIENT_2);
+        }
       }
     }
     catch(e){
       console.log(e);
+    }
+  }
+
+  isClient1(topic) {
+    if (topic.search("CSE_BBC") != -1) {
+      return true;
+    } else if (topic.search("CSE_BBC1") != -1) {
+      return false;
+    } else {
+      console.error("Can't find client for this topic");
+      return false;
     }
   }
 
