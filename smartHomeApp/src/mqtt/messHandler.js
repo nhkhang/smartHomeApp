@@ -23,7 +23,6 @@ class MessHandler {
     }
     handleGas(data) {
         updateData("gas", data);
-        reload();
     }
     handleMagnetic(data) {
         updateData("magnetic", data);

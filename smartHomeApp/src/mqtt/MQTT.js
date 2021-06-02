@@ -30,7 +30,7 @@ class MQTT extends Component{
     this.client1.onMessageArrived = this.onMessageArrived;
     this.client1.onConnectionLost = this.onConnectionLost;
 
-    this.client2 = new Paho.MQTT.Client("io.adafruit.com", 80, clientID,);
+    this.client2 = new Paho.MQTT.Client("io.adafruit.com", 80, clientID + '2',);
     this.client2.onMessageArrived = this.onMessageArrived;
     this.client2.onConnectionLost = this.onConnectionLost;
 
@@ -44,7 +44,7 @@ class MQTT extends Component{
 
   connect = (connectionType="both") => {
     const options1 = { 
-      onSuccess: this.onConnect(CLIENT_1),
+      onSuccess: this.onConnect,
       useSSL: false ,
       userName: 'CSE_BBC',
       password: CSE_BBC_key,
@@ -52,9 +52,9 @@ class MQTT extends Component{
     }
     
     const options2 = { 
-      onSuccess: this.onConnect(CLIENT_2),
+      onSuccess: this.onConnect,
       useSSL: false ,
-      userName: 'CSE_BBC_1',
+      userName: 'CSE_BBC1',
       password: CSE_BBC1_key,
       onFailure: (e) => {console.log("Here is the error: " , e); }
     }
@@ -78,21 +78,18 @@ class MQTT extends Component{
     this.handleMessage(entry.topic, message);
   }
 
-  onConnect = (client) => {
-    if (client == CLIENT_1) {
-      this.state.isClient1Connected = true;
-      console.log("Client 1 is connected");
-    } else {
-      this.state.isClient2Connected = true;
-      console.log("Client 2 is connected");
-    }
+  onConnect = () => {
+    this.state.isClient1Connected = true;
+    console.log("Client 1 is connected");
+    this.state.isClient2Connected = true;
+    console.log("Client 2 is connected");
     this.subscribeAllTopic();
   };
 
   subscribeTopic(topic) {
     try {
       if (this.isClient1(topic)) {
-        if (this.isClient1Connected) {
+        if (this.state.isClient1Connected) {
           this.client1.subscribe(topic, 
             {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
             onFailure: (e) => (console.log(e))});
@@ -100,7 +97,7 @@ class MQTT extends Component{
           this.connect(CLIENT_1);
         }
       } else {
-        if (this.isClient2Connected) {
+        if (this.state.isClient2Connected) {
           this.client2.subscribe(topic, 
             {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
             onFailure: (e) => (console.log(e))});
