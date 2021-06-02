@@ -35,7 +35,7 @@ class DoorList extends Component {
         this.loadData();
         setInterval(() => {
             this.loadData();
-        }, 1000);
+        }, 2000);
     }
 
     doorItem = ({item, index}) => (

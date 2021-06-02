@@ -94,15 +94,16 @@ class MQTT extends Component{
             {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
             onFailure: (e) => (console.log(e))});
         } else {
-          this.connect(CLIENT_1);
+          // this.connect(CLIENT_1);
         }
       } else {
+        // console.log("Subscribe");
         if (this.state.isClient2Connected) {
           this.client2.subscribe(topic, 
             {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
             onFailure: (e) => (console.log(e))});
         } else {
-          this.connect(CLIENT_2);
+          // this.connect(CLIENT_2);
         }
       }
     } catch(e) {
@@ -128,11 +129,13 @@ class MQTT extends Component{
   */
   sendPublishMessage(type, data) {
     try {
-      const message = convertRequest.convert(type, data);
-      const topic = topicList.filter(topic => topic.search(type) != -1)[0];
+      var message = convertRequest.convert(type, data);
+      var topic = topicList.filter(topic => topic.search(type) != -1)[0];
       if (topic == []) {
         console.error("Cannot find topic!");
       } else {
+        // message = {"id":"1","name":"TEMP-HUMID","data":"26-45","unit":"C-%"};
+        // topic = "CSE_BBC/feeds/bk-iot-temp-humid";
         console.log(`Topic: ${topic}, message:`, message);
         this.publishMessage(topic, message);
       }
@@ -147,18 +150,18 @@ class MQTT extends Component{
       let message = new Paho.MQTT.Message(msg);
       message.destinationName = topic;
       if (this.isClient1(topic)) {
-        if (this.isClient1Connected) {
+        if (this.state.isClient1Connected) {
           this.client1.send(message);
           console.log("Message sent: " + message.payloadString);
         } else {
-          this.connect(CLIENT_1);
+          // this.connect(CLIENT_1);
         }
       } else {
-        if (this.isClient2Connected) {
+        if (this.state.isClient2Connected) {
           this.client2.send(message);
           console.log("Message sent: " + message.payloadString);
         } else {
-          this.connect(CLIENT_2);
+          // this.connect(CLIENT_2);
         }
       }
     }
@@ -168,12 +171,9 @@ class MQTT extends Component{
   }
 
   isClient1(topic) {
-    if (topic.search("CSE_BBC") != -1) {
+    if (topic.search("CSE_BBC1") == -1) {
       return true;
-    } else if (topic.search("CSE_BBC1") != -1) {
-      return false;
-    } else {
-      console.error("Can't find client for this topic");
+    } else{
       return false;
     }
   }

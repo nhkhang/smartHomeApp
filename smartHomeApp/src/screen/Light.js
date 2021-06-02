@@ -54,7 +54,7 @@ class LightList extends Component {
         this.loadData();
         setInterval(() => {
             this.loadData();
-        }, 1000);
+        }, 2000);
     }
 
     setLightState = (value, index) => {
