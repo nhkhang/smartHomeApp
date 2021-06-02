@@ -4,13 +4,15 @@ import { topicList } from './topics';
 import DoorData from '../data/DoorData';
 import LightData from '../data/LightData';
 import RoomsData from '../data/RoomsData';
-import GasScreen from '../screen/Gas';
-
+import Gas from '../screen/Gas';
+ 
 class MessHandler {
     constructor(){        
         storeData("relay", LightData);
         storeData("door", DoorData);
         storeData("room", RoomsData);
+
+        console.log(JSON.stringify(data));
     }
     handleRelay(data) {
         updateData("relay", data);
@@ -23,6 +25,7 @@ class MessHandler {
     }
     handleGas(data) {
         updateData("gas", data);
+        reload();
     }
     handleMagnetic(data) {
         updateData("magnetic", data);
