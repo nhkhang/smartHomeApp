@@ -1,4 +1,3 @@
-const prefix = "nhkhang/feeds/";
 let postfixTopicList = [
     "CSE_BBC/feeds/bk-iot-temp-humid",
     "CSE_BBC1/feeds/bk-iot-light",
