@@ -54,7 +54,7 @@ class MQTT extends Component{
     const options2 = { 
       onSuccess: this.onConnect,
       useSSL: false ,
-      userName: 'CSE_BBC_1',
+      userName: 'CSE_BBC1',
       password: CSE_BBC1_key,
       onFailure: (e) => {console.log("Here is the error: " , e); }
     }
@@ -67,7 +67,7 @@ class MQTT extends Component{
         break;
       default:
         this.client1.connect(options1);
-        // this.client2.connect(options2);
+        this.client2.connect(options2);
         break;
     }
   }
