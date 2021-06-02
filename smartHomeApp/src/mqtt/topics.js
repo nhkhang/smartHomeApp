@@ -1,10 +1,9 @@
 const prefix = "nhkhang/feeds/";
 let postfixTopicList = [
-    "bk-iot-temp-humid",
-    "bk-iot-light",
-    "bk-iot-gas",
-    "bk-iot-magnetic",
-    "bk-iot-relay",
-    "bk-iot-button"
+    "CSE_BBC/feeds/bk-iot-temp-humid",
+    "CSE_BBC1/feeds/bk-iot-light",
+    "CSE_BBC1/feeds/bk-iot-gas",
+    "CSE_BBC/feeds/bk-iot-magnetic",
+    "CSE_BBC1/feeds/bk-iot-relay"
 ]
-export const topicList = postfixTopicList.map(topic => prefix + topic);
+export const topicList = postfixTopicList;
