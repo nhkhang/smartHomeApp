@@ -15,12 +15,19 @@ class GasList extends Component {
         } 
     }
     
-    async componentDidMount(){
+    async loadData(){
         getData("room").then((res) => {
             if (res != this.state.listRooms){
                 this.setState({listRooms: res});
             }
         });
+    };
+
+    async componentDidMount(){
+        this.loadData();
+        setInterval(() => {
+            this.loadData();
+        }, 1000);
     }
 
     gasItem = ({item, index}) => (
