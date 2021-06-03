@@ -1,2 +1,2 @@
-export const CSE_BBC_key = "aio_EgXK400rXGsfd" + "spfNyuk4Y2JZZMR";
-export const CSE_BBC1_key = "aio_lubo29QRBLOP6OoD" + "kQ5RDsmUSukr";
+export const CSE_BBC_key = "aio_CraM232LDztk" + "YUG2RxHySDg7ZUTr";
+export const CSE_BBC1_key = "aio_uUDl88Sq5jw4MF" + "WMByHYXX3jvlUm";

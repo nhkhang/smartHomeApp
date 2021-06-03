@@ -6,7 +6,7 @@ var RoomsData = [
         "lightIntensity": "40",
         "temperature": "25℃",
         "humidity": "20%",
-        "gasConcentration": "low"
+        "gasConcentration": "high"
     },
     {
         "key": "2",
@@ -42,7 +42,7 @@ var RoomsData = [
         "lightIntensity": "40",
         "temperature": "27℃",
         "humidity": "50%",
-        "gasConcentration": "low"
+        "gasConcentration": "high"
     },
     {
         "key": "6",
@@ -51,7 +51,7 @@ var RoomsData = [
         "lightIntensity": "40",
         "temperature": "27℃",
         "humidity": "50%",
-        "gasConcentration": "low"
+        "gasConcentration": "high"
     },
     {
         "key": "7",

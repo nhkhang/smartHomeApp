@@ -103,8 +103,7 @@ class Room extends Component{
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.roomDetailBtnRight} onPress={()=>navigation.navigate("Window", {name: name, id: id})}>
                                 <MaterialCommunityIcons name="window-closed-variant" size={30} />
-                                <Text>0 Locked </Text>
-                                <Text>0 Unclocked</Text>
+                                <Text>Light Intensity: {this.state.room.lightIntensity}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.featureRow}>

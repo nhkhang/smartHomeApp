@@ -73,7 +73,7 @@ function App ({navigation}) {
         //Process with 'data' to signin
         console.log(data);
 
-        if(data.username == "" && data.password == ""){
+        if(data.username == "abc" && data.password == "123"){
           dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
         }
       },
