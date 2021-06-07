@@ -41,7 +41,7 @@ const login = (req, res, next) => {
         if(user){
             bcrypt.compare(password, user.password, function(err, result){
                 if(err){
-                    req.json({
+                    res.json({
                         error:err
                     })
                 }
