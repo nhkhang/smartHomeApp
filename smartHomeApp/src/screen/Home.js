@@ -17,6 +17,8 @@ import Humidity from './Humidity';
 import LightIntensity from './LightIntensity';
 import moment from 'moment';
 import { LineChart } from 'react-native-chart-kit';
+import LightSetting from './LightSetting';
+
 
 function TemparatureChart() {
   return (
@@ -121,7 +123,7 @@ function HomeScreen({route, navigation}) {
                 <Text style={styles.roomBtnText}>Door</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("LightIntensity", {name:"General", id: "0"})}>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Light Intensity", {name:"General", id: "0"})}>
                 <MaterialCommunityIcons name="lightning-bolt" size={30} />
                 <Text style={styles.roomBtnText}>Light Intensity</Text>
               </TouchableOpacity>
@@ -232,7 +234,8 @@ function HomeStackScreen(){
       }}/>
       <HomeStack.Screen name="Door" component={Door}/>
       <HomeStack.Screen name="Light" component={Light}/>
-      <HomeStack.Screen name="Window" component={Window}/>
+      <HomeStack.Screen name="Light Setting" component={LightSetting}/>
+      <HomeStack.Screen name="Light Intensity" component={LightIntensity}/>
       <HomeStack.Screen name="Gas" component={Gas}/>
       <HomeStack.Screen name="Temperature" component={Temperature}/>
       <HomeStack.Screen name="Humidity" component={Humidity}/>

@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from "lodash";
-import { View, Text, TouchableOpacity, ScrollView, Switch } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, Switch, Image } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import RNPickerSelect from "react-native-picker-select";
 import { createStackNavigator} from '@react-navigation/stack'
@@ -12,20 +12,14 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from 'moment';
 import LightData from '../data/LightData';
 
-function convertToDisplay(data){
-    var res = []
-    res.push({
-        label: "All room",
-        value: "0",
+function getRoomName(id){
+    var name = "";
+    RoomsData.forEach(item => {
+        if(item.key == id){
+            name = item.name;
+        }
     });
-    data.forEach(item => {
-        res.push({
-            label: item.name,
-            value: item.key,
-        })
-    });
-
-    return res;
+    return name;
 }
 
 function filter(data, id) {
@@ -143,115 +137,100 @@ class DeactivatedAt extends Component{
     }
 }
 
-function LightSetting({route, navigation}) {
 
-    const [itemChoose, setItemChoose] = React.useState("0");
 
-    const [listLight, setListLight] = React.useState(filter(LightData,itemChoose));
-
-    const setLightState = (value, index) => {
-        const tempData = _.cloneDeep(listLight);
-        tempData[index].state = value ? "1" : "0";
-        setListLight(tempData);
+class LightSetting extends Component {
+    constructor(props) {
+        super();
+        this.state = {
+            itemChoose: props.route.params.item,
+            listLight: filter(LightData, props.route.params.item),
+            settingState: "0"
+        }
     }
 
-    // const LightItem = ({item,index}) => (
-    //     <View style={styles.lightCard}>
-    //         <View style={styles.lightItem}>
-    //             <View style={styles.headerLightItem}>
-    //                 <Text style={styles.nameLight}>{item.name}</Text>
-    //                 <Switch
-    //                     value={item.state == "1" ? true : false}
-    //                     style={styles.toggleLight}
-    //                     onValueChange={(value) => setLightState(value,index)}
-    //                 />
-    //             </View>
-    //             <View style={styles.bodyLightItem}>
-    //                 <MaterialCommunityIcons style={item.state == "1"?styles.lightOn:styles.lightOff} name={item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
-    //             </View>
-    //         </View>
-    //     </View>
-    // )
-
-
-
-    return (
-        <View style={styles.containerMode}>
-            <View style={styles.roomDetailSceenImage}>
-                <Image
-                    source = {{uri:"https://c1.staticflickr.com/9/8725/28609601352_59ebbba9b5_o.png"}}
-                    style={styles.roomDetailSceenImage}>
-                </Image>
-            </View>
-            <View style={styles.rowLightMode}>
-                <Text style={styles.titleRow}>Name:</Text>
-                <Text style={styles.nameMode}>Light 1</Text>
-            </View>
-            
-            <View style={styles.dividingLine}></View>
-            
-            <View style={styles.rowMode}>
-                <Text style={styles.titleRow}>Room:</Text>
-                <View style={styles.selectRoomMode}>
-                    <RNPickerSelect
-                        value = {itemChoose}
-                        onValueChange={(value) =>{
-                            setItemChoose(value);
-                            setListLight(filter(LightData, itemChoose));
-                        }}
-                        items={convertToDisplay(RoomsData)}
-                        pickerProps={{style: styles.pickerProps}}
-                    />
+    render() {
+        console.log(getRoomName(this.state.itemChoose));
+        return (
+            <View style={styles.containerMode}>
+                <View style={styles.roomDetailSceenImage}>
+                    <Image
+                        source = {{uri:"https://c1.staticflickr.com/9/8725/28609601352_59ebbba9b5_o.png"}}
+                        style={styles.roomDetailSceenImage}>
+                    </Image>
                 </View>
-            </View>
-
-            <View style={styles.dividingLine}></View>
-
-            <View style={styles.rowMode}>
-                <Text style={styles.titleRow}>Activated at:</Text>
-                <View>
-                    <ActivatedAt></ActivatedAt>
-                </View>
-            </View>
-
-            <View style={styles.dividingLine}></View>
-
-            <View style={styles.rowMode}>
-                <Text style={styles.titleRow}>Deactivated at:</Text>
-                <View>
-                    <DeactivatedAt></DeactivatedAt>
-                </View>
-            </View>
-
-            <View style={styles.dividingLine}></View>
-            
-            <View>
                 <View style={styles.rowLightMode}>
-                    <Text style={styles.titleRow}>Setting Status:</Text>
+                    <Text style={styles.titleRow}>Name:</Text>
+                    <Text style={styles.nameMode}>{this.props.route.params.lightName}</Text>
                 </View>
                 
-                <View style={styles.lightSystemMode}>
-                    <Switch
-                        value={item.state == "1" ? true : false}
-                        style={styles.toggleLight}
-                        onValueChange={(value) => setLightState(value,index)}
-                    />
+                <View style={styles.dividingLine}></View>
+                
+                <View style={styles.rowLightMode}>
+                    <Text style={styles.titleRow}>Room:</Text>
+                    <Text style={styles.nameMode}>{getRoomName(this.state.itemChoose)}</Text>
+                    {/* <View style={styles.selectRoomMode}>
+                        <RNPickerSelect
+                            value = {this.state.itemChoose}
+                            onValueChange={(value) =>{
+                                // setItemChoose(value);
+                                this.setState({itemChoose: value, listLight : filter(LightData, this.state.itemChoose)});
+                            }}
+                            items={convertToDisplay(RoomsData)}
+                            pickerProps={{style: styles.pickerProps}}
+                        />
+                        
+                    </View> */}
                 </View>
-
-
+    
+                <View style={styles.dividingLine}></View>
+    
+                <View style={styles.rowMode}>
+                    <Text style={styles.titleRow}>Activated at:</Text>
+                    <View>
+                        <ActivatedAt></ActivatedAt>
+                    </View>
+                </View>
+    
+                <View style={styles.dividingLine}></View>
+    
+                <View style={styles.rowMode}>
+                    <Text style={styles.titleRow}>Deactivated at:</Text>
+                    <View>
+                        <DeactivatedAt></DeactivatedAt>
+                    </View>
+                </View>
+    
+                <View style={styles.dividingLine}></View>
+                
+                <View>
+                    <View style={styles.rowLightMode}>
+                        <Text style={styles.titleRow}>Setting Status:</Text>
+                    </View>
+                    
+                    <View style={styles.lightSystemMode}>
+                        <Switch
+                            value={this.state.settingState == "1" ? true : false}
+                            style={styles.toggleLight}
+                            onValueChange={(value) => this.setState({settingState : value})}
+                        />
+                    </View>
+    
+    
+                </View>
+                
+                <View style={styles.dividingLine}></View>
+                <View style={styles.buttonRow}>
+                    <TouchableOpacity style ={styles.lightModeButton} onPress={() => this.props.navigation.goBack()}>
+                        <Text style={styles.cancelLightModeText}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style ={styles.lightModeButton} onPress={() => this.props.navigation.goBack()}>
+                        <Text style={styles.saveLightModeText}>Save</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            
-            <View style={styles.dividingLine}></View>
-            <View style={styles.buttonRow}>
-                <TouchableOpacity style ={styles.lightModeButton} onPress={() => navigation.goBack()}>
-                    <Text style={styles.cancelLightModeText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style ={styles.lightModeButton} onPress={() => navigation.goBack()}>
-                    <Text style={styles.saveLightModeText}>Save</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    )
+        )
+    }
 }
 
 export default LightSetting;

@@ -65,7 +65,7 @@ class LightIntensityList extends Component {
 
 function LightIntensityScreen({route}) {
     return (
-        <HumidityList/>
+        <LightIntensityList/>
     );
 }
 

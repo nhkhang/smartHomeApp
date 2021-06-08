@@ -73,7 +73,7 @@ class LightList extends Component {
                         style={styles.toggleLight}
                         onValueChange={(value) => this.setLightState(value,index)}
                     />
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Light Setting", {item: item.room})}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Light Setting", {item: item.room, lightName: item.name})}>
                         <MaterialCommunityIcons name='dots-vertical' size={30} color={"#000000"}/>
                     </TouchableOpacity>
                 </View>
@@ -94,7 +94,7 @@ class LightList extends Component {
                         style={styles.toggleLight}
                         onValueChange={(value) => this.setLightState(value, index + countLeft)}
                     />
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Light Setting", {item: item.room})}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Light Setting", {item: item.room, lightName: item.name})}>
                         <MaterialCommunityIcons name='dots-vertical' size={30} color={"#000000"}/>
                     </TouchableOpacity>
                 </View>
@@ -182,7 +182,7 @@ class LightGeneral extends Component{
                         style={styles.toggleLight}
                         onValueChange={(value) => this.setLightState(value, index, item.room)}
                     />
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Light Setting", {item: item.room})}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Light Setting", {item: item.room, lightName: item.name})}>
                         <MaterialCommunityIcons name='dots-vertical' size={30} color={"#000000"}/>
                     </TouchableOpacity>
                 </View>
@@ -247,16 +247,16 @@ function convertObjectToArray(obj){
     return arr;
 }
 
-function LightScreen({route}) {
+function LightScreen({route, navigation}) {
     const {name, id} = route.params;
     if (id == "0") {
         return (
-            <LightGeneral/>
+            <LightGeneral navigation={navigation}/>
         )
     }
     else {
         return (
-            <LightList id={id}/>
+            <LightList id={id} navigation={navigation}/>
         );
     }
 }
