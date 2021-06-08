@@ -1,7 +1,7 @@
 const User = require('../model/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const user  = require('../routes/index')
+const user  = require('../routes/auth')
 
 const register = (req, res, next) =>{
     bcrypt.hash(req.body.password, 10, function(err, hashedPass){
