@@ -6,7 +6,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AuthContext } from './src/api/context';
 import SignIn from './src/screen/SignIn';
 import SignUp from './src/screen/SignUp'
-import {login, register} from '../server/controller/AuthController'
 import {mqtt} from './src/mqtt/MQTT';
 import init from 'react_native_mqtt';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -73,8 +72,7 @@ function App ({navigation}) {
 
         //Process with 'data' to signin
         console.log(data);
-
-        if(login(data) == 'Login Successful!'){
+        if(data.username == "abc" && data.password == "123"){
           dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
         }
       },
