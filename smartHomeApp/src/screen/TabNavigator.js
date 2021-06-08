@@ -27,7 +27,7 @@ function TabNavigator() {
             else if(route.name === 'Settings') {
               iconName = focused ? 'cog' : 'cog-outline';
             }
-            else if(route.name === 'Room') {
+            else if(route.name === 'Rooms') {
               iconName = focused ? 'list' : 'list-outline';
             }
             else if (route.name === 'Notifications') {
@@ -43,7 +43,7 @@ function TabNavigator() {
         }}
       >
         <Tab.Screen name="Home" component={HomeStackScreen}/>
-        <Tab.Screen name="Room" component={RoomsStackScreen}/>
+        <Tab.Screen name="Rooms" component={RoomsStackScreen}/>
         <Tab.Screen name="Notifications" component={NotificationsStackScreen}/>
         <Tab.Screen name="Settings" component={SettingsStackScreen}/>
       </Tab.Navigator>
