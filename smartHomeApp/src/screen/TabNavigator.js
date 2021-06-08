@@ -6,7 +6,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import HomeStackScreen from './Home'
 import NotificationsStackScreen from './Notification'
 import RoomsStackScreen from './Rooms'
-import LightModeStackScreen from './LightMode'
 import SettingsStackScreen from './Setting'
 import FeaturesStackScreen from './Feature'
 import RoomDetailsStackScreen from './RoomDetail'
@@ -28,8 +27,8 @@ function TabNavigator() {
             else if(route.name === 'Settings') {
               iconName = focused ? 'cog' : 'cog-outline';
             }
-            else if(route.name === 'LightMode') {
-              iconName = focused ? 'contrast' : 'contrast-outline';
+            else if(route.name === 'Room') {
+              iconName = focused ? 'list' : 'list-outline';
             }
             else if (route.name === 'Notifications') {
               iconName = focused ? 'notifications' : 'notifications-outline';
@@ -44,7 +43,7 @@ function TabNavigator() {
         }}
       >
         <Tab.Screen name="Home" component={HomeStackScreen}/>
-        <Tab.Screen name="LightMode" component={LightModeStackScreen}/>
+        <Tab.Screen name="Room" component={RoomsStackScreen}/>
         <Tab.Screen name="Notifications" component={NotificationsStackScreen}/>
         <Tab.Screen name="Settings" component={SettingsStackScreen}/>
       </Tab.Navigator>

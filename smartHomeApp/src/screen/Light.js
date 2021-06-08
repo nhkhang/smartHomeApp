@@ -68,15 +68,18 @@ class LightList extends Component {
         <View style={styles.lightCard}>
             <View style={styles.lightItem}>
                 <View style={styles.headerLightItem}>
-                    <Text style={styles.nameLight}>{item.name}</Text>
                     <Switch
                         value={item.state === "1" ? true : false}
                         style={styles.toggleLight}
                         onValueChange={(value) => this.setLightState(value,index)}
                     />
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Light Setting", {item: item.room, lightName: item.name})}>
+                        <MaterialCommunityIcons name='dots-vertical' size={30} color={"#000000"}/>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.bodyLightItem}>
                     <MaterialCommunityIcons style={item.state == "1"?styles.lightOn:styles.lightOff} name={item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
+                    <Text style={styles.nameLight}>{item.name}</Text>
                 </View>
             </View>
         </View>
@@ -86,15 +89,18 @@ class LightList extends Component {
         <View style={styles.lightCard}>
             <View style={styles.lightItem}>
                 <View style={styles.headerLightItem}>
-                    <Text style={styles.nameLight}>{item.name}</Text>
                     <Switch
                         value={item.state === "1" ? true : false}
                         style={styles.toggleLight}
                         onValueChange={(value) => this.setLightState(value, index + countLeft)}
                     />
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Light Setting", {item: item.room, lightName: item.name})}>
+                        <MaterialCommunityIcons name='dots-vertical' size={30} color={"#000000"}/>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.bodyLightItem}>
                     <MaterialCommunityIcons style={item.state == "1"?styles.lightOn:styles.lightOff} name={item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
+                    <Text style={styles.nameLight}>{item.name}</Text>
                 </View>
             </View>
         </View>
@@ -171,15 +177,18 @@ class LightGeneral extends Component{
         <View style={styles.lightCard}>
             <View style={styles.lightItem}>
                 <View style={styles.headerLightItem}>
-                    <Text style={styles.nameLight}>{item.name}</Text>
                     <Switch
                         value={item.state == "1" ? true : false}
                         style={styles.toggleLight}
                         onValueChange={(value) => this.setLightState(value, index, item.room)}
                     />
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Light Setting", {item: item.room, lightName: item.name})}>
+                        <MaterialCommunityIcons name='dots-vertical' size={30} color={"#000000"}/>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.bodyLightItem}>
                     <MaterialCommunityIcons style={item.state == "1"?styles.lightOn:styles.lightOff} name={item.state == "1"?'lightbulb-on':'lightbulb-off'} size={50} color={"#000000"} />
+                    <Text style={styles.nameLight}>{item.name}</Text>
                 </View>
             </View>
         </View>
@@ -238,16 +247,16 @@ function convertObjectToArray(obj){
     return arr;
 }
 
-function LightScreen({route}) {
+function LightScreen({route, navigation}) {
     const {name, id} = route.params;
     if (id == "0") {
         return (
-            <LightGeneral/>
+            <LightGeneral navigation={navigation}/>
         )
     }
     else {
         return (
-            <LightList id={id}/>
+            <LightList id={id} navigation={navigation}/>
         );
     }
 }

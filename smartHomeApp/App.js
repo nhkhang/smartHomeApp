@@ -9,6 +9,10 @@ import SignUp from './src/screen/SignUp'
 import {mqtt} from './src/mqtt/MQTT';
 import init from 'react_native_mqtt';
 import AsyncStorage from '@react-native-community/async-storage';
+
+//const auth = require('../server/controller/AuthController')
+
+
 // import MQTT from 'paho-mqtt';
 
 // var mqtt = new MQTT();
@@ -72,9 +76,14 @@ function App ({navigation}) {
 
         //Process with 'data' to signin
         console.log(data);
-
         if(data.username == "abc" && data.password == "123"){
           dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
+        }
+        else if(data.username=="abc"){
+          alert("The password that you've entered is incorrect. Forgotten password?");
+        }
+        else{
+          alert("The use name you entered isn't connected to an account.");
         }
       },
       signOut: () => dispatch({type: "SIGN_OUT"}),

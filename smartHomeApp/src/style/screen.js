@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
         borderColor: "#aaa",
         borderWidth: 1,
         width: 220,
-        height: 160,
+        height: 100,
     },
     titleReportItem: {
         fontSize: 13,

@@ -9,7 +9,7 @@ import Light from './Light';
 import Temperature from './Temperature';
 import Gas from './Gas';
 import Humidity from './Humidity';
-import Window from './Window';
+import Window from './LightIntensity';
 import { Component } from 'react';
 import getData from '../data/getData';
 
@@ -101,8 +101,8 @@ class Room extends Component{
                                 <Text>{this.getDoorLocked(true)} Locked </Text>
                                 <Text>{this.getDoorLocked(false)} Unclocked</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.roomDetailBtnRight} onPress={()=>navigation.navigate("Window", {name: name, id: id})}>
-                                <MaterialCommunityIcons name="window-closed-variant" size={30} />
+                            <TouchableOpacity style={styles.roomDetailBtnRight} onPress={()=>navigation.navigate("LightIntensity", {name: name, id: id})}>
+                                <MaterialCommunityIcons name="lightning-bolt" size={30} />
                                 <Text>Light Intensity: {this.state.room.lightIntensity}</Text>
                             </TouchableOpacity>
                         </View>

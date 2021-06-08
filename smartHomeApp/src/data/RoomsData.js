@@ -13,7 +13,7 @@ var RoomsData = [
         "name": "Kitchen",
         "url": "https://c1.staticflickr.com/9/8725/28609601352_59ebbba9b5_o.png",
         "lightIntensity": "40",
-        "temperature": "27℃",
+        "temperature": "27℃",   
         "humidity": "50%",
         "gasConcentration": "low"
     },
