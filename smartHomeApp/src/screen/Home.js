@@ -14,8 +14,8 @@ import Light from './Light';
 import Temperature from './Temperature';
 import Gas from './Gas';
 import Humidity from './Humidity';
-import Window from './Window';
-
+import LightIntensity from './LightIntensity';
+import moment from 'moment';
 import { LineChart } from 'react-native-chart-kit';
 
 function TemparatureChart() {
@@ -96,7 +96,7 @@ function HomeScreen({route, navigation}) {
       <View style = {styles.container}>
         <View style={styles.containerHome}>
           <TouchableOpacity style={styles.welcomeCard}>
-              <Text style={{marginTop: 10}}>APRIL 15, 2021</Text>
+              <Text style={{marginTop: 10}}>{moment(new Date()).format('MMM DD YYYY')}</Text>
               <Text style={styles.welcomeWord}>WELCOME HOME, KERIS!</Text>
               <Text>What are you looking for?</Text>
           </TouchableOpacity>
@@ -121,9 +121,9 @@ function HomeScreen({route, navigation}) {
                 <Text style={styles.roomBtnText}>Door</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {name:"General", id: "0"})}>
-                <MaterialCommunityIcons name="window-closed-variant" size={30} />
-                <Text style={styles.roomBtnText}>Window</Text>
+              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("LightIntensity", {name:"General", id: "0"})}>
+                <MaterialCommunityIcons name="lightning-bolt" size={30} />
+                <Text style={styles.roomBtnText}>Light Intensity</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Temperature", {name:"General", id: "0"})}>
@@ -191,12 +191,12 @@ function HomeScreen({route, navigation}) {
               <TouchableOpacity style={styles.quickReportItem}>
                 <Text style={styles.titleReportItem}>Average Temparature</Text>
                 <Text style={styles.reportItemValue}>26.8°C</Text>
-                <TemparatureChart/>
+                {/* <TemparatureChart/> */}
               </TouchableOpacity>
               <TouchableOpacity style={styles.quickReportItem}>
                 <Text style={styles.titleReportItem}>Average Humidity</Text>
                 <Text style={styles.reportItemValue}>48.6%</Text>
-                <HumidityChart/>
+                {/* <HumidityChart/> */}
               </TouchableOpacity>
               <TouchableOpacity style={styles.quickReportItem}>
                 <Text style={styles.titleReportItem}>Gas</Text>

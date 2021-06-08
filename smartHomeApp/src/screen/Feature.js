@@ -9,7 +9,7 @@ import Light from './Light';
 import Temperature from './Temperature';
 import Gas from './Gas';
 import Humidity from './Humidity';
-import Window from './Window';
+import LightIntensity from './LightIntensity';
 
 function FeaturesScreen({navigation}) {
     return (
@@ -20,9 +20,9 @@ function FeaturesScreen({navigation}) {
                         <FontAwesome5Pro name={'door-open'} size={30} />
                         <Text>Door</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("Window", {name: " General", id: "0"})}>
-                        <MaterialCommunityIcons name="window-closed-variant" size={30} />
-                        <Text>Window</Text>
+                    <TouchableOpacity style={styles.ViewBtnRight} onPress={()=> navigation.navigate("LightIntensity", {name: " General", id: "0"})}>
+                        <MaterialCommunityIcons name="lightning-bolt" size={30} />
+                        <Text>Light Intensity</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.featureRow}>

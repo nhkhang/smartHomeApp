@@ -6,9 +6,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AuthContext } from './src/api/context';
 import SignIn from './src/screen/SignIn';
 import SignUp from './src/screen/SignUp'
+import {mqtt} from './src/mqtt/MQTT';
+import init from 'react_native_mqtt';
+import AsyncStorage from '@react-native-community/async-storage';
+
+//const auth = require('../server/controller/AuthController')
 
 
+// import MQTT from 'paho-mqtt';
 
+// var mqtt = new MQTT();
 function App ({navigation}) {
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
@@ -41,34 +48,42 @@ function App ({navigation}) {
     }
   );
 
-  React.useEffect(() => {
-    const bootstrapAsync = async () => {
-      let userToken;
+  // =====This useEffect calls this App twice, consider another options for this=====
+  // React.useEffect(() => {
+  //   const bootstrapAsync = async () => {
+  //     let userToken;
 
-      try{
-        userToken = await SecureStore.getItemAsync("userToken");
-      }
-      catch(e){
-        // Restoring token fail
-      }
+  //     try{
+  //       userToken = await SecureStore.getItemAsync("userToken");
+  //     }
+  //     catch(e){
+  //       // Restoring token fail
+  //     }
 
-      // Need to validate token in production apps
+  //     // Need to validate token in production apps
       
 
-      dispatch({type: "RESTORE_TOKEN", token: userToken});
-    };
-    bootstrapAsync();
-  }, []);
-  
+  //     dispatch({type: "RESTORE_TOKEN", token: userToken});
+  //   };
+  //   bootstrapAsync();
+  // }, []
+  // );
+  // ==========
+
   const authContext = React.useMemo(
     () => ({
       signIn: async data => {
 
         //Process with 'data' to signin
         console.log(data);
-
-        if(data.username == "" && data.password == ""){
+        if(data.username == "abc" && data.password == "123"){
           dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
+        }
+        else if(data.username=="abc"){
+          alert("The password that you've entered is incorrect. Forgotten password?");
+        }
+        else{
+          alert("The use name you entered isn't connected to an account.");
         }
       },
       signOut: () => dispatch({type: "SIGN_OUT"}),

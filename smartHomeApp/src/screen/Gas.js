@@ -1,18 +1,33 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import _ from "lodash";
 import { View, Text, Switch, FlatList, TouchableOpacity, Image} from "react-native";
 import styles from '../style/screen'
 import RoomsData from '../data/RoomsData';
+import getData from '../data/getData';
 
 var data = [];
 
-
 class GasList extends Component {
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
             listRooms : data
         } 
+    }
+    
+    async loadData(){
+        getData("room").then((res) => {
+            if (res != this.state.listRooms){
+                this.setState({listRooms: res});
+            }
+        });
+    };
+
+    async componentDidMount(){
+        this.loadData();
+        setInterval(() => {
+            this.loadData();
+        }, 2000);
     }
 
     gasItem = ({item, index}) => (
@@ -43,15 +58,11 @@ class GasList extends Component {
     }
 }
 
+function Gas({route, navigation}){
 
-
-
-
-function GasScreen({route}) {
-    data = RoomsData;
     return (
         <GasList/>
     );
 }
 
-export default GasScreen;
+export default Gas;

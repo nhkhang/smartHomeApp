@@ -3,7 +3,7 @@ import _ from "lodash";
 import { View, Text, Switch, FlatList, TouchableOpacity, Image} from "react-native";
 import styles from '../style/screen'
 import DoorData from '../data/DoorData';
-
+import getData from '../data/getData';
 
 function filter(data, id) {
     if(id === "0")
@@ -14,11 +14,28 @@ function filter(data, id) {
 var data = [];
 
 class DoorList extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            listDoors : data
+            listDoors : data,
+            id: props.id
         } 
+    }
+
+    async loadData(){
+        getData("door").then((res) => {
+            res = filter(res, this.state.id);
+            if (res != this.state.listDoors){
+                this.setState({listDoors: res});
+            }
+        });
+    };
+
+    async componentDidMount(){
+        this.loadData();
+        setInterval(() => {
+            this.loadData();
+        }, 2000);
     }
 
     doorItem = ({item, index}) => (
@@ -51,9 +68,8 @@ class DoorList extends Component {
 
 function DoorScreen({route}) {
     const id = route.params.id;
-    data = filter(DoorData, id);
     return (
-        <DoorList/>
+        <DoorList id={id}/>
     );
 }
 

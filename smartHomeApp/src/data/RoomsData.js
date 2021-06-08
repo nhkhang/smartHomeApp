@@ -4,9 +4,9 @@ var RoomsData = [
         "name": "Living room",
         "url": "https://noithatroyal.vn/uploads/details/2019/12/images/2e801cca4482a2dcfb93.jpg",
         "lightIntensity": "40",
-        "temperature": "27℃",
-        "humidity": "50%",
-        "gasConcentration": "low"
+        "temperature": "25℃",
+        "humidity": "20%",
+        "gasConcentration": "high"
     },
     {
         "key": "2",
@@ -42,7 +42,7 @@ var RoomsData = [
         "lightIntensity": "40",
         "temperature": "27℃",
         "humidity": "50%",
-        "gasConcentration": "low"
+        "gasConcentration": "high"
     },
     {
         "key": "6",
@@ -51,7 +51,7 @@ var RoomsData = [
         "lightIntensity": "40",
         "temperature": "27℃",
         "humidity": "50%",
-        "gasConcentration": "low"
+        "gasConcentration": "high"
     },
     {
         "key": "7",

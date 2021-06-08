@@ -17,7 +17,6 @@ function SignIn({navigation}) {
           <Image
               style={styles.logo}
               source={require('../img/logo.jpg')}>
-
           </Image>
         </View>
         

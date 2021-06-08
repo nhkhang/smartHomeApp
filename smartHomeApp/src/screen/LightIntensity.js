@@ -8,7 +8,7 @@ import getData from '../data/getData';
 var data = [];
 
 
-class TemparatureList extends Component {
+class LightIntensityList extends Component {
     constructor() {
         super();
         this.state = {
@@ -31,7 +31,7 @@ class TemparatureList extends Component {
         }, 2000);
     }
 
-    temparatureListItem = ({item, index}) => (
+    lightIntensityItem = ({item, index}) => (
         <View style={styles.DoorScreen}>
             <View style={styles.doorItem}>
                 <Image
@@ -41,7 +41,7 @@ class TemparatureList extends Component {
 
                 <View style={styles.doorText}>
                     <Text style={styles.doorName}>{item.name}</Text>
-                    <Text style={styles.doorState}>{item.temperature}</Text>
+                    <Text style={styles.doorState}>{item.lightIntensity}</Text>
                 </View>
             </View>
         </View>
@@ -52,7 +52,7 @@ class TemparatureList extends Component {
             <View>
                 <FlatList
                     data={this.state.listRooms}
-                    renderItem={this.temparatureListItem}
+                    renderItem={this.lightIntensityItem}
                 />
             </View>
         )
@@ -63,10 +63,10 @@ class TemparatureList extends Component {
 
 
 
-function TemparatureScreen({route}) {
+function LightIntensityScreen({route}) {
     return (
-        <TemparatureList/>
+        <HumidityList/>
     );
 }
 
-export default TemparatureScreen;
+export default LightIntensityScreen;
