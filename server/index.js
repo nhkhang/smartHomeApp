@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 // node index.js --IO_PASSWORD=aio_TvTg56hn37NwF1RgvCRjzCqJQN86
 
 const dbConfig = require("./config/db.config");
+const AuthRoute =  require("./routes/index")
 mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DATABASE_NAME}`, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -25,6 +26,8 @@ app.use(express.urlencoded({
 
 const router = require("./routes");
 app.use("/", router);
+app.use('/api', AuthRoute)
+
 
 server.listen(3000, () => {
   console.log(`Server started on port 3000`);
