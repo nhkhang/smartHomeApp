@@ -6,13 +6,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AuthContext } from './src/api/context';
 import SignIn from './src/screen/SignIn';
 import SignUp from './src/screen/SignUp'
-import {mqtt} from './src/mqtt/MQTT';
+import { mqtt } from './src/mqtt/MQTT';
 import init from 'react_native_mqtt';
 import AsyncStorage from '@react-native-community/async-storage';
 // import MQTT from 'paho-mqtt';
 
 // var mqtt = new MQTT();
-function App ({navigation}) {
+function App({ navigation }) {
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
@@ -34,7 +34,7 @@ function App ({navigation}) {
             isSignout: true,
             userToken: null,
           };
-        
+
       }
     },
     {
@@ -57,7 +57,7 @@ function App ({navigation}) {
   //     }
 
   //     // Need to validate token in production apps
-      
+
 
   //     dispatch({type: "RESTORE_TOKEN", token: userToken});
   //   };
@@ -71,17 +71,36 @@ function App ({navigation}) {
       signIn: async data => {
 
         //Process with 'data' to signin
-        console.log(data);
-        if(data.username == "abc" && data.password == "123"){
-          dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
+        //console.log(data);
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'json' },
+          body: data
+        };
+        const response = await fetch('/api/login', requestOptions);
+        const data_response = await response.json();
+        this.setState({ postId: data.id });
+
+        if (data_response.body.message == 'Login Successful!'){
+        //if (data.username == "abc" && data.password == "123") {
+          dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
         }
       },
-      signOut: () => dispatch({type: "SIGN_OUT"}),
+      signOut: () => dispatch({ type: "SIGN_OUT" }),
       signUp: async data => {
 
-        // Process with 'data' to signup
-        console.log(data);
-        dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
+        //Process with 'data' to signup
+        //console.log(data)
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'json' },
+          body: data
+        };
+        const response = await fetch('/api/register', requestOptions);
+        const data_response = await response.json();
+        this.setState({ postId: data.id });
+
+        dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
     []
@@ -99,13 +118,13 @@ function App ({navigation}) {
               headerShown: false
             }}
           >
-            <Stack.Screen name="SignIn" component={SignIn}/>
-            <Stack.Screen name="SignUp" component={SignUp}/>
+            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="SignUp" component={SignUp} />
           </Stack.Navigator>
         </NavigationContainer>
-      ): (
+      ) : (
         <TabNavigator />
-      )} 
+      )}
     </AuthContext.Provider>
   )
 }
