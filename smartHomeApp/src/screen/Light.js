@@ -182,7 +182,7 @@ class LightGeneral extends Component{
                         style={styles.toggleLight}
                         onValueChange={(value) => this.setLightState(value, index, item.room)}
                     />
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Light Setting", {item: item.room, lightName: item.name})}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Light Setting", {item: item.room, lightId: item.key})}>
                         <MaterialCommunityIcons name='dots-vertical' size={30} color={"#000000"}/>
                     </TouchableOpacity>
                 </View>

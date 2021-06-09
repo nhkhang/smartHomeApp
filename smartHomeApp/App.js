@@ -76,10 +76,10 @@ function App ({navigation}) {
 
         //Process with 'data' to signin
         console.log(data);
-        if(data.username == "abc" && data.password == "123"){
+        if(data.username == "" && data.password == ""){
           dispatch({type: "SIGN_IN", token: "dummy-auth-token"});
         }
-        else if(data.username=="abc"){
+        else if(data.username==""){
           alert("The password that you've entered is incorrect. Forgotten password?");
         }
         else{
