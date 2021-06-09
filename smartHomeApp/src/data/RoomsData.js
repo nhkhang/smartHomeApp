@@ -35,33 +35,6 @@ var RoomsData = [
         "humidity": "50%",
         "gasConcentration": "low"
     },
-    {
-        "key": "5",
-        "name": "Bedroom 2",
-        "url": "https://assets.blog.hgtv.ca/wp-content/uploads/2020/07/27141435/creative-bedroom-upgrades-feature.jpg",
-        "lightIntensity": "40",
-        "temperature": "27℃",
-        "humidity": "50%",
-        "gasConcentration": "high"
-    },
-    {
-        "key": "6",
-        "name": "Bedroom 2",
-        "url": "https://assets.blog.hgtv.ca/wp-content/uploads/2020/07/27141435/creative-bedroom-upgrades-feature.jpg",
-        "lightIntensity": "40",
-        "temperature": "27℃",
-        "humidity": "50%",
-        "gasConcentration": "high"
-    },
-    {
-        "key": "7",
-        "name": "Bedroom 2",
-        "url": "https://assets.blog.hgtv.ca/wp-content/uploads/2020/07/27141435/creative-bedroom-upgrades-feature.jpg",
-        "lightIntensity": "40",
-        "temperature": "27℃",
-        "humidity": "50%",
-        "gasConcentration": "low"
-    },
 ];
 
 module.exports = RoomsData;
