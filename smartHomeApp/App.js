@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AuthContext } from './src/api/context';
 import SignIn from './src/screen/SignIn';
 import SignUp from './src/screen/SignUp'
+import {login, register} from '../server/routes/data.routes'
 import { mqtt } from './src/mqtt/MQTT';
 import init from 'react_native_mqtt';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -77,11 +78,11 @@ function App({ navigation }) {
           headers: { 'Content-Type': 'json' },
           body: data
         };
-        const response = await fetch('/api/login', requestOptions);
+        const response = await fetch('http://localhost:3000/login', requestOptions);
         const data_response = await response.json();
         this.setState({ postId: data.id });
 
-        if (data_response.body.message == 'Login Successful!'){
+        if (data_response.body.message){
         //if (data.username == "abc" && data.password == "123") {
           dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
         }
@@ -96,7 +97,7 @@ function App({ navigation }) {
           headers: { 'Content-Type': 'json' },
           body: data
         };
-        const response = await fetch('/api/register', requestOptions);
+        const response = await fetch('http://localhost:3000/register', requestOptions);
         const data_response = await response.json();
         this.setState({ postId: data.id });
 
