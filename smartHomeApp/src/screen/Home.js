@@ -226,9 +226,9 @@ function HomeStackScreen(){
       <HomeStack.Screen name="Feature" component={Feature} options={{
           headerShown: false,
         }}/>
-      <HomeStack.Screen name="Rooms" component={Rooms} options={{
+      {/* <HomeStack.Screen name="Rooms" component={Rooms} options={{
           headerShown: false,
-      }}/>
+      }}/> */}
       <HomeStack.Screen name="RoomDetail" component={RoomDetail} options={({route}) => ({title: route.params.name})} options={{
           headerShown: false,
       }}/>

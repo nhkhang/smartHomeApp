@@ -11,6 +11,9 @@ import { Component } from 'react';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from 'moment';
 import LightData from '../data/LightData';
+import {mqtt} from "../mqtt/MQTT";
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 function getRoomName(id){
     var name = "";
@@ -27,6 +30,49 @@ function filter(data, id) {
     return data.filter(item => item.room === id);
 }
 
+const storeData = async (key, val) => {
+    try {
+        await AsyncStorage.setItem(key, val);
+        console.log(`Storage store ${key} -`, val);
+    } catch (error) {
+        console.error(`Can't store data with key '${key}' and val '${val}: ${error}`);
+    }
+};
+
+const retrieveData = async (key) => {
+    try {
+        var value = await AsyncStorage.getItem(key);
+        console.log(`Retrieve from ` + key);
+        return value;
+    } catch (error) {
+        // Error retrieving data
+        console.error(`Can't get data with key '${key}': ${error}`);
+        return null;
+    }
+}
+
+const saveLightSetting = async (lightId, lightState) => {
+    var now = moment(new Date(), 'MM-DD-YYYY HH:mm');
+    var start = await retrieveData(`light${lightId}_start`).then((value) => {
+        return moment(value, 'MM-DD-YYYY HH:mm');
+    });
+    var end = await retrieveData(`light${lightId}_end`).then((value) => {
+        return moment(value, 'MM-DD-YYYY HH:mm');
+    });
+    if (now.isAfter(start)){
+        start = now;
+    }
+    var start_delay = start.diff(now);
+    setTimeout(() => {
+        var end_delay = end.diff(start);
+        setTimeout(() => {
+            var lightState = (lightState == "1") ? "0" : "1";
+            mqtt.changeLight(lightId, lightState);
+        }, end_delay);
+        mqtt.changeLight(lightId, lightState);
+    }, start_delay);
+}
+
 class ActivatedAt extends Component{
     constructor(){
         super()
@@ -39,7 +85,14 @@ class ActivatedAt extends Component{
     handlePicker =  (datetime) => {
         this.setState({
             isVisible : false,
+<<<<<<< HEAD
             chosenDate: moment(datetime).format('HH:mm'),
+=======
+            chosenDate: moment(datetime).format('MM-DD-YYYY HH:mm'),
+        }, () => {
+            var key = `light${this.props.id}_start`;
+            storeData(key, this.state.chosenDate);
+>>>>>>> 24a3137e8537d3006dec5828bf03bf5395450b01
         })
     }
 
@@ -82,6 +135,8 @@ class ActivatedAt extends Component{
     }
 }
 
+
+
 class DeactivatedAt extends Component{
     constructor(){
         super()
@@ -94,7 +149,14 @@ class DeactivatedAt extends Component{
     handlePicker =  (datetime) => {
         this.setState({
             isVisible : false,
+<<<<<<< HEAD
             chosenDate: moment(datetime).format('HH:mm'),
+=======
+            chosenDate: moment(datetime).format('MM-DD-YYYY HH:mm'),
+        }, () => {
+            var key = `light${this.props.id}_end`;
+            storeData(key, this.state.chosenDate);
+>>>>>>> 24a3137e8537d3006dec5828bf03bf5395450b01
         })
     }
 
@@ -161,7 +223,7 @@ class LightSetting extends Component {
                 </View>
                 <View style={styles.rowLightMode}>
                     <Text style={styles.titleRow}>Name:</Text>
-                    <Text style={styles.nameMode}>{this.props.route.params.lightName}</Text>
+                    <Text style={styles.nameMode}>Light {this.props.route.params.lightId}</Text>
                 </View>
                 
                 <View style={styles.dividingLine}></View>
@@ -188,7 +250,7 @@ class LightSetting extends Component {
                 <View style={styles.rowMode}>
                     <Text style={styles.titleRow}>Activated at:</Text>
                     <View>
-                        <ActivatedAt></ActivatedAt>
+                        <ActivatedAt id={this.props.route.params.lightId}></ActivatedAt>
                     </View>
                 </View>
     
@@ -197,7 +259,7 @@ class LightSetting extends Component {
                 <View style={styles.rowMode}>
                     <Text style={styles.titleRow}>Deactivated at:</Text>
                     <View>
-                        <DeactivatedAt></DeactivatedAt>
+                        <DeactivatedAt id={this.props.route.params.lightId}></DeactivatedAt>
                     </View>
                 </View>
     
@@ -219,7 +281,7 @@ class LightSetting extends Component {
                     <TouchableOpacity style ={styles.lightModeButton} onPress={() => this.props.navigation.goBack()}>
                         <Text style={styles.cancelLightModeText}>Cancel</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style ={styles.lightModeButton} onPress={() => this.props.navigation.goBack()}>
+                    <TouchableOpacity style ={styles.lightModeButton} onPress={() => saveLightSetting(this.props.route.params.lightId, this.state.settingState)}>
                         <Text style={styles.saveLightModeText}>Save</Text>
                     </TouchableOpacity>
                 </View>

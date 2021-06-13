@@ -13,7 +13,7 @@ var RoomsData = [
         "name": "Kitchen",
         "url": "https://c1.staticflickr.com/9/8725/28609601352_59ebbba9b5_o.png",
         "lightIntensity": "40",
-        "temperature": "27℃",
+        "temperature": "27℃",   
         "humidity": "50%",
         "gasConcentration": "low"
     },
@@ -28,33 +28,6 @@ var RoomsData = [
     },
     {
         "key": "4",
-        "name": "Bedroom 2",
-        "url": "https://assets.blog.hgtv.ca/wp-content/uploads/2020/07/27141435/creative-bedroom-upgrades-feature.jpg",
-        "lightIntensity": "40",
-        "temperature": "27℃",
-        "humidity": "50%",
-        "gasConcentration": "low"
-    },
-    {
-        "key": "5",
-        "name": "Bedroom 2",
-        "url": "https://assets.blog.hgtv.ca/wp-content/uploads/2020/07/27141435/creative-bedroom-upgrades-feature.jpg",
-        "lightIntensity": "40",
-        "temperature": "27℃",
-        "humidity": "50%",
-        "gasConcentration": "high"
-    },
-    {
-        "key": "6",
-        "name": "Bedroom 2",
-        "url": "https://assets.blog.hgtv.ca/wp-content/uploads/2020/07/27141435/creative-bedroom-upgrades-feature.jpg",
-        "lightIntensity": "40",
-        "temperature": "27℃",
-        "humidity": "50%",
-        "gasConcentration": "high"
-    },
-    {
-        "key": "7",
         "name": "Bedroom 2",
         "url": "https://assets.blog.hgtv.ca/wp-content/uploads/2020/07/27141435/creative-bedroom-upgrades-feature.jpg",
         "lightIntensity": "40",
