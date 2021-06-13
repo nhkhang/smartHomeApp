@@ -624,29 +624,44 @@ const styles = StyleSheet.create({
     modeView: {
         marginVertical: 10,
         backgroundColor: "#CFD7E6",
-        height: 50,
+        height: 100,
         borderRadius: 7,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
     },
-    modeViewChoose:{
-        marginVertical: 10,
-        backgroundColor: "#0EB2D6",
-        height: 50,
-        borderRadius: 7,
-        flexDirection: "row",
-        justifyContent: "space-between",
+    LeftLightModeItem:{
+        flexDirection: "column",
+        marginLeft: 10,
         alignItems: "center",
+    },
+    TopLeftLightModeItem:{
+        marginBottom:10,
+    },
+    BotLeftLightModeItem:{
+        marginTop:10,
+    },
+    nameModeItem:{
+        fontSize: 20,
+        color: "#0A2866",
+    },
+    CenterLightModeItem:{
+
+    },
+    RightLightModeItem:{
+        marginRight:10,
+    },
+    TopRightLightModeItem:{
+        marginBottom:10,
+    },
+    BotRightLightModeItem:{
+        marginTop:10,
     },
     editModeButton: {
         marginLeft: 10,
         color: "#0A2866"
     },
-    nameMode: {
-        fontSize: 16,
-        color: "#0A2866",
-    },
+    
     modeContainer: {
         width: "100%",
         alignItems:'center',

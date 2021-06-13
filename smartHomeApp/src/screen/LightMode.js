@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
+import {ScrollView, View, Text, FlatList, TouchableOpacity, Alert, Switch} from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import RNPickerSelect from "react-native-picker-select";
 import { createStackNavigator} from '@react-navigation/stack'
@@ -23,6 +23,10 @@ function convertToDisplay(data){
 
 class LighModeItem extends Component {
 
+    setLightState = (value, index) => {
+
+    }
+
     createButtonDeleteMode = () =>
         Alert.alert(
             "Notification",
@@ -41,14 +45,37 @@ class LighModeItem extends Component {
 
     render() {
         return (
-            <View style={this.props.item.key ==this.props.itemChoose ? styles.modeViewChoose : styles.modeView}>
-                <TouchableOpacity style={styles.editModeButton} onPress={() => this.props.navigation.navigate("Light Mode Setting", {item: this.props.item})}>
-                    <Ionicons name="create-outline" size={24}/>
-                </TouchableOpacity>
-                <Text style={styles.nameMode}>{this.props.item.name}</Text>
-                <TouchableOpacity style={styles.deleteModeButton} onPress={this.createButtonDeleteMode}>
-                    <Ionicons name="trash-outline" size={24}/>
-                </TouchableOpacity>
+            <View style={styles.modeView}>
+                <View style={styles.LeftLightModeItem}>
+                    <View style={styles.TopLeftLightModeItem}>
+                        <Text style={styles.nameModeItem}>{this.props.item.name}</Text>
+                    </View>
+                    <View style={styles.BotLeftLightModeItem}>
+                        <TouchableOpacity style={styles.deleteModeButton} onPress={this.createButtonDeleteMode}>
+                            <Ionicons name="trash-outline" size={24}/>
+                        </TouchableOpacity>
+                    </View>        
+                </View>
+                <View style={styles.CenterLightModeItem}>
+                    <Text style={styles.timeMode}>Light: Light {this.props.item.LightId}</Text>
+                    <Text style={styles.timeMode}>Light State: {this.props.item.lightState == "1"?"Yes" :"No"}</Text>
+                    <Text style={styles.timeMode}>ActivatedAt: {this.props.item.ActivatedAt}</Text>
+                    <Text style={styles.timeMode}>DeactivatedAt: {this.props.item.DeactivatedAt}</Text>
+                </View>
+                <View style={styles.RightLightModeItem}>
+                    <View style={styles.TopRightLightModeItem}>
+                        <Switch
+                            value={this.props.item.state === "1" ? true : false}
+                            style={styles.toggleLight}
+                            onValueChange={(value) => this.setLightState(value,this.props.index)}
+                        />
+                    </View>
+                    <View style={styles.BotRightLightModeItem}>
+                        <TouchableOpacity style={styles.editModeButton} onPress={() => this.props.navigation.navigate("Light Mode Setting", {item: this.props.item})}>
+                            <Ionicons name="create-outline" size={24}/>
+                        </TouchableOpacity>
+                    </View>            
+                </View>             
             </View>
         ); 
     }
@@ -61,27 +88,6 @@ function LightModesScreen({navigation}) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerLightMode}>
-                <View style={styles.textHeaderLightMode}>
-                    <Text>Choose mode:</Text>
-                </View>
-                <View style={styles.selectHeaderLightMode}>
-                    <RNPickerSelect
-                        value={itemChoose}
-                        onValueChange={(value) => {
-                            setItemChoose(value);
-                        }}
-                        items={convertToDisplay(LightModeData)}
-                        pickerProps={{style: styles.pickerProps}}
-                    />
-                </View>
-                <View style={styles.saveHeaderLightMode}>
-                    <TouchableOpacity style={styles.saveButton} onPress={() => console.log("Saved!")}>
-                        <Text style={styles.saveButtonText}>Save</Text>
-                    </TouchableOpacity>
-                </View>             
-            </View>
-            
             <View style={styles.modeList}>
                 <FlatList data={LightModeData}
                     renderItem={({item, index})=>{

@@ -52,12 +52,12 @@ const retrieveData = async (key) => {
 }
 
 const saveLightSetting = async (lightId, lightState) => {
-    var now = moment(new Date(), 'MM-DD-YYYY HH:mm');
+    var now = moment(new Date(), 'HH:mm');
     var start = await retrieveData(`light${lightId}_start`).then((value) => {
-        return moment(value, 'MM-DD-YYYY HH:mm');
+        return moment(value, 'HH:mm');
     });
     var end = await retrieveData(`light${lightId}_end`).then((value) => {
-        return moment(value, 'MM-DD-YYYY HH:mm');
+        return moment(value, 'HH:mm');
     });
     if (now.isAfter(start)){
         start = now;
@@ -85,14 +85,10 @@ class ActivatedAt extends Component{
     handlePicker =  (datetime) => {
         this.setState({
             isVisible : false,
-<<<<<<< HEAD
             chosenDate: moment(datetime).format('HH:mm'),
-=======
-            chosenDate: moment(datetime).format('MM-DD-YYYY HH:mm'),
         }, () => {
             var key = `light${this.props.id}_start`;
             storeData(key, this.state.chosenDate);
->>>>>>> 24a3137e8537d3006dec5828bf03bf5395450b01
         })
     }
 
@@ -135,8 +131,6 @@ class ActivatedAt extends Component{
     }
 }
 
-
-
 class DeactivatedAt extends Component{
     constructor(){
         super()
@@ -145,18 +139,13 @@ class DeactivatedAt extends Component{
             chosenDate: moment(new Date()).format('HH:mm'),
         }
     }
-
     handlePicker =  (datetime) => {
         this.setState({
             isVisible : false,
-<<<<<<< HEAD
             chosenDate: moment(datetime).format('HH:mm'),
-=======
-            chosenDate: moment(datetime).format('MM-DD-YYYY HH:mm'),
         }, () => {
             var key = `light${this.props.id}_end`;
             storeData(key, this.state.chosenDate);
->>>>>>> 24a3137e8537d3006dec5828bf03bf5395450b01
         })
     }
 
@@ -215,14 +204,24 @@ class LightSetting extends Component {
         console.log(getRoomName(this.state.itemChoose));
         return (
             <View style={styles.containerMode}>
+                
                 <View style={styles.roomDetailSceenImage}>
                     <Image
                         source = {{uri:"https://c1.staticflickr.com/9/8725/28609601352_59ebbba9b5_o.png"}}
                         style={styles.roomDetailSceenImage}>
                     </Image>
                 </View>
+
                 <View style={styles.rowLightMode}>
                     <Text style={styles.titleRow}>Name:</Text>
+                    <TextInput
+                        style={styles.nameMode}
+                        placeholder="Name Mode"
+                    />
+                </View>
+
+                <View style={styles.rowLightMode}>
+                    <Text style={styles.titleRow}>Light:</Text>
                     <Text style={styles.nameMode}>Light {this.props.route.params.lightId}</Text>
                 </View>
                 
@@ -231,18 +230,6 @@ class LightSetting extends Component {
                 <View style={styles.rowLightMode}>
                     <Text style={styles.titleRow}>Room:</Text>
                     <Text style={styles.nameMode}>{getRoomName(this.state.itemChoose)}</Text>
-                    {/* <View style={styles.selectRoomMode}>
-                        <RNPickerSelect
-                            value = {this.state.itemChoose}
-                            onValueChange={(value) =>{
-                                // setItemChoose(value);
-                                this.setState({itemChoose: value, listLight : filter(LightData, this.state.itemChoose)});
-                            }}
-                            items={convertToDisplay(RoomsData)}
-                            pickerProps={{style: styles.pickerProps}}
-                        />
-                        
-                    </View> */}
                 </View>
     
                 <View style={styles.dividingLine}></View>
