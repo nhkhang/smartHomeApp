@@ -32,14 +32,14 @@ class ActivatedAt extends Component{
         super()
         this.state = {
             isVisible: false,
-            chosenDate: moment(new Date()).format('MM-DD-YYYY HH:mm'),
+            chosenDate: moment(new Date()).format('HH:mm'),
         }
     }
 
     handlePicker =  (datetime) => {
         this.setState({
             isVisible : false,
-            chosenDate: moment(datetime).format('MM-DD-YYYY HH:mm'),
+            chosenDate: moment(datetime).format('HH:mm'),
         })
     }
 
@@ -73,7 +73,7 @@ class ActivatedAt extends Component{
                     isVisible={this.state.isVisible}
                     onConfirm={this.handlePicker}
                     onCancel={this.hidePicker}
-                    mode = {'datetime'}
+                    mode = {'time'}
                     is24Hour = {true}
                 />
              
@@ -87,14 +87,14 @@ class DeactivatedAt extends Component{
         super()
         this.state = {
             isVisible: false,
-            chosenDate: moment(new Date()).format('MM-DD-YYYY HH:mm'),
+            chosenDate: moment(new Date()).format('HH:mm'),
         }
     }
 
     handlePicker =  (datetime) => {
         this.setState({
             isVisible : false,
-            chosenDate: moment(datetime).format('MM-DD-YYYY HH:mm'),
+            chosenDate: moment(datetime).format('HH:mm'),
         })
     }
 
@@ -128,7 +128,7 @@ class DeactivatedAt extends Component{
                     isVisible={this.state.isVisible}
                     onConfirm={this.handlePicker}
                     onCancel={this.hidePicker}
-                    mode = {'datetime'}
+                    mode = {'time'}
                     is24Hour = {true}
                 />
              
@@ -203,20 +203,15 @@ class LightSetting extends Component {
     
                 <View style={styles.dividingLine}></View>
                 
-                <View>
-                    <View style={styles.rowLightMode}>
-                        <Text style={styles.titleRow}>Setting Status:</Text>
-                    </View>
-                    
-                    <View style={styles.lightSystemMode}>
+                <View style={styles.rowMode}>
+                    <Text style={styles.titleRow}>Setting Status:</Text>              
+                    <View>
                         <Switch
                             value={this.state.settingState == "1" ? true : false}
                             style={styles.toggleLight}
                             onValueChange={(value) => this.setState({settingState : value})}
                         />
-                    </View>
-    
-    
+                    </View>  
                 </View>
                 
                 <View style={styles.dividingLine}></View>
