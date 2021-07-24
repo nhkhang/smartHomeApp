@@ -11,9 +11,6 @@ const userSchema = new Schema({
     email: {
         type: String
     },
-    phone: {
-        type: String
-    }
 }, {timestamps: true})
 
 const User = mongoose.model('User', userSchema)

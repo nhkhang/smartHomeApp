@@ -1,16 +1,43 @@
 ## HOW TO RUN
-node index.js --IO_PASSWORD=${PUT THE PASS HERE}
+node index.js
 
 ## API
-POST localhost:3000/light
+- Get mean of light intensity, humidity and temperature
+GET: http://localhost:3000/getHouseInfo
+Result (example):
+{
+  "LightIntensity": "235.00",
+  "Humidity": "25.90",
+  "Temperature": "26.90"
+}
 
-Body:
-id = 1
-name = "LED"
-data = 1
-unit = "
+- Update light intensity, humidity and temperature
+POST: http://localhost:3000/updateHouseInfo
+Payload of request:
+{
+  LightIntensity: number
+  Humidity: number,
+  Temperature: number,
+}
+Result:
+{
+  "LightIntensity": "235.00",
+  "Humidity": "25.90",
+  "Temperature": "26.90"
+}
 
 
+- Check user login successul or not
+POST: http://localhost:3000/login
+Payload of request:
+{
+  username: string,
+  password: string,
+}
+Result (example):
+{
+  res: true // if login successully
+}
 ## TEST
 
 Run client app in smartHomeApp/client
