@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const mongoose = require("mongoose");
+const cors = require('cors');
 const { HouseInfo, User } = require("./model");
 const { mockHouseInfo, mockUser } = require("./data"); 
 
@@ -10,7 +11,7 @@ mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DATABAS
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
-  useUnifiedTopology: true
+  useUnifiedTopology: true, 
 }, function(err){
   if (err) throw err;
   console.log('Successfully connected');
@@ -33,7 +34,7 @@ mockUser.forEach(function(n) {
 
 const app = express();
 const server = http.createServer(app);
-
+app.use(cors()) // Use this after the variable declaration
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true

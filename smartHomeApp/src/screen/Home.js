@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import { View, Text, Button, Image, TouchableOpacity, ScrollView, FlatList } from "react-native";
 import { createStackNavigator} from '@react-navigation/stack'
 import DetailsScreen from './Details'
@@ -18,6 +18,7 @@ import LightIntensity from './LightIntensity';
 import moment from 'moment';
 import { LineChart } from 'react-native-chart-kit';
 import LightSetting from './LightSetting';
+
 
 
 function TemparatureChart() {
@@ -74,6 +75,7 @@ function HumidityChart() {
 }
 
 class FlatListRooms extends Component {
+
   render() {
       return (
         <View style={styles.homeRoomScreenItem}>
@@ -94,121 +96,146 @@ class FlatListRooms extends Component {
 
 
 function HomeScreen({route, navigation}) {
-    return (
-      <View style = {styles.container}>
-        <View style={styles.containerHome}>
-          <TouchableOpacity style={styles.welcomeCard}>
-              <Text style={{marginTop: 10}}>{moment(new Date()).format('MMM DD YYYY')}</Text>
-              <Text style={styles.welcomeWord}>WELCOME HOME, KERIS!</Text>
-              <Text>What are you looking for?</Text>
-          </TouchableOpacity>
 
-          <View style={styles.dividingLine}></View>
+  const [LightIntensity, setLightIntensity] = useState(null);
+  const [Temperature, setTemperature] = useState(null);
+  const [Humidity, setHumidity] = useState(null);
 
-          <View style = {styles.homefeature}>
-            <View style={styles.lineTitle}>
-              <Text>Feature</Text>
-              <TouchableOpacity onPress={()=>navigation.navigate("Feature")}>
-                <Text style={styles.link}>View All</Text>
-              </TouchableOpacity>
-            </View>
-            
-            <ScrollView
+  useEffect(() => {
+    fetch('http://localhost:3000/getHouseInfo', { // Add your IP address here
+        method:'GET',
+        headers:{
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        }
+    })
+    .then((response)=>response.json())
+    .then(data => {
+      const {LightIntensity, Humidity, Temperature} = data;
+      setLightIntensity(LightIntensity);
+      setHumidity(Humidity);
+      setTemperature(Temperature);
+    })
+    .catch((error) =>{
+        console.error(error);
+    });
+  }, []);
+
+  return (
+    <View style = {styles.container}>
+      <View style={styles.containerHome}>
+        <TouchableOpacity style={styles.welcomeCard}>
+            <Text style={{marginTop: 10}}>{moment(new Date()).format('MMM DD YYYY')}</Text>
+            <Text style={styles.welcomeWord}>WELCOME HOME, KERIS!</Text>
+            <Text>What are you looking for?</Text>
+        </TouchableOpacity>
+
+        <View style={styles.dividingLine}></View>
+
+        <View style = {styles.homefeature}>
+          <View style={styles.lineTitle}>
+            <Text>Feature</Text>
+            <TouchableOpacity onPress={()=>navigation.navigate("Feature")}>
+              <Text style={styles.link}>View All</Text>
+            </TouchableOpacity>
+          </View>
+          
+          <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={styles.scrollViewHorizontalHomeFeature}
+          >
+            <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {name: "General", id: "0"})}>
+              <FontAwesome5Pro name={'door-open'} size={30} />
+              <Text style={styles.roomBtnText}>Door</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Light Intensity", {name:"General", id: "0"})}>
+              <MaterialCommunityIcons name="lightning-bolt" size={30} />
+              <Text style={styles.roomBtnText}>Light Intensity</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Temperature", {name:"General", id: "0"})}>
+              <FontAwesome5Pro name={'temperature-low'} size={30} />
+              <Text style={styles.roomBtnText}>Temperature</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Light", {name:"General", id: "0"})}>
+                <MaterialCommunityIcons name="lightbulb-on" size={30} />
+                <Text style={styles.roomBtnText}>Light</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Gas", {name:"General", id: "0"})}>
+                <MaterialCommunityIcons name="gas-cylinder" size={30} />
+                <Text style={styles.roomBtnText}>Gas</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Humidity", {name:"General", id: "0"})}>
+                <MaterialCommunityIcons name="water-percent" size={30} />
+                <Text style={styles.roomBtnText}>Humidity</Text>
+            </TouchableOpacity>
+          </ScrollView>
+
+        </View>
+      
+        <View style={styles.dividingLine}></View>
+        
+        <View style={styles.homeRooms}>
+          <View style={styles.lineTitle}>
+            <Text>Rooms</Text>
+            <TouchableOpacity onPress={()=>navigation.navigate("Rooms")}>
+              <Text style={styles.link}>View All</Text>
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView >
+            <FlatList
+              data={RoomsData}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({item, index})=>{
+                return(
+                    
+                    <FlatListRooms item={item} index={index} navigation={navigation}>
+                    </FlatListRooms>
+                );
+            }}>
+
+            </FlatList>
+
+          </ScrollView>           
+        </View>
+        <View style={styles.dividingLine}></View>
+
+        <View style={styles.quickReport}>
+          <View style={styles.lineTitle}>
+            <Text>Quick Report</Text>
+            <TouchableOpacity>
+              <Text style={styles.link}>View All</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
-            style={styles.scrollViewHorizontalHomeFeature}
-            >
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Door", {name: "General", id: "0"})}>
-                <FontAwesome5Pro name={'door-open'} size={30} />
-                <Text style={styles.roomBtnText}>Door</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Light Intensity", {name:"General", id: "0"})}>
-                <MaterialCommunityIcons name="lightning-bolt" size={30} />
-                <Text style={styles.roomBtnText}>Light Intensity</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Temperature", {name:"General", id: "0"})}>
-                <FontAwesome5Pro name={'temperature-low'} size={30} />
-                <Text style={styles.roomBtnText}>Temperature</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Light", {name:"General", id: "0"})}>
-                  <MaterialCommunityIcons name="lightbulb-on" size={30} />
-                  <Text style={styles.roomBtnText}>Light</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Gas", {name:"General", id: "0"})}>
-                  <MaterialCommunityIcons name="gas-cylinder" size={30} />
-                  <Text style={styles.roomBtnText}>Gas</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.roomDetailBtnHome} onPress={()=>navigation.navigate("Humidity", {name:"General", id: "0"})}>
-                  <MaterialCommunityIcons name="water-percent" size={30} />
-                  <Text style={styles.roomBtnText}>Humidity</Text>
-              </TouchableOpacity>
-            </ScrollView>
-
-          </View>
-        
-          <View style={styles.dividingLine}></View>
-          
-          <View style={styles.homeRooms}>
-            <View style={styles.lineTitle}>
-              <Text>Rooms</Text>
-              <TouchableOpacity onPress={()=>navigation.navigate("Rooms")}>
-                <Text style={styles.link}>View All</Text>
-              </TouchableOpacity>
-            </View>
-
-            <ScrollView >
-              <FlatList
-                data={RoomsData}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item, index})=>{
-                  return(
-                      
-                      <FlatListRooms item={item} index={index} navigation={navigation}>
-                      </FlatListRooms>
-                  );
-              }}>
-
-              </FlatList>
-
-            </ScrollView>           
-          </View>
-          <View style={styles.dividingLine}></View>
-
-          <View style={styles.quickReport}>
-            <View style={styles.lineTitle}>
-              <Text>Quick Report</Text>
-              <TouchableOpacity>
-                <Text style={styles.link}>View All</Text>
-              </TouchableOpacity>
-            </View>
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              style={styles.quickReportScrollView}
-            >
-              <TouchableOpacity style={styles.quickReportItem}>
-                <Text style={styles.titleReportItem}>Average Temparature</Text>
-                <Text style={styles.reportItemValue}>26.8°C</Text>
-                {/* <TemparatureChart/> */}
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.quickReportItem}>
-                <Text style={styles.titleReportItem}>Average Humidity</Text>
-                <Text style={styles.reportItemValue}>48.6%</Text>
-                {/* <HumidityChart/> */}
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.quickReportItem}>
-                <Text style={styles.titleReportItem}>Gas</Text>
-                <Text style={styles.reportItemValue}>43.6%</Text>
-              </TouchableOpacity>
-            </ScrollView>
-          </View>
+            style={styles.quickReportScrollView}
+          >
+            <TouchableOpacity style={styles.quickReportItem}>
+              <Text style={styles.titleReportItem}>Average Temperature</Text>
+              <Text style={styles.reportItemValue}>{Temperature}°C</Text>
+              {/* <TemparatureChart/> */}
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.quickReportItem}>
+              <Text style={styles.titleReportItem}>Average Humidity</Text>
+              <Text style={styles.reportItemValue}>{Humidity}%</Text>
+              {/* <HumidityChart/> */}
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.quickReportItem}>
+              <Text style={styles.titleReportItem}>Average LightIntensity</Text>
+              <Text style={styles.reportItemValue}>{LightIntensity}%</Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
       </View>
-    );
+    </View>
+  );
 }
 
 const HomeStack = createStackNavigator();
