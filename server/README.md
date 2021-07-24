@@ -36,7 +36,7 @@ Payload of request:
 }
 Result (example):
 {
-  res: true // if login successully
+  result: true // if login successully
 }
 ## TEST
 

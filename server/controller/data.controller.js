@@ -1,4 +1,3 @@
-
 const dbConfig = require("../config/db.config");
 const url = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}`;
 
