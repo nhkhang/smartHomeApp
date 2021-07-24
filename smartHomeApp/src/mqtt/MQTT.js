@@ -30,13 +30,8 @@ class MQTT extends Component{
     this.client1.onMessageArrived = this.onMessageArrived;
     this.client1.onConnectionLost = this.onConnectionLost;
 
-    this.client2 = new Paho.MQTT.Client("io.adafruit.com", 80, clientID + '2',);
-    this.client2.onMessageArrived = this.onMessageArrived;
-    this.client2.onConnectionLost = this.onConnectionLost;
-
     this.state = {
       isClient1Connected: false,
-      isClient2Connected: false
     };
 
     this.connect();
@@ -46,30 +41,12 @@ class MQTT extends Component{
     const options1 = { 
       onSuccess: this.onConnect,
       useSSL: false ,
-      userName: 'CSE_BBC',
-      password: CSE_BBC_key,
+      userName: 'nhkhang',
+      password: 'aio_YGcn64qyrX' + 'aVDgAimW3kFitHmf3J',
       onFailure: (e) => {console.log("Here is the error: " , e); }
     }
-    
-    const options2 = { 
-      onSuccess: this.onConnect,
-      useSSL: false ,
-      userName: 'CSE_BBC1',
-      password: CSE_BBC1_key,
-      onFailure: (e) => {console.log("Here is the error: " , e); }
-    }
-    switch (connectionType) {
-      case CLIENT_1:
-        this.client1.connect(options1);
-        break;
-      case CLIENT_2:
-        this.client2.connect(options2);
-        break;
-      default:
-        this.client1.connect(options1);
-        this.client2.connect(options2);
-        break;
-    }
+
+    this.client1.connect(options1);
   }
 
   onMessageArrived(entry) {
@@ -81,30 +58,17 @@ class MQTT extends Component{
   onConnect = () => {
     this.state.isClient1Connected = true;
     console.log("Client 1 is connected");
-    this.state.isClient2Connected = true;
-    console.log("Client 2 is connected");
     this.subscribeAllTopic();
   };
 
   subscribeTopic(topic) {
     try {
-      if (this.isClient1(topic)) {
-        if (this.state.isClient1Connected) {
-          this.client1.subscribe(topic, 
-            {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
-            onFailure: (e) => (console.log(e))});
-        } else {
-          // this.connect(CLIENT_1);
-        }
+      if (this.state.isClient1Connected) {
+        this.client1.subscribe(topic, 
+          {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
+          onFailure: (e) => (console.log(e))});
       } else {
-        // console.log("Subscribe");
-        if (this.state.isClient2Connected) {
-          this.client2.subscribe(topic, 
-            {onSuccess: () => (console.log("Done: Subscribed to topic: " + topic)),
-            onFailure: (e) => (console.log(e))});
-        } else {
-          // this.connect(CLIENT_2);
-        }
+        // this.connect(CLIENT_1);
       }
     } catch(e) {
       console.error(e);
@@ -149,32 +113,15 @@ class MQTT extends Component{
       msg = JSON.stringify(msg);
       let message = new Paho.MQTT.Message(msg);
       message.destinationName = topic;
-      if (this.isClient1(topic)) {
-        if (this.state.isClient1Connected) {
-          this.client1.send(message);
-          console.log("Message sent: " + message.payloadString);
-        } else {
-          // this.connect(CLIENT_1);
-        }
+      if (this.state.isClient1Connected) {
+        this.client1.send(message);
+        console.log("Message sent: " + message.payloadString);
       } else {
-        if (this.state.isClient2Connected) {
-          this.client2.send(message);
-          console.log("Message sent: " + message.payloadString);
-        } else {
-          // this.connect(CLIENT_2);
-        }
+        // this.connect(CLIENT_1);
       }
     }
     catch(e){
       console.log(e);
-    }
-  }
-
-  isClient1(topic) {
-    if (topic.search("CSE_BBC1") == -1) {
-      return true;
-    } else{
-      return false;
     }
   }
 

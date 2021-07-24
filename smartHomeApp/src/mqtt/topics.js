@@ -1,8 +1,8 @@
 let postfixTopicList = [
-    "CSE_BBC/feeds/bk-iot-temp-humid",
-    "CSE_BBC1/feeds/bk-iot-light",
-    "CSE_BBC1/feeds/bk-iot-gas",
-    "CSE_BBC/feeds/bk-iot-magnetic",
-    "CSE_BBC1/feeds/bk-iot-relay"
+    "nhkhang/feeds/bk-iot-temp-humid",
+    "nhkhang/feeds/bk-iot-light",
+    "nhkhang/feeds/bk-iot-gas",
+    "nhkhang/feeds/bk-iot-magnetic",
+    "nhkhang/feeds/bk-iot-relay"
 ]
 export const topicList = postfixTopicList;

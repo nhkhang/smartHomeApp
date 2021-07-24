@@ -14,6 +14,7 @@ class MessHandler {
     }
     handleRelay(data) {
         updateData("relay", data);
+        sendDataToServer("relay", data);
     }
     handleTempHumid(data) {
         updateData("temp-humid", data);
@@ -72,6 +73,21 @@ const retrieveData = async (key) => {
         console.error(`Can't get data with key '${key}': ${error}`);
         return null;
     }
+}
+
+const sendDataToServer = (topic, data) => {
+    fetch('http://192.168.43.85:3000/' + topic, { // Add your IP address here
+        method:'POST',
+        headers:{
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        },
+        body:data
+    })
+    .then((response)=>response.json().then(data => alert(data.status)))
+    .catch((error) =>{
+        console.error(error);
+    });
 }
 
 export default new MessHandler();
