@@ -33,6 +33,30 @@ class MessHandler {
     }
 }
 
+const sendDataToServer = (key, val) => {
+    if (key == "temp-humid") 
+        data = {
+            Temperature: val.data.split("-")[0],
+            Humidity: val.data.split("-")[1]
+        }
+    else
+        data = {
+            LightIntensity: val.data,
+        }
+    fetch('http://localhost:3000/updateHouseInfo' , { // Add your IP address here
+        method:'POST',
+        headers:{
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        },
+        body:data
+    })
+    .then((response)=>response.json().then(data => {console.log(data);})
+    .catch((error) =>{
+        console.error(error);
+    }));
+}
+
 const storeData = async (key, val) => {
     try {
         val = JSON.stringify(val);
@@ -47,6 +71,7 @@ const storeData = async (key, val) => {
 
 const updateData = async (key, val) => {
     try{
+        if (key == "temp-humid" || key == "light") sendDataToServer(key, val);
         var array = await retrieveData(key);
         var converted = convertData.convert(key, JSON.parse(val));
         const idx = array.findIndex(data => data.key == converted.key);
@@ -73,21 +98,6 @@ const retrieveData = async (key) => {
         console.error(`Can't get data with key '${key}': ${error}`);
         return null;
     }
-}
-
-const sendDataToServer = (topic, data) => {
-    fetch('http://192.168.43.85:3000/' + topic, { // Add your IP address here
-        method:'POST',
-        headers:{
-            'Accept':'application/json',
-            'Content-Type':'application/json'
-        },
-        body:data
-    })
-    .then((response)=>response.json().then(data => alert(data.status)))
-    .catch((error) =>{
-        console.error(error);
-    });
 }
 
 export default new MessHandler();
