@@ -14,7 +14,6 @@ class MessHandler {
     }
     handleRelay(data) {
         updateData("relay", data);
-        sendDataToServer("relay", data);
     }
     handleTempHumid(data) {
         updateData("temp-humid", data);
@@ -33,23 +32,25 @@ class MessHandler {
     }
 }
 
-const sendDataToServer = (key, val) => {
+const sendDataToServer = (key, value) => {
+    var val = JSON.parse(value);
     if (key == "temp-humid") 
-        data = {
+        var data = {
             Temperature: val.data.split("-")[0],
             Humidity: val.data.split("-")[1]
         }
     else
-        data = {
+        var data = {
             LightIntensity: val.data,
         }
+    
     fetch('http://localhost:3000/updateHouseInfo' , { // Add your IP address here
         method:'POST',
         headers:{
             'Accept':'application/json',
             'Content-Type':'application/json'
         },
-        body:data
+        body:JSON.stringify(data)
     })
     .then((response)=>response.json().then(data => {console.log(data);})
     .catch((error) =>{

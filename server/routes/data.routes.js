@@ -6,7 +6,7 @@ module.exports.updateHouseInfo = async (req, res) => {
     const houseInfo = req.body;
     try{
         var result = await controller.UpdateAllInfo(houseInfo);
-        res.end(result);
+        res.send({"result": result});
     }
     catch (err) {
         return res.status(500).json({ 
